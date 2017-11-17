@@ -1,5 +1,5 @@
 const BagObject = require('./object');
-const BagParameters = require('./bag-parameters');
+const ObjectGenerationParameters = require('./object-generation-parameters');
 
 let POPULATION_SIZE = 30;
 let NUMBER_OF_OBJECTS = 20;
