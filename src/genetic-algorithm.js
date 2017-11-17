@@ -12,14 +12,10 @@ class GeneticAlgorithm {
 
     initialize() {
         this.population = utils.createFilledArray(
-            algorithmParameters.populationSize,
+            this.algorithmParameters.populationSize,
             utils.createFilledArray(this.generationParameters.numberOfObjects, {})
-        );
-        this.population = this.population.map(knapsack =>
-            knapsack.map(() =>
-                utils.createRandomKnapsackObject(this.generationParameters)
-            )
-        );
+        )
+            .map(knapsack => knapsack.map(() => utils.createRandomKnapsackObject(this.generationParameters)))
     }
 
     solutionFound(){
