@@ -10,10 +10,10 @@ function createFilledArray(size, value) {
     return (new Array(size)).fill(value);
 }
 
-function createRandomKnapsackObject(){
-    return KnapsackObject(
-        getRandomInt(ObjectGenerationParameters.minValue, ObjectGenerationParameters.maxValue),
-        getRandomInt(ObjectGenerationParameters.minWeight, ObjectGenerationParameters.maxWeight)
+function createRandomKnapsackObject({minValue, maxValue, minWeight, maxWeight}){
+    return new KnapsackObject(
+        getRandomInt(minValue, maxValue),
+        getRandomInt(minWeight, maxWeight)
     );
 }
 

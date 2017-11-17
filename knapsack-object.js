@@ -1,7 +1,7 @@
-function KnapsackObject(value = 0, weight = 0){
-    return {
-        value,
-        weight
+class KnapsackObject{
+    constructor(value = 0, weight = 0) {
+        this.value = value;
+        this.weight = weight;
     }
 }
 
