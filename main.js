@@ -20,6 +20,12 @@ let population = createFilledArray(
     POPULATION_SIZE,
     createFilledArray(ObjectGenerationParameters.numberOfObjects, {})
 );
+population = population.map(knapsack =>
+    knapsack.map(object => KnapsackObject(
+        getRandomInt(ObjectGenerationParameters.minValue, ObjectGenerationParameters.maxValue),
+        getRandomInt(ObjectGenerationParameters.minWeight, ObjectGenerationParameters.maxWeight)
+    ))
+);
 function fitness(bag, bestSubject) {
     let { totalValue, totalWeight } = bag.reduce((sum, object) => {
         sum.totalValue += object.value;
