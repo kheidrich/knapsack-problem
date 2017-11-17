@@ -1,27 +1,20 @@
-const BagObject = require('./object');
-const ObjectGenerationParameters = require('./object-generation-parameters');
+const POPULATION_SIZE = 30;
+const NUMBER_OF_OBJECTS = 20;
+const MAX_KNAPSACK_WEIGHT = 20;
+const MIN_OBJECT_WEIGHT = 1;
+const MAX_OBJECT_WEIGHT = 5;
+const MIN_OBJECT_VALUE = 1;
+const MAX_OBJECT_VALUE = 100;
 
-let POPULATION_SIZE = 30;
-let NUMBER_OF_OBJECTS = 20;
-let MAX_BAG_WEIGHT = 20;
-let MIN_OBJECT_WEIGHT = 1;
-let MAX_OBJECT_WEIGHT = 5;
-let MIN_OBJECT_VALUE = 1;
-let MAX_OBJECT_VALUE = 100;
-
-
-let bag = ((new Array(NUMBER_OF_OBJECTS))
-    .fill({}))
-    .map(() =>
-        BagObject(
-            getRandomInt(MIN_OBJECT_VALUE, MAX_OBJECT_VALUE),
-            getRandomInt(MIN_OBJECT_WEIGHT, MAX_OBJECT_WEIGHT)
-        )
-    );
-let population = (new Array(POPULATION_SIZE)).fill(bag);
-
-console.log(bag)
-console.log(fitness(bag, { value: 2000, weight: 20 }));
+const KnapsackObject = require('./knapsack-object');
+const ObjectGenerationParameters = require('./object-generation-parameters')(
+    NUMBER_OF_OBJECTS,
+    MAX_KNAPSACK_WEIGHT,
+    MIN_OBJECT_VALUE,
+    MAX_OBJECT_VALUE,
+    MIN_OBJECT_WEIGHT,
+    MAX_OBJECT_WEIGHT
+);
 
 function fitness(bag, bestSubject) {
     let { totalValue, totalWeight } = bag.reduce((sum, object) => {
