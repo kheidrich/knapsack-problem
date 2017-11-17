@@ -7,6 +7,10 @@
   "author": "Kevin Heidrich Pinzon",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "test": "./node_modules/.bin/mocha",
+    "test:watch": "./node_modules/.bin/mocha --watch --bail"
+  },
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^ya4.0.1",
