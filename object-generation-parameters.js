@@ -1,6 +1,6 @@
 function ObjectGenerationParameters(
     numberOfObjects,
-    maxBagWeight,
+    maxKnapsackWeight,
     minValue,
     maxValue,
     minWeight,
@@ -8,7 +8,7 @@ function ObjectGenerationParameters(
 ){
     return {
         numberOfObjects,
-        maxBagWeight,
+        maxKnapsackWeight,
         minValue,
         maxValue,
         minWeight,
