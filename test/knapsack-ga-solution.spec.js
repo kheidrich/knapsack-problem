@@ -7,12 +7,14 @@ const AlgorithmParameters = require('../src/algorithm-parameters');
 const KnapsackParameters = require('../src/knapsack-parameters');
 
 describe('KnapsackGaSolution', () => {
+    const NUMBER_OF_OBJECTS = 10;
+    const POPULATION_SIZE = 5;
     let solution;
 
     beforeEach(() => {
         solution = new KnapsackGaSolution(
-            new KnapsackParameters(30, 100, 1, 100, 1, 10),
-            new AlgorithmParameters(100)
+            new KnapsackParameters(NUMBER_OF_OBJECTS, 100, 1, 100, 1, 10),
+            new AlgorithmParameters(POPULATION_SIZE)
         );
     });
 
@@ -20,6 +22,7 @@ describe('KnapsackGaSolution', () => {
         it('should generate N random objects with {value, weight} keys as configured in knapsackParameters', () => {
             solution.initialize();
             expect(solution.objects).to.have.length(30);
+            expect(solution.objects).to.have.length(NUMBER_OF_OBJECTS);
             solution.objects.forEach(object => expect(object).to.have.keys(['value', 'weight']));
         });
     });
@@ -27,18 +30,34 @@ describe('KnapsackGaSolution', () => {
     describe('#generatePopulation', () => {
         let population;
 
-        beforeEach(() => {
+        it('should return an array of length equals to algorithmParameters.populationSize', () => {
             population = solution.generatePopulation();
+            expect(population).to.have.length(POPULATION_SIZE);
         });
 
-        it('should return a array with length equals to algorithmParameters.populationSize', () => {
-            expect(population).to.have.length(100);
+        it('should fill population with knapsacks of length equals to knapsackParameters.numberOfObjects', () => {
+            population = solution.generatePopulation();
+            population.forEach(individual => expect(individual).to.have.length(NUMBER_OF_OBJECTS));
         });
 
-        it('individuals should have length equals to knapsackParameters.numberOfObjects', () => {
-            population.forEach(individual => expect(individual).to.have.length(30));
+        it('should fill all knapsacks using getRandomInt', () => {
+            let objectsCreated = 0;
+
+            sinon.stub(solution.utils, 'getRandomInt').callsFake(() => objectsCreated++);
+            population = solution.generatePopulation();
+            population.forEach((knapsack, knapsackIndex) => {
+                knapsack.forEach((object, objectIndex) => {
+                    expect(object).to.be.equal(knapsackIndex * NUMBER_OF_OBJECTS + objectIndex);
+                });
+            });
+            solution.utils.getRandomInt.restore();
         });
 
-        it('individuals should be random filled with 1 or 0');
+        it('should fill all knapsacks randomly only with 0 or 1', () => {
+            sinon.stub(solution.utils, 'getRandomInt');
+            population = solution.generatePopulation();
+            sinon.assert.alwaysCalledWith(solution.utils.getRandomInt, 0, 1);
+            solution.utils.getRandomInt.restore();
+        });
     });
 });

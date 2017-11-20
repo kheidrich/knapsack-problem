@@ -4,18 +4,21 @@ class KnapsackGaSolution {
     constructor(knapsackParameters, algorithmParameters) {
         this.knapsackParameters = knapsackParameters;
         this.algorithmParameters = algorithmParameters;
+        this.utils = utils;
         this.objects;
     }
 
     initialize() {
-        this.objects = utils.createFilledArray(this.knapsackParameters.numberOfObjects, {}).map(() => utils.createRandomKnapsackObject(this.knapsackParameters))
+        let objects = (new Array(this.knapsackParameters.numberOfObjects).fill({}));
+
+        this.objects = objects.map(() => this.utils.createRandomKnapsackObject(this.knapsackParameters));
     }
 
     generatePopulation() {
-        return utils.createFilledArray(
-            this.algorithmParameters.populationSize,
-            utils.createFilledArray(this.knapsackParameters.numberOfObjects, '')
-        );
+        let population = (new Array(this.algorithmParameters.populationSize));
+        let knapsack = (new Array(this.knapsackParameters.numberOfObjects));
+        population.fill(knapsack.fill(0));
+        return population.map(knapsack => knapsack.map(() => this.utils.getRandomInt(0, 1)))
     }
 
     fitness(knapsack) {
@@ -28,15 +31,15 @@ class KnapsackGaSolution {
         return totalValue / totalWeight;
     }
 
-    crossover(indivual1, individual2) {
+    crossover(knapsack1, knapsack2) {
 
     }
 
-    mutation(inviduals) {
+    mutation(newKnapsacks) {
 
     }
 
-    substitution(individuals, population) {
+    substitution(newKnapsacks, population) {
 
     }
 }
