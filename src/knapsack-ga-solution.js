@@ -1,4 +1,5 @@
 const utils = require('./utils');
+const KnapsackObject = require('./knapsack-object');
 
 class KnapsackGaSolution {
     constructor(knapsackParameters, algorithmParameters) {
@@ -11,7 +12,10 @@ class KnapsackGaSolution {
     initialize() {
         let objects = (new Array(this.knapsackParameters.numberOfObjects).fill({}));
 
-        this.objects = objects.map(() => this.utils.createRandomKnapsackObject(this.knapsackParameters));
+        this.objects = objects.map(() => new KnapsackObject(
+            this.utils.getRandomInt(this.knapsackParameters.minObjectValue, this.knapsackParameters.maxObjectValue),
+            this.utils.getRandomInt(this.knapsackParameters.minObjectWeight, this.knapsackParameters.maxObjectWeight)
+        ));
     }
 
     generatePopulation() {
