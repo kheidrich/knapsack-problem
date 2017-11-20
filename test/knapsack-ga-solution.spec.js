@@ -9,6 +9,7 @@ const KnapsackParameters = require('../src/knapsack-parameters');
 describe('KnapsackGaSolution', () => {
     const NUMBER_OF_OBJECTS = 10;
     const POPULATION_SIZE = 5;
+    const MAX_KNAPSACK_WEIGHT = 30;
     const MIN_OBJECT_VALUE = 1;
     const MAX_OBJECT_VALUE = 100;
     const MIN_OBJECT_WEIGHT = 1;
@@ -17,7 +18,7 @@ describe('KnapsackGaSolution', () => {
 
     beforeEach(() => {
         solution = new KnapsackGaSolution(
-            new KnapsackParameters(NUMBER_OF_OBJECTS, 100, MIN_OBJECT_VALUE, MAX_OBJECT_VALUE, MIN_OBJECT_WEIGHT, MAX_OBJECT_WEIGHT),
+            new KnapsackParameters(NUMBER_OF_OBJECTS, MAX_KNAPSACK_WEIGHT, MIN_OBJECT_VALUE, MAX_OBJECT_VALUE, MIN_OBJECT_WEIGHT, MAX_OBJECT_WEIGHT),
             new AlgorithmParameters(POPULATION_SIZE)
         );
     });
@@ -80,5 +81,36 @@ describe('KnapsackGaSolution', () => {
             sinon.assert.alwaysCalledWith(solution.utils.getRandomInt, 0, 1);
             solution.utils.getRandomInt.restore();
         });
+    });
+
+    describe('#fitness', () => {
+        
+        beforeEach(() => {
+            solution.objects = [
+                {value: 70, weight: 3},
+                {value: 30, weight: 2},
+                {value: 75, weight: 10},
+                {value: 20, weight: 10},
+                {value: 25, weight: 10}
+            ]
+        })
+
+        it('should return (totalValue / totalWeight) when knapsack weight is less than maxKnapsackWeight', () => {
+            let knapsack = [1, 1, 0, 0, 0];
+
+            expect(solution.fitness(knapsack)).to.be.equal(20);
+        });
+        
+        it('should return (totalValue / totalWeight when knapsack weight is equal to maxKnapsackWeight', () => {
+            let knapsack = [0, 0, 1, 1, 1];
+
+            expect(solution.fitness(knapsack)).to.be.equal(4);
+        });
+
+        it('should return 0 when knapsack weight is higher than maxKnapsackWeight', () => {
+            let knapsack = [0, 1, 1, 1, 1];
+
+            expect(solution.fitness(knapsack)).to.be.equal(0);
+        })
     });
 });
