@@ -1,32 +1,23 @@
 const utils = require('./utils');
 class GeneticAlgorithm {
-    constructor(generationParameters, algorithmParameters) {
-        this.generationParameters = generationParameters;
-        this.algorithmParameters = algorithmParameters;
+    constructor(solution) {
         this.population;
-        this.selection;
-        this.crossover;
-        this.mutation;
-        this.substitution;
+        this.solution = solution;
+    }
+    
+    initialize(){
+        
     }
 
-    initialize() {
-        this.population = utils.createFilledArray(
-            this.algorithmParameters.populationSize,
-            utils.createFilledArray(this.generationParameters.numberOfObjects, {})
-        )
-            .map(knapsack => knapsack.map(() => utils.createRandomKnapsackObject(this.generationParameters)))
-    }
-
-    solutionFound(){
+    solutionFound() {
 
     }
 
     evolve() {
-        
+
     }
 
-    getSolution(){
+    getSolution() {
 
     }
 }
