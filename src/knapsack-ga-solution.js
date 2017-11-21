@@ -42,7 +42,24 @@ class KnapsackGaSolution {
     }
 
     crossover(knapsack1, knapsack2) {
+        const minCutPoint = 1;
+        const maxCutPoint = knapsack1.length - 2;
+        let child1, child2, cutPoint;
+        let parent1RemainderGenes, parent2RemainderGenes;
+        let parent1CuttedGenes, parent2CuttedGenes;
 
+        cutPoint = this.utils.getRandomInt(minCutPoint, maxCutPoint);
+
+        parent1RemainderGenes = knapsack1.slice(0, cutPoint);
+        parent1CuttedGenes = knapsack1.slice(cutPoint);
+
+        parent2RemainderGenes = knapsack2.slice(0, cutPoint);
+        parent2CuttedGenes = knapsack2.slice(cutPoint);
+
+        child1 = [...parent1RemainderGenes, ...parent2CuttedGenes];
+        child2 = [...parent2RemainderGenes, ...parent1CuttedGenes];
+
+        return [child1, child2];
     }
 
     mutation(newKnapsacks) {

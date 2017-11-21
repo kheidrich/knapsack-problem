@@ -32,7 +32,7 @@ describe('KnapsackGaSolution', () => {
             );
         });
 
-        it('should generate objects with value between min/max configured in knapsackParameters', () => {
+        it('should generate objects with "value" between min/max configured in knapsackParameters', () => {
             solution.initialize();
             solution.objects.forEach(object => {
                 expect(object.value).to.be.least(MIN_OBJECT_VALUE);
@@ -40,7 +40,7 @@ describe('KnapsackGaSolution', () => {
             });
         });
 
-        it('should generate objects with weight between min/max configured in knapsackParameters', () => {
+        it('should generate objects with "weight" between min/max configured in knapsackParameters', () => {
             solution.initialize();
             solution.objects.forEach(object => {
                 expect(object.weight).to.be.least(MIN_OBJECT_WEIGHT);
@@ -84,14 +84,14 @@ describe('KnapsackGaSolution', () => {
     });
 
     describe('#fitness', () => {
-        
+
         beforeEach(() => {
             solution.objects = [
-                {value: 70, weight: 3},
-                {value: 30, weight: 2},
-                {value: 75, weight: 10},
-                {value: 20, weight: 10},
-                {value: 25, weight: 10}
+                { value: 70, weight: 3 },
+                { value: 30, weight: 2 },
+                { value: 75, weight: 10 },
+                { value: 20, weight: 10 },
+                { value: 25, weight: 10 }
             ]
         })
 
@@ -100,7 +100,7 @@ describe('KnapsackGaSolution', () => {
 
             expect(solution.fitness(knapsack)).to.be.equal(20);
         });
-        
+
         it('should return (totalValue / totalWeight when knapsack weight is equal to maxKnapsackWeight', () => {
             let knapsack = [0, 0, 1, 1, 1];
 
@@ -112,5 +112,32 @@ describe('KnapsackGaSolution', () => {
 
             expect(solution.fitness(knapsack)).to.be.equal(0);
         })
+    });
+
+    describe('#crossover', () => {
+        let knapsack1, knapsack2;
+
+        beforeEach(() => {
+            knapsack1 = [1, 0, 1, 0, 1];
+            knapsack2 = [0, 1, 0, 0, 1];
+            sinon.stub(solution.utils, 'getRandomInt').returns(2);
+        });
+
+        afterEach(() => {
+            solution.utils.getRandomInt.restore();
+        });
+
+        it('should generate two childs swapping the parents genes after the choosed cut point', () => {
+            let [child1, child2] = solution.crossover(knapsack1, knapsack2);
+
+            expect(child1).to.eql([1, 0, 0, 0, 1]);
+            expect(child2).to.eql([0, 1, 1, 0, 1]);
+            solution.utils.getRandomInt.reset();
+        });
+
+        it('should choose a cut point between 1 and [knapsack_length - 2]', () => {
+            solution.crossover(knapsack1, knapsack2);
+            sinon.assert.alwaysCalledWith(solution.utils.getRandomInt, 1, 3);
+        });
     });
 });
