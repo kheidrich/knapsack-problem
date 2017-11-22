@@ -41,6 +41,21 @@ class KnapsackGaSolution {
         return totalWeight <= this.knapsackParams.maxKnapsackWeight ? totalValue / totalWeight : 0;
     }
 
+    selection(population) {
+        let selection = (new Array(this.algorithmParams.generationInterval)).fill([]);
+
+        return selection.map(() => {
+            let competitors = [];
+            let winner;
+
+            competitors.push(this.utils.selectRandomItem(population));
+            competitors.push(this.utils.selectRandomItem(population));
+
+            winner = this.fitness(competitors[0]) >= this.fitness(competitors[1]) ? competitors[0] : competitors[1]
+            return winner;
+        });
+    }
+
     crossover(knapsack1, knapsack2) {
         const minCutPoint = 1;
         const maxCutPoint = knapsack1.length - 2;
@@ -72,3 +87,4 @@ class KnapsackGaSolution {
 }
 
 module.exports = KnapsackGaSolution;
+
