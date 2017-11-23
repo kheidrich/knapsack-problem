@@ -2,9 +2,8 @@ const utils = require('./utils');
 const KnapsackObject = require('./knapsack-object');
 
 class KnapsackGaSolution {
-    constructor(knapsackParams, algorithmParams) {
+    constructor(knapsackParams) {
         this.knapsackParams = knapsackParams;
-        this.algorithmParams = algorithmParams;
         this.utils = utils;
         this.objects;
     }
@@ -18,8 +17,8 @@ class KnapsackGaSolution {
         ));
     }
 
-    generatePopulation() {
-        let population = (new Array(this.algorithmParams.populationSize));
+    generatePopulation(size) {
+        let population = (new Array(size));
         let knapsack = (new Array(this.knapsackParams.numberOfObjects));
         population.fill(knapsack.fill(0));
 
@@ -41,7 +40,7 @@ class KnapsackGaSolution {
         return totalWeight <= this.knapsackParams.maxKnapsackWeight ? totalValue / totalWeight : 0;
     }
 
-    selection(population) {
+    selection(population, generationInterval) {
         let selection = (new Array(this.algorithmParams.generationInterval)).fill([]);
 
         return selection.map(() => {

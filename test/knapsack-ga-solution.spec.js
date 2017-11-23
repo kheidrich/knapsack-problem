@@ -19,8 +19,7 @@ describe('KnapsackGaSolution', () => {
 
     beforeEach(() => {
         solution = new KnapsackGaSolution(
-            new KnapsackParameters(NUMBER_OF_OBJECTS, MAX_KNAPSACK_WEIGHT, MIN_OBJECT_VALUE, MAX_OBJECT_VALUE, MIN_OBJECT_WEIGHT, MAX_OBJECT_WEIGHT),
-            new AlgorithmParameters(POPULATION_SIZE, 30, 30, GENERATION_INTERVAL)
+            new KnapsackParameters(NUMBER_OF_OBJECTS, MAX_KNAPSACK_WEIGHT, MIN_OBJECT_VALUE, MAX_OBJECT_VALUE, MIN_OBJECT_WEIGHT, MAX_OBJECT_WEIGHT)
         );
     });
 
@@ -53,26 +52,36 @@ describe('KnapsackGaSolution', () => {
     describe('#generatePopulation', () => {
         let population;
 
-        it('should return an array of length equals to algorithmParams.populationSize', () => {
-            population = solution.generatePopulation();
+        beforeEach(() => {
+            population = [];
+        });
+
+        it('should return an array of length equals to the size passed', () => {
+            population = solution.generatePopulation(POPULATION_SIZE);
             expect(population).to.have.length(POPULATION_SIZE);
         });
 
         it('should fill population with knapsacks of length equals to knapsackParams.numberOfObjects', () => {
-            population = solution.generatePopulation();
-            population.forEach(individual => expect(individual).to.have.length(NUMBER_OF_OBJECTS));
+            let allKnapsacksOk = false;
+
+            population = solution.generatePopulation(POPULATION_SIZE);
+            allKnapsacksOk = population.reduce((ok, individual) => (individual.length === NUMBER_OF_OBJECTS));
+            expect(allKnapsacksOk).to.be.true;
         });
 
         it('should fill all knapsacks using getRandomInt', () => {
             let objectsCreated = 0;
+            let expectedPopulation = [
+                [0, 1, 2, 3, 4],
+                [5, 6, 7, 8, 9],
+                [10, 11, 12, 13, 14],
+                [15, 16, 17, 18, 19],
+                [20, 21, 22, 23, 24]
+            ];
 
             sinon.stub(solution.utils, 'getRandomInt').callsFake(() => objectsCreated++);
-            population = solution.generatePopulation();
-            population.forEach((knapsack, knapsackIndex) => {
-                knapsack.forEach((object, objectIndex) => {
-                    expect(object).to.be.equal(knapsackIndex * NUMBER_OF_OBJECTS + objectIndex);
-                });
-            });
+            population = solution.generatePopulation(POPULATION_SIZE);
+            expect(population).to.eql(expectedPopulation);
             solution.utils.getRandomInt.restore();
         });
 
@@ -133,26 +142,33 @@ describe('KnapsackGaSolution', () => {
             expect(solution.selection(population)).to.have.length(GENERATION_INTERVAL);
         });
 
-        it('should compare the selected individuals in pairs and keep the ones with the best fitness', () => {
+        it('should compare the selected individuals in pairs and keep the first when it have best fitness', () => {
+            solution.algorithmParams.generationInterval = 1;
+
             let individuals = [
                 [0, 1, 1, 0, 0],
-                [0, 0, 1, 1, 1],
-
-                [1, 1, 0, 0, 0],
-                [1, 0, 1, 0, 1],
-
-                [1, 0, 1, 0, 0],
-                [1, 1, 0, 1, 1]
+                [0, 0, 1, 1, 1]
             ];
 
             sinon.stub(solution.utils, 'selectRandomItem');
             individuals.forEach((item, index) => solution.utils.selectRandomItem.onCall(index).returns(item));
-            
-            expect(solution.selection(population)).to.eql([
-                individuals[0],
-                individuals[2],
-                individuals[4]
-            ]);
+
+            expect(solution.selection(population)).to.eql([individuals[0]]);
+            solution.utils.selectRandomItem.restore();
+        });
+
+        it('should compare the selected individuals in pairs and keep the second when it have best fitness', () => {
+            solution.algorithmParams.generationInterval = 1;
+
+            let individuals = [
+                [0, 0, 1, 1, 1],
+                [0, 1, 1, 0, 0]
+            ];
+
+            sinon.stub(solution.utils, 'selectRandomItem');
+            individuals.forEach((item, index) => solution.utils.selectRandomItem.onCall(index).returns(item));
+
+            expect(solution.selection(population)).to.eql([individuals[1]]);
             solution.utils.selectRandomItem.restore();
         });
     });
@@ -170,17 +186,12 @@ describe('KnapsackGaSolution', () => {
             solution.utils.getRandomInt.restore();
         });
 
-        it('should generate two childs swapping the parents genes after the choosed cut point', () => {
+        it('should generate two childs swapping the parents genes from the choosed cut point', () => {
             let [child1, child2] = solution.crossover(knapsack1, knapsack2);
 
             expect(child1).to.eql([1, 0, 0, 0, 1]);
             expect(child2).to.eql([0, 1, 1, 0, 1]);
             solution.utils.getRandomInt.reset();
-        });
-
-        it('should choose a cut point between 1 and [knapsack_length - 2]', () => {
-            solution.crossover(knapsack1, knapsack2);
-            sinon.assert.alwaysCalledWith(solution.utils.getRandomInt, 1, 3);
         });
     });
 });
