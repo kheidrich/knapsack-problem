@@ -135,40 +135,38 @@ describe('KnapsackGaSolution', () => {
                 { value: 20, weight: 10 },
                 { value: 25, weight: 15 }
             ];
-            population = solution.generatePopulation();
+            population = solution.generatePopulation(POPULATION_SIZE);
         });
 
-        it('should return an array of length equals to algorithmParams.generationInterval', () => {
-            expect(solution.selection(population)).to.have.length(GENERATION_INTERVAL);
+        it('should return an array of length equals to generation interval passed', () => {
+            expect(solution.selection(population, GENERATION_INTERVAL)).to.have.length(GENERATION_INTERVAL);
         });
 
         it('should compare the selected individuals in pairs and keep the first when it have best fitness', () => {
-            solution.algorithmParams.generationInterval = 1;
-
             let individuals = [
                 [0, 1, 1, 0, 0],
                 [0, 0, 1, 1, 1]
             ];
 
             sinon.stub(solution.utils, 'selectRandomItem');
+            
             individuals.forEach((item, index) => solution.utils.selectRandomItem.onCall(index).returns(item));
-
-            expect(solution.selection(population)).to.eql([individuals[0]]);
+            expect(solution.selection(population, 1)).to.eql([individuals[0]]);
+            
             solution.utils.selectRandomItem.restore();
         });
 
         it('should compare the selected individuals in pairs and keep the second when it have best fitness', () => {
-            solution.algorithmParams.generationInterval = 1;
-
             let individuals = [
                 [0, 0, 1, 1, 1],
                 [0, 1, 1, 0, 0]
             ];
 
             sinon.stub(solution.utils, 'selectRandomItem');
-            individuals.forEach((item, index) => solution.utils.selectRandomItem.onCall(index).returns(item));
 
-            expect(solution.selection(population)).to.eql([individuals[1]]);
+            individuals.forEach((item, index) => solution.utils.selectRandomItem.onCall(index).returns(item));
+            expect(solution.selection(population, 1)).to.eql([individuals[1]]);
+
             solution.utils.selectRandomItem.restore();
         });
     });

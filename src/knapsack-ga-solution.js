@@ -41,7 +41,7 @@ class KnapsackGaSolution {
     }
 
     selection(population, generationInterval) {
-        let selection = (new Array(this.algorithmParams.generationInterval)).fill([]);
+        let selection = (new Array(generationInterval)).fill([]);
 
         return selection.map(() => {
             let competitors = [];
