@@ -36,7 +36,7 @@ class GeneticAlgorithm {
     }
 
     evolve() {
-
+        let parents = this.solution.selection(this.population);
     }
 
     getSolution() {

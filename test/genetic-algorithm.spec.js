@@ -96,4 +96,19 @@ describe('GeneticAlgorithm', () => {
             });
         });
     });
+
+    describe('#evolve', () => {
+        beforeEach(() => {
+            algorithm.population = [
+                [3, 2, 1],
+                [4, 5, 6],
+                [1, 2, 4]
+            ];
+        });
+
+        it('should select parents from the actual population', () => {
+            algorithm.evolve();
+            sinon.assert.calledWith(solutionMock.selection, algorithm.population);
+        });
+    });
 });
