@@ -17,6 +17,13 @@ describe('KnapsackGaSolution', () => {
     const MIN_OBJECT_WEIGHT = 1;
     const MAX_OBJECT_WEIGHT = 10;
     const GENE_MUTATION_RATE = 20;
+    const objectsMock = [
+        { value: 70, weight: 3 },
+        { value: 30, weight: 2 },
+        { value: 75, weight: 10 },
+        { value: 20, weight: 10 },
+        { value: 25, weight: 10 }
+    ];
     let solution;
 
     beforeEach(() => {
@@ -99,13 +106,7 @@ describe('KnapsackGaSolution', () => {
     describe('#fitness', () => {
 
         beforeEach(() => {
-            solution.objects = [
-                { value: 70, weight: 3 },
-                { value: 30, weight: 2 },
-                { value: 75, weight: 10 },
-                { value: 20, weight: 10 },
-                { value: 25, weight: 10 }
-            ]
+            solution.objects = objectsMock;
         })
 
         it('should return (totalValue / totalWeight) when knapsack weight is lower than maxKnapsackWeight', () => {
@@ -131,13 +132,7 @@ describe('KnapsackGaSolution', () => {
         let population;
 
         beforeEach(() => {
-            solution.objects = [
-                { value: 70, weight: 8 },
-                { value: 30, weight: 2 },
-                { value: 75, weight: 10 },
-                { value: 20, weight: 10 },
-                { value: 25, weight: 15 }
-            ];
+            solution.objects = objectsMock;
             population = solution.generatePopulation(POPULATION_SIZE);
         });
 
@@ -239,6 +234,46 @@ describe('KnapsackGaSolution', () => {
             mutated = solution.mutation(knapsack);
             numberOfMutatedGenes = mutated.filter((object, index) => object !== knapsack[index]).length;
             expect(numberOfMutatedGenes).to.be.equal(2);
+        });
+    });
+
+    describe('#substitution', () => {
+        let population;
+        let substitutes;
+
+        beforeEach(() => {
+            solution.objects = objectsMock;
+
+            population = [
+                [1, 1, 0, 1, 0],
+                [0, 0, 1, 1, 0],
+                [0, 0, 0, 0, 1],
+                [0, 1, 0, 0, 0],
+                [1, 1, 0, 0, 0]
+            ];
+
+            substitutes = [
+                [1, 1, 0, 1, 0],
+                [0, 1, 1, 1, 0]
+            ];
+        });
+
+        it('should substitute the knapsacks with worst fitness by the passed knapsacks', () => {
+            let newPopulation;
+            newPopulation = solution.substitution(substitutes, population);
+
+            expect(newPopulation).to.include(substitutes[0]);
+            expect(newPopulation).to.include(substitutes[1]);
+            expect(newPopulation).to.not.include(population[1]);
+            expect(newPopulation).to.not.include(population[2]);
+        });
+
+        it('should substitute knapsacks the same quantity of knapsacks that were passed', () => {
+            let totalDiffs;
+
+            newPopulation = solution.substitution(substitutes, population);
+            totalDiffs = newPopulation.reduce((diffs, knapsack) => population.includes(knapsack) ? diffs : ++diffs, 0);
+            expect(totalDiffs).to.equal(substitutes.length);
         });
     });
 });

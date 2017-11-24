@@ -1,9 +1,7 @@
 const KnapsackObject = require('./knapsack-object');
 const types = {
     'Array': [],
-    'Object': {},
-    'String': '',
-    'Number': 0
+    'Object': {}
 };
 
 function getRandomInt(min, max) {

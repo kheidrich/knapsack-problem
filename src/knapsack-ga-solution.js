@@ -80,22 +80,33 @@ class KnapsackGaSolution {
     mutation(knapsack) {
         const numberOfGenesToMutate = Math.ceil(knapsack.length * this.geneticOperatorsParams.geneMutationRate / 100);
         let indexesOfGenesToMutate = new Set();
-        let mutated;
 
         while (indexesOfGenesToMutate.size < numberOfGenesToMutate)
-            indexesOfGenesToMutate.add(this.utils.getRandomInt(0, knapsack.length -1));
+            indexesOfGenesToMutate.add(this.utils.getRandomInt(0, knapsack.length - 1));
 
-        mutated = knapsack.map((object, index) => {
+        return knapsack.map((object, index) => {
             const hasToMutate = (indexesOfGenesToMutate.has(index));
-            
+
             return hasToMutate ? Number(!object) : object;
         });
-
-        return mutated;
     }
 
     substitution(knapsacks, population) {
+        const newKnapsacks = [...knapsacks];
+        const sortedByFitness = [...population].sort((a, b) => this.fitness(a) - this.fitness(b));
+        const numberOfKnapsacksToSubstitute = knapsacks.length;
+        const knapsacksToSubstitute = sortedByFitness.filter((knapsack, index) => index < numberOfKnapsacksToSubstitute);
 
+        return population.map((knapsack) => {
+            const hasToSubstitute = knapsacksToSubstitute.includes(knapsack);
+
+            if (hasToSubstitute) {
+                knapsacksToSubstitute.pop();
+                return newKnapsacks.pop();
+            }
+            else
+                return knapsack;
+        });
     }
 }
 
