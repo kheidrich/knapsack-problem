@@ -70,7 +70,7 @@ describe('KnapsackGaSolution', () => {
         });
 
         it('should fill all knapsacks using getRandomInt', () => {
-            let objectsCreated = 0;
+            let insertedObjects = 0;
             let expectedPopulation = [
                 [0, 1, 2, 3, 4],
                 [5, 6, 7, 8, 9],
@@ -79,7 +79,7 @@ describe('KnapsackGaSolution', () => {
                 [20, 21, 22, 23, 24]
             ];
 
-            sinon.stub(solution.utils, 'getRandomInt').callsFake(() => objectsCreated++);
+            sinon.stub(solution.utils, 'getRandomInt').callsFake(() => insertedObjects++);
             population = solution.generatePopulation(POPULATION_SIZE);
             expect(population).to.eql(expectedPopulation);
             solution.utils.getRandomInt.restore();
@@ -149,10 +149,10 @@ describe('KnapsackGaSolution', () => {
             ];
 
             sinon.stub(solution.utils, 'selectRandomItem');
-            
+
             individuals.forEach((item, index) => solution.utils.selectRandomItem.onCall(index).returns(item));
             expect(solution.selection(population, 1)).to.eql([individuals[0]]);
-            
+
             solution.utils.selectRandomItem.restore();
         });
 
@@ -184,7 +184,7 @@ describe('KnapsackGaSolution', () => {
             solution.utils.getRandomInt.restore();
         });
 
-        it('should generate two childs swapping the parents genes from the choosed cut point', () => {
+        it('should generate two childs swapping the parents genes from the choosed cut point to the last gene', () => {
             let [child1, child2] = solution.crossover(knapsack1, knapsack2);
 
             expect(child1).to.eql([1, 0, 0, 0, 1]);
