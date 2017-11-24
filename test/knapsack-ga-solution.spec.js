@@ -5,6 +5,7 @@ const expect = chai.expect;
 const KnapsackGaSolution = require('../src/knapsack-ga-solution');
 const AlgorithmParameters = require('../src/algorithm-parameters');
 const KnapsackParameters = require('../src/knapsack-parameters');
+const GeneticOperatorsParameters = require('../src/genetic-operators-parameters');
 
 describe('KnapsackGaSolution', () => {
     const NUMBER_OF_OBJECTS = 5;
@@ -15,11 +16,13 @@ describe('KnapsackGaSolution', () => {
     const MAX_OBJECT_VALUE = 100;
     const MIN_OBJECT_WEIGHT = 1;
     const MAX_OBJECT_WEIGHT = 10;
+    const GENE_MUTATION_RATE = 20;
     let solution;
 
     beforeEach(() => {
         solution = new KnapsackGaSolution(
-            new KnapsackParameters(NUMBER_OF_OBJECTS, MAX_KNAPSACK_WEIGHT, MIN_OBJECT_VALUE, MAX_OBJECT_VALUE, MIN_OBJECT_WEIGHT, MAX_OBJECT_WEIGHT)
+            new KnapsackParameters(NUMBER_OF_OBJECTS, MAX_KNAPSACK_WEIGHT, MIN_OBJECT_VALUE, MAX_OBJECT_VALUE, MIN_OBJECT_WEIGHT, MAX_OBJECT_WEIGHT),
+            new GeneticOperatorsParameters(GENE_MUTATION_RATE)
         );
     });
 
@@ -190,6 +193,52 @@ describe('KnapsackGaSolution', () => {
             expect(child1).to.eql([1, 0, 0, 0, 1]);
             expect(child2).to.eql([0, 1, 1, 0, 1]);
             solution.utils.getRandomInt.reset();
+        });
+    });
+
+    describe('#mutation', () => {
+        it('should change to 1 when the choosed gene is 0', () => {
+            let mutated;
+
+            solution.geneticOperatorsParams.geneMutationRate = 50;
+            sinon.stub(solution.utils, 'getRandomInt').returns(0);
+            mutated = solution.mutation([0, 1]);
+            expect(mutated).to.eql([1, 1]);
+            solution.utils.getRandomInt.restore();
+        });
+
+        it('should change to 0 when the choosed gene is 1', () => {
+            let mutated;
+
+            solution.geneticOperatorsParams.geneMutationRate = 50;
+            sinon.stub(solution.utils, 'getRandomInt').returns(1);
+            mutated = solution.mutation([0, 1]);
+            expect(mutated).to.eql([0, 0]);
+            solution.utils.getRandomInt.restore();
+        });
+
+        it('should select another gene when it is already chosen', () => {
+            let knapsack = [0, 1, 1, 1, 0];
+
+            solution.geneticOperatorsParams.geneMutationRate = 30;
+            sinon.stub(solution.utils, 'getRandomInt')
+            solution.utils.getRandomInt.onFirstCall().returns(0);
+            solution.utils.getRandomInt.onSecondCall().returns(0);
+            solution.utils.getRandomInt.onThirdCall().returns(3);
+
+            solution.mutation(knapsack);
+            sinon.assert.calledThrice(solution.utils.getRandomInt);
+            solution.utils.getRandomInt.restore();
+        });
+
+        it('should mutate ceil of geneMutationRate% of the genes of knapsack', () => {
+            let numberOfMutatedGenes;
+            let knapsack = [0, 1, 1, 1, 0];
+
+            solution.geneticOperatorsParams.geneMutationRate = 30;
+            mutated = solution.mutation(knapsack);
+            numberOfMutatedGenes = mutated.filter((object, index) => object !== knapsack[index]).length;
+            expect(numberOfMutatedGenes).to.be.equal(2);
         });
     });
 });

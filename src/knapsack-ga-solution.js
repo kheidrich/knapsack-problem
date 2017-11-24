@@ -2,8 +2,9 @@ const utils = require('./utils');
 const KnapsackObject = require('./knapsack-object');
 
 class KnapsackGaSolution {
-    constructor(knapsackParams) {
+    constructor(knapsackParams, geneticOperatorsParameters) {
         this.knapsackParams = knapsackParams;
+        this.geneticOperatorsParams = geneticOperatorsParameters;
         this.utils = utils;
         this.objects;
     }
@@ -76,11 +77,24 @@ class KnapsackGaSolution {
         return [child1, child2];
     }
 
-    mutation(newKnapsacks) {
+    mutation(knapsack) {
+        const numberOfGenesToMutate = Math.ceil(knapsack.length * this.geneticOperatorsParams.geneMutationRate / 100);
+        let indexesOfGenesToMutate = new Set();
+        let mutated;
 
+        while (indexesOfGenesToMutate.size < numberOfGenesToMutate)
+            indexesOfGenesToMutate.add(this.utils.getRandomInt(0, knapsack.length -1));
+
+        mutated = knapsack.map((object, index) => {
+            const hasToMutate = (indexesOfGenesToMutate.has(index));
+            
+            return hasToMutate ? Number(!object) : object;
+        });
+
+        return mutated;
     }
 
-    substitution(newKnapsacks, population) {
+    substitution(knapsacks, population) {
 
     }
 }
