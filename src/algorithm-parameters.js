@@ -5,14 +5,14 @@ class AlgorithmParameters {
         crossoverRate,
         generationInterval,
         maxIterations,
-        optimalEstabilization
+        optimalStabilization
     ) {
         this.populationSize = populationSize;
         this.generationInterval = generationInterval;
         this.mutationRate = mutationRate;
         this.crossoverRate = crossoverRate;
         this.maxIterations = maxIterations;
-        this.optimalEstabilization = optimalEstabilization;
+        this.optimalStabilization = optimalStabilization;
     }
 }
 

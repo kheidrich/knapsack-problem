@@ -15,6 +15,18 @@ class GeneticAlgorithm {
         this.population = this.solution.generatePopulation(this.algorithmParams.populationSize);
     }
 
+    updateOptimal() {
+        this.actualOptimal = this.population.reduce(
+            (optimal, individual) => {
+                const betterThanOptimal = this.solution.fitness(individual) > this.solution.fitness(optimal);
+
+                return betterThanOptimal ? individual : optimal;
+            },
+            []
+        );
+        this.optimalHistory.push(this.actualOptimal);
+    }
+
     stopCriteriaReached() {
 
     }

@@ -13,6 +13,7 @@ describe('GeneticAlgorithm', () => {
         solutionMock = {
             initialize: sinon.stub(),
             generatePopulation: sinon.stub(),
+            fitness: sinon.stub().callsFake((individual) => individual.reduce((sum, value) => sum + value, 0)),
             selection: sinon.stub(),
             crossover: sinon.stub(),
             mutation: sinon.stub(),
@@ -37,6 +38,26 @@ describe('GeneticAlgorithm', () => {
             solutionMock.generatePopulation.returns([0, 1, 2, 3]);
             algorithm.initialize();
             expect(algorithm.population).to.eql([0, 1, 2, 3]);
+        });
+    });
+
+    describe('#updateOptimal', () => {
+        beforeEach(() => {
+            algorithm.population = [
+                [3, 2, 1],
+                [4, 5, 6],
+                [1, 2, 4]
+            ];
+        });
+
+        it('should find the optimal fitness from actual population and set as actual optimal', () => {
+            algorithm.updateOptimal();
+            expect(algorithm.actualOptimal).to.eql([4, 5, 6]);
+        });
+
+        it('should add actual optimal to optimal history', () => {
+            algorithm.updateOptimal();
+            expect(algorithm.optimalHistory).to.contains(algorithm.actualOptimal);
         });
     });
 });
