@@ -115,7 +115,7 @@ describe('KnapsackGaSolution', () => {
             expect(solution.fitness(knapsack)).to.be.equal(20);
         });
 
-        it('should return (totalValue / totalWeight when knapsack weight is equal to maxKnapsackWeight', () => {
+        it('should return (totalValue / totalWeight) when knapsack weight is equal to maxKnapsackWeight', () => {
             let knapsack = [0, 0, 1, 1, 1];
 
             expect(solution.fitness(knapsack)).to.be.equal(4);
@@ -125,7 +125,9 @@ describe('KnapsackGaSolution', () => {
             let knapsack = [0, 1, 1, 1, 1];
 
             expect(solution.fitness(knapsack)).to.be.equal(0);
-        })
+        });
+
+        it('should return 0 when knapsack has no objects');
     });
 
     describe('#selection', () => {
