@@ -60,4 +60,40 @@ describe('GeneticAlgorithm', () => {
             expect(algorithm.optimalHistory).to.contains(algorithm.actualOptimal);
         });
     });
+
+    describe('#stopCriteriaReached', () => {
+        describe('max iterations higher than 0 and optimal estabilization equals to 0', () => {
+            it('should return true when iterations is equal to maxIterations', () => {
+                algorithm.algorithmParams.maxIterations = 5;
+                algorithm.algorithmParams.optimalStabilization = 0;
+                algorithm.iterations = 5;
+                expect(algorithm.stopCriteriaReached()).to.be.true;
+            });
+
+            it('should return false when iterations is not equal to maxIterations', () => {
+                algorithm.algorithmParams.maxIterations = 5;
+                algorithm.algorithmParams.optimalStabilization = 0;
+                algorithm.iterations = 4;
+                expect(algorithm.stopCriteriaReached()).to.be.false;
+            });
+        });
+
+        describe('optimal estabilization higher than 0 and max iterations equals to 0', () => {
+            it('should return true when the last [optimalEstabilitazion] optimals are equal to actual optimal', () => {
+                algorithm.algorithmParams.optimalStabilization = 5;
+                algorithm.algorithmParams.maxIterations = 0;
+                algorithm.optimalHistory = [0, 5, 5, 5, 5, 5];
+                algorithm.actualOptimal = 5;
+                expect(algorithm.stopCriteriaReached()).to.be.true;
+            });
+
+            it('should return false when the last [optimalEstabilitazion] optimals are not equal to actual optimal', () => {
+                algorithm.algorithmParams.optimalStabilization = 5;
+                algorithm.algorithmParams.maxIterations = 0;
+                algorithm.optimalHistory = [0, 5, 5, 5, 5, 3];
+                algorithm.actualOptimal = 3;
+                expect(algorithm.stopCriteriaReached()).to.be.false;
+            });
+        });
+    });
 });

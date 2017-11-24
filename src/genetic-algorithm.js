@@ -28,7 +28,11 @@ class GeneticAlgorithm {
     }
 
     stopCriteriaReached() {
+        const lastOptimals = [...this.optimalHistory].reverse().filter((optimal, index) => index < this.algorithmParams.optimalStabilization);
+        const optimalHistoryStabilized = (lastOptimals.every(optimal => optimal === this.actualOptimal) && this.algorithmParams.optimalStabilization > 0);
+        const maxIterationsReached = (this.iterations === this.algorithmParams.maxIterations && this.algorithmParams.maxIterations > 0);
 
+        return maxIterationsReached || optimalHistoryStabilized;
     }
 
     evolve() {
