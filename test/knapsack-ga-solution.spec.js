@@ -138,7 +138,7 @@ describe('KnapsackGaSolution', () => {
             population = solution.generatePopulation(POPULATION_SIZE);
         });
 
-        it('should return an array of length equals to generation interval passed', () => {
+        it('should return an array of length equals to the quantity received', () => {
             expect(solution.selection(population, GENERATION_INTERVAL)).to.have.length(GENERATION_INTERVAL);
         });
 

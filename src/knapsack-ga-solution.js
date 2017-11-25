@@ -41,8 +41,8 @@ class KnapsackGaSolution {
         return totalWeight <= this.knapsackParams.maxKnapsackWeight ? totalValue / totalWeight : 0;
     }
 
-    selection(population, generationInterval) {
-        let selection = (new Array(generationInterval)).fill([]);
+    selection(population, quantity) {
+        let selection = (new Array(quantity)).fill([]);
 
         return selection.map(() => {
             let competitors = [];
