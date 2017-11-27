@@ -39,11 +39,29 @@ class GeneticAlgorithm {
 
     selectParents() {
         let parentsToSelect = (Math.round(this.algorithmParams.populationSize * this.algorithmParams.generationInterval / 100));
+        const generationIntervalIsOdd = (parentsToSelect % 2 !== 0);
 
-        if (parentsToSelect % 2 !== 0)
+        if (generationIntervalIsOdd)
             parentsToSelect++;
 
         return this.solution.selection(this.population, parentsToSelect);
+    }
+
+    crossover(parents) {
+        let newParents = [];
+
+        for (let parentIndex in parents) if (parentIndex % 2 === 0){
+            const doCrossover = this.utils.shouldDoSomething(this.algorithmParams.crossoverRate);
+            let crossed, firstParent, secondParent;
+
+            firstParent = parents[+parentIndex];
+            secondParent = parents[1 + +parentIndex];
+            crossed = doCrossover ? this.solution.crossover(firstParent, secondParent) : [firstParent, secondParent];
+
+            newParents.push(...crossed);
+        }
+        
+        return newParents;
     }
     evolve() {
         let numberOfIndividualsToSubstitute = (Math.round(this.algorithmParams.populationSize * this.algorithmParams.generationInterval / 100));

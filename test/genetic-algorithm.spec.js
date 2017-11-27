@@ -120,6 +120,48 @@ describe('GeneticAlgorithm', () => {
         });
     });
 
+    describe('#crossover', () => {
+        let parents;
+
+        beforeEach(() => {
+            parents = [
+                [10, 7, 5, 8, 1],
+                [8, 8, 9, 1, 6],
+                [6, 8, 4, 5, 6],
+                [9, 1, 6, 9, 6]
+            ];
+            algorithm.algorithmParams.crossoverRate = 50;
+            sinon.stub(algorithm.utils, 'shouldDoSomething');
+            algorithm.utils.shouldDoSomething.onFirstCall().returns(true);
+            algorithm.utils.shouldDoSomething.onSecondCall().returns(false);
+        });
+
+        afterEach(() => {
+            algorithm.utils.shouldDoSomething.restore();
+        });
+
+        it('should crossover parents in pairs with crossoverRate probability', () => {
+            solutionMock.crossover.returns([parents[0], parents[1]]);
+            algorithm.crossover(parents);
+            sinon.assert.calledWith(solutionMock.crossover, parents[0], parents[1]);
+            sinon.assert.alwaysCalledWith(algorithm.utils.shouldDoSomething, 50);
+        });
+
+        it('should swap the parents by the childs if they are crossed and keep the parents that does not have crossed', () => {
+            let newParents;
+            solutionMock.crossover.returns([[10, 7, 5, 1, 6], [8, 8, 9, 8, 1]]);
+
+            newParents = algorithm.crossover(parents);
+
+            expect(newParents).to.eql([
+                [10, 7, 5, 1, 6],
+                [8, 8, 9, 8, 1],
+                [6, 8, 4, 5, 6],
+                [9, 1, 6, 9, 6]
+            ]);
+        });
+    });
+
     describe('#evolve', () => {
         beforeEach(() => {
             algorithm.algorithmParams.populationSize = 10;
