@@ -37,6 +37,14 @@ class GeneticAlgorithm {
         return maxIterationsReached || optimalHistoryStabilized;
     }
 
+    selectParents() {
+        let parentsToSelect = (Math.round(this.algorithmParams.populationSize * this.algorithmParams.generationInterval / 100));
+
+        if (parentsToSelect % 2 !== 0)
+            parentsToSelect++;
+
+        return this.solution.selection(this.population, parentsToSelect);
+    }
     evolve() {
         let numberOfIndividualsToSubstitute = (Math.round(this.algorithmParams.populationSize * this.algorithmParams.generationInterval / 100));
         const quantityToSubstitueIsOdd = (numberOfIndividualsToSubstitute % 2 !== 0);

@@ -97,6 +97,29 @@ describe('GeneticAlgorithm', () => {
         });
     });
 
+    describe('#selectParents', () => {
+        beforeEach(() => {
+            algorithm.algorithmParams.populationSize = 10;
+        });
+
+        it('should select round([populationSize * generationInterval / 100]) parents from the actual population when [populationSize * generationInterval / 100] is even', () => {
+            algorithm.algorithmParams.generationInterval = 20;
+            algorithm.selectParents();
+            sinon.assert.calledWith(solutionMock.selection, algorithm.population, 2);
+        });
+
+        it('should select [round([populationSize * generationInterval / 100]) + 1] parents from the actual population when [populationSize * generationInterval / 100] is odd', () => {
+            algorithm.algorithmParams.generationInterval = 50;
+            algorithm.selectParents();
+            sinon.assert.calledWith(solutionMock.selection, algorithm.population, 6);
+        });
+
+        it('should return the selected parents', () => {
+            solutionMock.selection.returns([1, 2, 3, 4]);
+            expect(algorithm.selectParents()).to.eql([1, 2, 3, 4]);
+        });
+    });
+
     describe('#evolve', () => {
         beforeEach(() => {
             algorithm.algorithmParams.populationSize = 10;
