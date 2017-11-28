@@ -147,7 +147,7 @@ describe('GeneticAlgorithm', () => {
             sinon.assert.alwaysCalledWith(algorithm.utils.shouldDoSomething, 50);
         });
 
-        it('should swap the parents with the childs if they are crossed and keep the parents that does not have crossed', () => {
+        it('should swap the parents with the childs if they are crossed and keep the parents that does not have been crossed', () => {
             let newParents;
             solutionMock.crossover.returns([[10, 7, 5, 1, 6], [8, 8, 9, 8, 1]]);
 
@@ -183,7 +183,7 @@ describe('GeneticAlgorithm', () => {
 
         it('should mutate the parents with mutationRate probability', () => {
             algorithm.mutate(parents);
-            
+
             sinon.assert.calledWith(solutionMock.mutation, parents[0]);
             sinon.assert.calledWith(solutionMock.mutation, parents[2]);
             sinon.assert.alwaysCalledWith(algorithm.utils.shouldDoSomething, 50);
@@ -202,4 +202,46 @@ describe('GeneticAlgorithm', () => {
             ]);
         });
     });
+
+    describe('#substitute', () => {
+        let parents, population;
+
+        beforeEach(() => {
+            parents = [
+                [10, 7, 5, 8, 1],
+                [8, 8, 9, 1, 6],
+                [6, 8, 4, 5, 6],
+                [9, 1, 6, 9, 6]
+            ];
+            population = [
+                [4, 9, 7, 8, 1],
+                [1, 6, 1, 4, 8],
+                [2, 4, 8, 10, 5],
+                [8, 8, 8, 2, 10],
+                [1, 7, 4, 4, 6],
+                [9, 8, 5, 2, 6],
+                [7, 8, 9, 3, 8],
+                [6, 10, 1, 4, 6],
+                [2, 0, 3, 7, 0],
+                [7, 9, 0, 7, 5]
+            ]
+        });
+
+        it('should substitute population individuals with the parents', () => {
+            algorithm.population = population;
+            algorithm.substitute(parents);
+            sinon.assert.calledWith(solutionMock.substitution, parents, population);
+        });
+
+        it('should set the new population', () => {
+            let newPopulation = [...population];
+            parents.forEach((parent, index) => newPopulation[index] = parent);
+            
+            solutionMock.substitution.returns(newPopulation);
+            algorithm.substitute(parents);
+            expect(algorithm.population).to.eql(newPopulation);
+        });
+    });
 });
+
+console.log((new Array(10)).fill((new Array(5).fill([]))).map(v => v.map(x => Math.round(Math.random() * 10))));

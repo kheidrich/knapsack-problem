@@ -71,6 +71,10 @@ class GeneticAlgorithm {
             return doMutation ? this.solution.mutation(parent) : parent;
         });
     }
+    
+    substitute(parents){
+        this.population = this.solution.substitution(parents, this.population);
+    }
 
     getSolution() {
 
