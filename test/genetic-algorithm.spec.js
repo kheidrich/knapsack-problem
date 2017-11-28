@@ -147,7 +147,7 @@ describe('GeneticAlgorithm', () => {
             sinon.assert.alwaysCalledWith(algorithm.utils.shouldDoSomething, 50);
         });
 
-        it('should swap the parents by the childs if they are crossed and keep the parents that does not have crossed', () => {
+        it('should swap the parents with the childs if they are crossed and keep the parents that does not have crossed', () => {
             let newParents;
             solutionMock.crossover.returns([[10, 7, 5, 1, 6], [8, 8, 9, 8, 1]]);
 
@@ -157,6 +157,47 @@ describe('GeneticAlgorithm', () => {
                 [10, 7, 5, 1, 6],
                 [8, 8, 9, 8, 1],
                 [6, 8, 4, 5, 6],
+                [9, 1, 6, 9, 6]
+            ]);
+        });
+    });
+
+    describe('#mutate', () => {
+        let parents;
+
+        beforeEach(() => {
+            parents = [
+                [10, 7, 5, 8, 1],
+                [8, 8, 9, 1, 6],
+                [6, 8, 4, 5, 6],
+                [9, 1, 6, 9, 6]
+            ];
+            algorithm.algorithmParams.mutationRate = 50;
+            sinon.stub(algorithm.utils, 'shouldDoSomething');
+            parents.forEach((parent, index) => algorithm.utils.shouldDoSomething.onCall(index).returns(index % 2 === 0));
+        });
+
+        afterEach(() => {
+            algorithm.utils.shouldDoSomething.restore();
+        });
+
+        it('should mutate the parents with mutationRate probability', () => {
+            algorithm.mutate(parents);
+            
+            sinon.assert.calledWith(solutionMock.mutation, parents[0]);
+            sinon.assert.calledWith(solutionMock.mutation, parents[2]);
+            sinon.assert.alwaysCalledWith(algorithm.utils.shouldDoSomething, 50);
+        });
+
+        it('should swap the parent with the mutation if it is mutated and keep the parents that does not have mutated', () => {
+            let mutated;
+            solutionMock.mutation.callsFake(individual => individual.map(value => value % 2 === 0 ? ++value : --value));
+
+            mutated = algorithm.mutate(parents);
+            expect(mutated).to.eql([
+                [11, 6, 4, 9, 0],
+                [8, 8, 9, 1, 6],
+                [7, 9, 5, 4, 7],
                 [9, 1, 6, 9, 6]
             ]);
         });
