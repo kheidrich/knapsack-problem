@@ -50,9 +50,9 @@ describe('GeneticAlgorithm', () => {
             ];
         });
 
-        it('should find the optimal fitness from actual population and set as actual optimal', () => {
+        it('should find the optimal fitness from actual population and set fitness value as actual optimal', () => {
             algorithm.updateOptimal();
-            expect(algorithm.actualOptimal).to.eql([4, 5, 6]);
+            expect(algorithm.actualOptimal).to.eql(15);
         });
 
         it('should add actual optimal to optimal history', () => {

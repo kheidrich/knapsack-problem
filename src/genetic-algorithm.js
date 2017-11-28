@@ -5,7 +5,7 @@ class GeneticAlgorithm {
         this.population = [];
         this.populationHistory = [];
         this.optimalHistory = [];
-        this.actualOptimal = [];
+        this.actualOptimal = 0;
         this.iterations = 0;
         this.solution = solution;
         this.algorithmParams = algorithmParams;
@@ -18,14 +18,11 @@ class GeneticAlgorithm {
     }
 
     updateOptimal() {
-        this.actualOptimal = this.population.reduce(
-            (optimal, individual) => {
-                const betterThanOptimal = this.solution.fitness(individual) > this.solution.fitness(optimal);
+        this.population.forEach(individual => {
+            const betterThanOptimal = this.solution.fitness(individual) > this.actualOptimal;
 
-                return betterThanOptimal ? individual : optimal;
-            },
-            []
-        );
+            this.actualOptimal = betterThanOptimal ? this.solution.fitness(individual) : this.actualOptimal;
+        });
         this.optimalHistory.push(this.actualOptimal);
     }
 
