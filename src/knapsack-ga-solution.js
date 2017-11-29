@@ -91,16 +91,15 @@ class KnapsackGaSolution {
         return knapsack.map((object, index) => {
             const hasToMutate = (indexesOfGenesToMutate.has(index));
 
-            return hasToMutate ? Number(!object) : object;
+            return hasToMutate ? +(!object) : object;
         });
     }
 
     substitution(knapsacks, population) {
         const newKnapsacks = [...knapsacks];
-        const sortedByFitness = [...population].sort((a, b) => this.fitness(a) - this.fitness(b));
+        const populationSortedByFitness = [...population].sort((a, b) => this.fitness(a) - this.fitness(b));
         const numberOfKnapsacksToSubstitute = knapsacks.length;
-        let knapsacksToSubstitute = sortedByFitness.filter((knapsack, index) => index < numberOfKnapsacksToSubstitute);
-
+        let knapsacksToSubstitute = populationSortedByFitness.filter((knapsack, index) => index < numberOfKnapsacksToSubstitute);
 
         return population.map((knapsack) => {
             const hasToSubstitute = knapsacksToSubstitute.indexOf(knapsack) > -1;
