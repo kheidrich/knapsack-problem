@@ -17,6 +17,7 @@ describe('KnapsackGaSolution', () => {
     const MIN_OBJECT_WEIGHT = 1;
     const MAX_OBJECT_WEIGHT = 10;
     const GENE_MUTATION_RATE = 20;
+
     const objectsMock = [
         { value: 70, weight: 3 },
         { value: 30, weight: 2 },
@@ -109,16 +110,22 @@ describe('KnapsackGaSolution', () => {
             solution.objects = objectsMock;
         })
 
-        it('should return (totalValue / totalWeight) when knapsack weight is lower than maxKnapsackWeight', () => {
-            let knapsack = [1, 1, 0, 0, 0];
+        it('should return (totalValue / maxKnapsackWeight) when knapsack weight is lower than maxKnapsackWeight', () => {
+            let knapsack = [1, 1, 0, 1, 0];
 
-            expect(solution.fitness(knapsack)).to.be.equal(20);
+            expect(solution.fitness(knapsack)).to.be.equal(4);
         });
 
-        it('should return (totalValue / totalWeight) when knapsack weight is equal to maxKnapsackWeight', () => {
+        it('should return (totalValue / maxKnapsackWeight) when knapsack weight is equal to maxKnapsackWeight', () => {
             let knapsack = [0, 0, 1, 1, 1];
 
             expect(solution.fitness(knapsack)).to.be.equal(4);
+        });
+
+        it('should round to 2 decimals places the fitness value', () => {
+            let knapsack = [1, 1, 0, 0, 1];
+
+            expect(solution.fitness(knapsack)).to.be.equal(4.17);
         });
 
         it('should return 0 when knapsack weight is higher than maxKnapsackWeight', () => {
@@ -127,7 +134,11 @@ describe('KnapsackGaSolution', () => {
             expect(solution.fitness(knapsack)).to.be.equal(0);
         });
 
-        it('should return 0 when knapsack has no objects');
+        it('should return 0 when knapsack has no objects', () => {
+            let knapsack = [0, 0, 0, 0, 0];
+
+            expect(solution.fitness(knapsack)).to.be.equal(0);
+        });
     });
 
     describe('#selection', () => {

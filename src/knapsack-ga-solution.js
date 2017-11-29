@@ -38,7 +38,11 @@ class KnapsackGaSolution {
             { totalValue: 0, totalWeight: 0 }
         );
 
-        return totalWeight <= this.knapsackParams.maxKnapsackWeight ? totalValue / totalWeight : 0;
+        const maxWeightExceeded = totalWeight > this.knapsackParams.maxKnapsackWeight;
+        const hasObjects = totalWeight > 0;
+        const fitnessValue = +(totalValue / this.knapsackParams.maxKnapsackWeight).toFixed(2);
+
+        return !maxWeightExceeded && hasObjects ? fitnessValue  : 0;
     }
 
     selection(population, quantity) {
