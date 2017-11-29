@@ -99,13 +99,14 @@ class KnapsackGaSolution {
         const newKnapsacks = [...knapsacks];
         const sortedByFitness = [...population].sort((a, b) => this.fitness(a) - this.fitness(b));
         const numberOfKnapsacksToSubstitute = knapsacks.length;
-        const knapsacksToSubstitute = sortedByFitness.filter((knapsack, index) => index < numberOfKnapsacksToSubstitute);
+        let knapsacksToSubstitute = sortedByFitness.filter((knapsack, index) => index < numberOfKnapsacksToSubstitute);
+
 
         return population.map((knapsack) => {
-            const hasToSubstitute = knapsacksToSubstitute.includes(knapsack);
+            const hasToSubstitute = knapsacksToSubstitute.indexOf(knapsack) > -1;
 
             if (hasToSubstitute) {
-                knapsacksToSubstitute.pop();
+                knapsacksToSubstitute.splice(knapsacksToSubstitute.indexOf(knapsack), 1);
                 return newKnapsacks.pop();
             }
             else

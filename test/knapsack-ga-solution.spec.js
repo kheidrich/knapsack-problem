@@ -266,8 +266,8 @@ describe('KnapsackGaSolution', () => {
             ];
 
             substitutes = [
-                [1, 1, 0, 1, 0],
-                [0, 1, 1, 1, 0]
+                [1, 1, 0, 1, 1],
+                [0, 0, 1, 1, 1]
             ];
         });
 
@@ -277,8 +277,8 @@ describe('KnapsackGaSolution', () => {
 
             expect(newPopulation).to.include(substitutes[0]);
             expect(newPopulation).to.include(substitutes[1]);
-            expect(newPopulation).to.not.include(population[1]);
             expect(newPopulation).to.not.include(population[2]);
+            expect(newPopulation).to.not.include(population[3]);
         });
 
         it('should substitute knapsacks the same quantity of knapsacks that were passed', () => {
