@@ -155,8 +155,8 @@ describe('KnapsackGaSolution', () => {
 
         it('should compare the selected individuals in pairs and keep the first when it have best fitness', () => {
             let individuals = [
-                [0, 1, 1, 0, 0],
-                [0, 0, 1, 1, 1]
+                [0, 0, 1, 1, 1],
+                [0, 1, 1, 0, 0]
             ];
 
             sinon.stub(solution.utils, 'selectRandomItem');
@@ -169,8 +169,8 @@ describe('KnapsackGaSolution', () => {
 
         it('should compare the selected individuals in pairs and keep the second when it have best fitness', () => {
             let individuals = [
-                [0, 0, 1, 1, 1],
-                [0, 1, 1, 0, 0]
+                [0, 1, 1, 0, 0],
+                [0, 0, 1, 1, 1]
             ];
 
             sinon.stub(solution.utils, 'selectRandomItem');

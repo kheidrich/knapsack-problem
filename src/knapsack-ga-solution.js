@@ -49,14 +49,14 @@ class KnapsackGaSolution {
         let selection = (new Array(quantity)).fill([]);
 
         return selection.map(() => {
-            let competitors = [];
+            let competitor1, competitor2;
             let winner;
 
-            competitors.push(this.utils.selectRandomItem(population));
-            competitors.push(this.utils.selectRandomItem(population));
+            competitor1 = this.utils.selectRandomItem(population);
+            competitor2 = this.utils.selectRandomItem(population);
 
-            winner = this.fitness(competitors[0]) >= this.fitness(competitors[1]) ? competitors[0] : competitors[1]
-            return winner;
+            winner = this.fitness(competitor1) >= this.fitness(competitor2) ? competitor1 : competitor2;
+            return [...winner];
         });
     }
 
