@@ -3,10 +3,8 @@ const utils = require('./utils');
 class GeneticAlgorithm {
     constructor(solution, algorithmParams) {
         this.population = [];
-        this.populationHistory = [];
         this.optimalHistory = [];
         this.actualOptimal = 0;
-        this.iterations = 0;
         this.solution = solution;
         this.algorithmParams = algorithmParams;
         this.utils = utils;
@@ -26,14 +24,6 @@ class GeneticAlgorithm {
         this.optimalHistory.push(this.actualOptimal);
     }
 
-    stopCriteriaReached() {
-        const lastOptimals = [...this.optimalHistory].reverse().filter((optimal, index) => index < this.algorithmParams.optimalStabilization);
-        const optimalHistoryStabilized = (lastOptimals.every(optimal => optimal === this.actualOptimal) && this.algorithmParams.optimalStabilization > 0);
-        const maxIterationsReached = (this.iterations === this.algorithmParams.maxIterations && this.algorithmParams.maxIterations > 0);
-
-        return maxIterationsReached || optimalHistoryStabilized;
-    }
-
     selectParents() {
         let parentsToSelect = (Math.round(this.algorithmParams.populationSize * this.algorithmParams.generationInterval / 100));
         const generationIntervalIsOdd = (parentsToSelect % 2 !== 0);
@@ -47,7 +37,7 @@ class GeneticAlgorithm {
     crossover(parents) {
         let newParents = [];
 
-        for (let parentIndex in parents) if (parentIndex % 2 === 0){
+        for (let parentIndex in parents) if (parentIndex % 2 === 0) {
             const doCrossover = this.utils.shouldDoSomething(this.algorithmParams.crossoverRate);
             let crossed, firstParent, secondParent;
 
@@ -57,19 +47,19 @@ class GeneticAlgorithm {
 
             newParents.push(...crossed);
         }
-        
+
         return newParents;
     }
 
-    mutate(parents){
+    mutate(parents) {
         return parents.map(parent => {
             const doMutation = this.utils.shouldDoSomething(this.algorithmParams.mutationRate);
 
             return doMutation ? this.solution.mutation(parent) : parent;
         });
     }
-    
-    substitute(parents){
+
+    substitute(parents) {
         this.population = this.solution.substitution(parents, this.population);
     }
 
