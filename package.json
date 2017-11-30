@@ -8,12 +8,20 @@
   "license": "MIT",
   "private": false,
   "scripts": {
+    "gui": "./node_modules/.bin/electron .",
     "test": "./node_modules/.bin/mocha",
     "test:watch": "./node_modules/.bin/mocha --watch --bail"
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "electron": "^1.7.9",
+    "electron-packager": "^10.1.0",
     "mocha": "^ya4.0.1",
     "sinon": "^4.1.2"
+  },
+  "dependencies": {
+    "materialize-css": "^0.100.2",
+    "path": "^0.12.7",
+    "url": "^0.11.0"
   }
 }
