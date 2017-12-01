@@ -136,20 +136,21 @@ describe('GeneticAlgorithm', () => {
                 [9, 1, 6, 9, 6]
             ];
             algorithm.algorithmParams.mutationRate = 50;
-            sinon.stub(algorithm.utils, 'shouldDoSomething');
-            parents.forEach((parent, index) => algorithm.utils.shouldDoSomething.onCall(index).returns(index % 2 === 0));
+            sinon.stub(algorithm.utils, 'getRandomInt');
+            algorithm.utils.getRandomInt.onFirstCall().returns(0);
+            algorithm.utils.getRandomInt.onSecondCall().returns(2);
         });
 
         afterEach(() => {
-            algorithm.utils.shouldDoSomething.restore();
+            algorithm.utils.getRandomInt.restore();
         });
 
-        it('should mutate the parents with mutationRate probability', () => {
+        it('should mutate mutationRate% of the parents randomly', () => {
             algorithm.mutate(parents);
 
             sinon.assert.calledWith(solutionMock.mutation, parents[0]);
             sinon.assert.calledWith(solutionMock.mutation, parents[2]);
-            sinon.assert.alwaysCalledWith(algorithm.utils.shouldDoSomething, 50);
+            sinon.assert.calledTwice(algorithm.utils.getRandomInt);
         });
 
         it('should swap the parent with the mutation if it is mutated and keep the parents that does not have mutated', () => {

@@ -88,8 +88,6 @@ class KnapsackGaSolution {
         while (indexesOfGenesToMutate.size < numberOfGenesToMutate)
             indexesOfGenesToMutate.add(this.utils.getRandomInt(0, knapsack.length - 1));
 
-        console.log(indexesOfGenesToMutate)
-
         return knapsack.map((object, index) => {
             const hasToMutate = (indexesOfGenesToMutate.has(index));
 
