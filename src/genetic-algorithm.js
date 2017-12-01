@@ -38,12 +38,11 @@ class GeneticAlgorithm {
         let newParents = [];
 
         for (let parentIndex in parents) if (parentIndex % 2 === 0) {
-            const doCrossover = this.utils.shouldDoSomething(this.algorithmParams.crossoverRate);
             let crossed, firstParent, secondParent;
 
             firstParent = parents[+parentIndex];
             secondParent = parents[+parentIndex + 1];
-            crossed = doCrossover ? this.solution.crossover(firstParent, secondParent) : [firstParent, secondParent];
+            crossed = this.solution.crossover(firstParent, secondParent);
 
             newParents.push(...crossed);
         }

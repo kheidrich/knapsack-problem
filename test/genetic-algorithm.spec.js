@@ -94,34 +94,33 @@ describe('GeneticAlgorithm', () => {
                 [6, 8, 4, 5, 6],
                 [9, 1, 6, 9, 6]
             ];
-            algorithm.algorithmParams.crossoverRate = 50;
-            sinon.stub(algorithm.utils, 'shouldDoSomething');
-            algorithm.utils.shouldDoSomething.onFirstCall().returns(true);
-            algorithm.utils.shouldDoSomething.onSecondCall().returns(false);
         });
 
-        afterEach(() => {
-            algorithm.utils.shouldDoSomething.restore();
-        });
-
-        it('should crossover parents in pairs with crossoverRate probability', () => {
-            solutionMock.crossover.returns([parents[0], parents[1]]);
+        it('should crossover parents in pairs', () => {
+            solutionMock.crossover.returns([]);
             algorithm.crossover(parents);
             sinon.assert.calledWith(solutionMock.crossover, parents[0], parents[1]);
-            sinon.assert.alwaysCalledWith(algorithm.utils.shouldDoSomething, 50);
+            sinon.assert.calledWith(solutionMock.crossover, parents[2], parents[3]);
         });
 
-        it('should swap the parents with the childs if they are crossed and keep the parents that does not have been crossed', () => {
+        it('should swap the parents with the childs of the crossover', () => {
             let newParents;
-            solutionMock.crossover.returns([[10, 7, 5, 1, 6], [8, 8, 9, 8, 1]]);
+            solutionMock.crossover.onFirstCall().returns([
+                [10, 7, 5, 1, 6],
+                [8, 8, 9, 8, 1]
+            ]);
+            solutionMock.crossover.onSecondCall().returns([
+                [6, 8, 4, 9, 6],
+                [9, 1, 6, 5, 6]
+            ]);
 
             newParents = algorithm.crossover(parents);
 
             expect(newParents).to.eql([
                 [10, 7, 5, 1, 6],
                 [8, 8, 9, 8, 1],
-                [6, 8, 4, 5, 6],
-                [9, 1, 6, 9, 6]
+                [6, 8, 4, 9, 6],
+                [9, 1, 6, 5, 6]
             ]);
         });
     });
@@ -200,7 +199,7 @@ describe('GeneticAlgorithm', () => {
         it('should set the new population', () => {
             let newPopulation = [...population];
             parents.forEach((parent, index) => newPopulation[index] = parent);
-            
+
             solutionMock.substitution.returns(newPopulation);
             algorithm.substitute(parents);
             expect(algorithm.population).to.eql(newPopulation);
