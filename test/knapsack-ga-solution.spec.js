@@ -110,22 +110,16 @@ describe('KnapsackGaSolution', () => {
             solution.objects = objectsMock;
         })
 
-        it('should return (totalValue / maxKnapsackWeight) when knapsack weight is lower than maxKnapsackWeight', () => {
+        it('should return (totalValue - maxKnapsackWeight) when knapsack weight is lower than maxKnapsackWeight', () => {
             let knapsack = [1, 1, 0, 1, 0];
 
-            expect(solution.fitness(knapsack)).to.be.equal(4);
+            expect(solution.fitness(knapsack)).to.be.equal(105);
         });
 
-        it('should return (totalValue / maxKnapsackWeight) when knapsack weight is equal to maxKnapsackWeight', () => {
+        it('should return (totalValue - maxKnapsackWeight) when knapsack weight is equal to maxKnapsackWeight', () => {
             let knapsack = [0, 0, 1, 1, 1];
 
-            expect(solution.fitness(knapsack)).to.be.equal(4);
-        });
-
-        it('should round to 2 decimals places the fitness value', () => {
-            let knapsack = [1, 1, 0, 0, 1];
-
-            expect(solution.fitness(knapsack)).to.be.equal(4.17);
+            expect(solution.fitness(knapsack)).to.be.equal(90);
         });
 
         it('should return 0 when knapsack weight is higher than maxKnapsackWeight', () => {
@@ -155,8 +149,8 @@ describe('KnapsackGaSolution', () => {
 
         it('should compare the selected individuals in pairs and keep the first when it have best fitness', () => {
             let individuals = [
-                [0, 0, 1, 1, 1],
-                [0, 1, 1, 0, 0]
+                [0, 1, 1, 0, 0],
+                [0, 0, 1, 1, 1]
             ];
 
             sinon.stub(solution.utils, 'selectRandomItem');
@@ -169,8 +163,8 @@ describe('KnapsackGaSolution', () => {
 
         it('should compare the selected individuals in pairs and keep the second when it have best fitness', () => {
             let individuals = [
-                [0, 1, 1, 0, 0],
-                [0, 0, 1, 1, 1]
+                [0, 0, 1, 1, 1],
+                [0, 1, 1, 0, 0]
             ];
 
             sinon.stub(solution.utils, 'selectRandomItem');

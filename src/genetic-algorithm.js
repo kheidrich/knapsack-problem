@@ -38,12 +38,11 @@ class GeneticAlgorithm {
         let newParents = [];
 
         for (let parentIndex in parents) if (parentIndex % 2 === 0) {
-            const doCrossover = this.utils.shouldDoSomething(this.algorithmParams.crossoverRate);
             let crossed, firstParent, secondParent;
 
             firstParent = parents[+parentIndex];
             secondParent = parents[+parentIndex + 1];
-            crossed = doCrossover ? this.solution.crossover(firstParent, secondParent) : [firstParent, secondParent];
+            crossed = this.solution.crossover(firstParent, secondParent);
 
             newParents.push(...crossed);
         }
@@ -52,10 +51,16 @@ class GeneticAlgorithm {
     }
 
     mutate(parents) {
-        return parents.map(parent => {
-            const doMutation = this.utils.shouldDoSomething(this.algorithmParams.mutationRate);
+        const numberOfParentsToMutate = Math.round(parents.length * this.algorithmParams.mutationRate / 100);
+        const indexesOfParentsToMutate = new Set();
 
-            return doMutation ? this.solution.mutation(parent) : parent;
+        while(indexesOfParentsToMutate.size < numberOfParentsToMutate)
+            indexesOfParentsToMutate.add(this.utils.getRandomInt(0, parents.length));
+
+        return parents.map((parent, index) => {
+            const hasToMutate = indexesOfParentsToMutate.has(index);
+
+            return hasToMutate ? this.solution.mutation(parent) : parent;
         });
     }
 
