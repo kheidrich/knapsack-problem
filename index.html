@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -11,38 +11,112 @@
 
     <link rel="stylesheet"
           href="node_modules/materialize-css/dist/css/materialize.css">
+    <link rel="stylesheet"
+          href="assets/css/material-icons.css">
 
-    <style>
-        html, body, main {
-            height: 100%;
+    <script>
+        require('jquery');
+        require('hammerjs');
+        require('materialize-css');
+        // require('materialize-css/dist/css/materialize.css');
+
+        $(document).ready(() => {
+            $('.collapsible').collapsible();
+        });
+        // $('form')[0].submit((e) => {
+        //     console.log('macru');
+        //     e.preventDefault();
+        // })
+    </script>
+
+    <script>
+        function startSolution() {
+            console.log('adssadsad')
+            // return true
         }
-    </style>
+    </script>
 
-    <title>Knapsack problem</title>
+    <title>Problema da mochila</title>
 </head>
 
-<body>
+<body class="red lighten-4">
 
     <nav>
-        <div class="nav-wrapper red lighten-3">
+        <div class="nav-wrapper red accent-2">
             <a class="brand-logo center">
-                Que qui é alemão
-                <!-- <h2 class="white-text">Que qui é alemão</h2> -->
+                Problema da mochilaw
             </a>
         </div>
     </nav>
 
-    <main class="container">
-        <div class="card">
-            <div class="card-content">
-                <p>kekekekekek</p>
+    <main>
+        <div class="row">
+            <div class="col s5">
+                <form name="knapsackParameters"
+                      onsubmit="startSolution()">
+                    <ul class="collection with-header z-depth-1">
+                        <li class="collection-header">
+                            <div class="center">
+                                <i class="medium material-icons">assignment</i>
+                            </div>
+                            <h5 class="center">Configurações da mochila</h5>
+                        </li>
+                        <li class="collection-item">
+
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <label for="maxKnapsackWeight">Peso máximo</label>
+                                    <input type="number"
+                                           class="validate"
+                                           min="1"
+                                           max="200"
+                                           id="maxKnapsackWeight" />
+                                </div>
+                                <div class="input-field col s6">
+                                    <label for="numberOfObjects">Número de objetos</label>
+                                    <input type="number"
+                                           id="numberOfObjects">
+                                </div>
+                            </div>
+
+                        </li>
+                    </ul>
+                    <ul class="collection with-header z-depth-1">
+                        <li class="collection-header">
+                            <div class="center">
+                                <i class="medium material-icons">timeline</i>
+                            </div>
+                            <h5 class="center">Parâmetros genéticos</h5>
+                        </li>
+                        <li class="collection-item">
+
+                        </li>
+                    </ul>
+                    <div class="center">
+                        <button class="waves-effect waves-light red accent-2 btn"
+                                type="submit">
+                            <i class="material-icons right">check</i>Solucionar
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col s7">
+                <div class="card">
+                    <div class="card-content">
+                        <ul class="collection with-header">
+                            <li class="collection-header">
+                                <h4>First Names</h4>
+                            </li>
+                            <li class="collection-item">Alvin</li>
+                            <li class="collection-item">Alvin</li>
+                            <li class="collection-item">Alvin</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
-    <!-- <script src="libs/jquery-3.2.1.js"></script>
-    <script src="libs/materialize/js/materialize.js"></script> -->
-    <script>require('jquery');require('hammerjs');require('materialize-css')</script>
 </body>
 
 </html>
