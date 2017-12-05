@@ -12,27 +12,44 @@
     <link rel="stylesheet"
           href="node_modules/materialize-css/dist/css/materialize.css">
     <link rel="stylesheet"
+          href="node_modules/materialize-css/extras/noUiSlider/noUiSlider.css">
+    <link rel="stylesheet"
           href="assets/css/material-icons.css">
+    
+    <script src="node_modules/materialize-css/extras/noUiSlider/noUiSlider.js"></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/hammerjs/hammer.js"></script>
+    <script src="node_modules/materialize-css/dist/js/materialize.js"></script>
 
     <script>
-        require('jquery');
-        require('hammerjs');
-        require('materialize-css');
-        // require('materialize-css/dist/css/materialize.css');
-
         $(document).ready(() => {
             $('.collapsible').collapsible();
+
+            $('#knapsackParameters').submit(startSolution);
+
+            var slider = document.getElementById('test-slider');
+            noUiSlider.create(slider, {
+                start: [150, 350],
+                connect: true,
+                step: 1,
+                orientation: 'horizontal',
+                margin: 50,
+                range: {
+                    'min': 1,
+                    'max': 500
+                },
+                tooltips: true,
+                format: wNumb({
+                    decimals: 0
+                })
+            });
         });
-        // $('form')[0].submit((e) => {
-        //     console.log('macru');
-        //     e.preventDefault();
-        // })
     </script>
 
     <script>
         function startSolution() {
             console.log('adssadsad')
-            // return true
+            return false;
         }
     </script>
 
@@ -44,7 +61,7 @@
     <nav>
         <div class="nav-wrapper red accent-2">
             <a class="brand-logo center">
-                Problema da mochilaw
+                Problema da mochila
             </a>
         </div>
     </nav>
@@ -52,8 +69,8 @@
     <main>
         <div class="row">
             <div class="col s5">
-                <form name="knapsackParameters"
-                      onsubmit="startSolution()">
+                <form id="knapsackParameters"
+                      name="knapsackParameters">
                     <ul class="collection with-header z-depth-1">
                         <li class="collection-header">
                             <div class="center">
@@ -64,18 +81,29 @@
                         <li class="collection-item">
 
                             <div class="row">
-                                <div class="input-field col s6">
-                                    <label for="maxKnapsackWeight">Peso máximo</label>
-                                    <input type="number"
+                                <div class="range-field col s6">
+                                    <label for="maxKnapsackWeight">Peso máximo (kg)</label>
+                                    <input type="range"
                                            class="validate"
-                                           min="1"
+                                           min="50"
                                            max="200"
+                                           required
+                                           data-error="Peso máximo deve estar entre 50kg e 200kg"
                                            id="maxKnapsackWeight" />
                                 </div>
                                 <div class="input-field col s6">
-                                    <label for="numberOfObjects">Número de objetos</label>
                                     <input type="number"
+                                           class="validate"
+                                           min="5"
+                                           max="1000"
+                                           required
                                            id="numberOfObjects">
+                                    <label for="numberOfObjects">Número de objetos</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div id="test-slider"></div>
                                 </div>
                             </div>
 
