@@ -15,7 +15,7 @@
           href="node_modules/materialize-css/extras/noUiSlider/noUiSlider.css">
     <link rel="stylesheet"
           href="assets/css/material-icons.css">
-    
+
     <script src="node_modules/materialize-css/extras/noUiSlider/noUiSlider.js"></script>
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="node_modules/hammerjs/hammer.js"></script>
@@ -27,8 +27,24 @@
 
             $('#knapsackParameters').submit(startSolution);
 
-            var slider = document.getElementById('test-slider');
+            var slider = document.getElementById('objectsValue');
+            var weight = document.getElementById('objectsWeight');
             noUiSlider.create(slider, {
+                start: [150, 350],
+                connect: true,
+                step: 1,
+                orientation: 'horizontal',
+                margin: 50,
+                range: {
+                    'min': 1,
+                    'max': 500
+                },
+                tooltips: true,
+                format: wNumb({
+                    decimals: 0
+                })
+            });
+            noUiSlider.create(weight, {
                 start: [150, 350],
                 connect: true,
                 step: 1,
@@ -53,6 +69,21 @@
         }
     </script>
 
+    <style>
+        .no-ui-slider {
+            margin: 15px 0;
+        }
+
+        .collapsible-header>span {
+            font-size: 24px;
+            padding-left: 5px;
+        }
+
+        .collapsible-header>i {
+            font-size: 32px;
+        }
+    </style>
+
     <title>Problema da mochila</title>
 </head>
 
@@ -67,68 +98,108 @@
     </nav>
 
     <main>
-        <div class="row">
-            <div class="col s5">
-                <form id="knapsackParameters"
-                      name="knapsackParameters">
-                    <ul class="collection with-header z-depth-1">
-                        <li class="collection-header">
-                            <div class="center">
-                                <i class="medium material-icons">assignment</i>
+        <form id="knapsackParameters"
+              name="knapsackParameters">
+            <div class="row">
+                <div class="col s6">
+                    <ul class="collapsible"
+                        data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header">
+                                <i class="material-icons left">assignment</i>
+                                <span>Configurações da mochila</span>
                             </div>
-                            <h5 class="center">Configurações da mochila</h5>
-                        </li>
-                        <li class="collection-item">
-
-                            <div class="row">
-                                <div class="range-field col s6">
-                                    <label for="maxKnapsackWeight">Peso máximo (kg)</label>
-                                    <input type="range"
-                                           class="validate"
-                                           min="50"
-                                           max="200"
-                                           required
-                                           data-error="Peso máximo deve estar entre 50kg e 200kg"
-                                           id="maxKnapsackWeight" />
+                            <div class="collapsible-body white">
+                                <div class="row">
+                                    <div class="range-field col s12">
+                                        <label for="maxKnapsackWeight">Peso máximo da mochila: 100 kg</label>
+                                        <input type="range"
+                                               class="validate"
+                                               min="50"
+                                               max="200"
+                                               required
+                                               data-error="Peso máximo deve estar entre 50kg e 200kg"
+                                               id="maxKnapsackWeight" />
+                                    </div>
                                 </div>
-                                <div class="input-field col s6">
-                                    <input type="number"
-                                           class="validate"
-                                           min="5"
-                                           max="1000"
-                                           required
-                                           id="numberOfObjects">
-                                    <label for="numberOfObjects">Número de objetos</label>
+                                <div class="row">
+                                    <div class="range-field col s12">
+                                        <label for="maxKnapsackWeight">Número de objetos: 100</label>
+                                        <input type="range"
+                                               class="validate"
+                                               min="50"
+                                               max="1000"
+                                               required
+                                               data-error="Peso máximo deve estar entre 50kg e 200kg"
+                                               id="maxKnapsackWeight" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <label for="objectsValue">Valor dos objetos: R$ 100,00 ~ R$ 500,00</label>
+                                        <div id="objectsValue"
+                                             class="no-ui-slider"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 range-field">
+                                        <label for="objectsWeight">Peso dos objetos: 5 kg ~ 20 kg</label>
+                                        <div id="objectsWeight"
+                                             class="no-ui-slider"></div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col s12">
-                                    <div id="test-slider"></div>
-                                </div>
-                            </div>
-
                         </li>
                     </ul>
-                    <ul class="collection with-header z-depth-1">
-                        <li class="collection-header">
-                            <div class="center">
-                                <i class="medium material-icons">timeline</i>
+                </div>
+                <div class="col s6">
+                    <ul class="collapsible"
+                        data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header">
+                                <i class="medium material-icons left">timeline</i>
+                                <span>Parâmetros genéticos</span>
                             </div>
-                            <h5 class="center">Parâmetros genéticos</h5>
-                        </li>
-                        <li class="collection-item">
+                            <div class="collapsible-body white">
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
 
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+                                <p>kakakakakakaka</p>
+
+                            </div>
                         </li>
                     </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
                     <div class="center">
                         <button class="waves-effect waves-light red accent-2 btn"
                                 type="submit">
                             <i class="material-icons right">check</i>Solucionar
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
-            <div class="col s7">
+        </form>
+        <div class="row">
+            <div class="col s12">
                 <div class="card">
                     <div class="card-content">
                         <ul class="collection with-header">
