@@ -2,8 +2,8 @@ const chai = require('chai');
 const sinon = require('sinon');
 const expect = chai.expect;
 
-const GeneticAlgorithm = require('../src/genetic-algorithm');
-const AlgorithmParameters = require('../src/algorithm-parameters');
+const GeneticAlgorithm = require('../src/core/genetic-algorithm');
+const AlgorithmParameters = require('../src/core/algorithm-parameters');
 
 describe('GeneticAlgorithm', () => {
     let algorithm;
