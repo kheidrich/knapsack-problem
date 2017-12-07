@@ -27,6 +27,7 @@
     <script>
         $(document).ready(() => {
             $('.collapsible').collapsible();
+            $('select').material_select();
 
             $('#knapsackParameters').submit(startSolution);
         });
@@ -80,7 +81,7 @@
                             </div>
                             <div class="collapsible-body white">
                                 <div class="row">
-                                    <div class="range-field col s12">
+                                    <div class="range-field col s6">
                                         <label for="maxKnapsackWeight">
                                             Peso máximo da mochila:
                                             <b>100 kg</b>
@@ -90,13 +91,12 @@
                                                min="50"
                                                max="300"
                                                value="100"
+                                               step="5"
                                                oninput="updateInnerHtml('label[for=maxKnapsackWeight]', `Peso máximo da mochila: <b>${this.value} kg</b>`)"
                                     
                                                id="maxKnapsackWeight" />
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="range-field col s12">
+                                    <div class="range-field col s6">
                                         <label for="numberOfObjects">
                                             Número de objetos:
                                             <b>20</b>
@@ -106,21 +106,18 @@
                                                min="10"
                                                max="100"
                                                value="20"
+                                               step="5"
                                                oninput="updateInnerHtml('label[for=numberOfObjects]', `Número de objetos: <b>${this.value}</b>`)"
                                     
                                                id="numberOfObjects" />
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col s12">
+                                    <div class="col s12 range-field">
                                         <script>
                                             $(document).ready(() => {
-                                                let valueSlider = createSlider(
-                                                    document.getElementById('objectsValue'),
-                                                    { step: 5, min: 5, max: 500 }
-                                                );
-
-                                                getSliderValuesTruncatedOnUpdate(valueSlider, (min, max) => {
+                                                createSlider('objectsValue', { step: 5, min: 5, max: 500 });
+                                                getSliderValuesTruncatedOnUpdate('objectsValue', (min, max) => {
                                                     updateInnerHtml('label[for="objectsValue"]', `Valor dos objetos:  <b>R$ ${min}.00 ~ R$ ${max}.00</b>`);
                                                 });
                                             });
@@ -137,12 +134,8 @@
                                     <div class="col s12 range-field">
                                         <script>
                                             $(document).ready(() => {
-                                                let weightSlider = createSlider(
-                                                    document.getElementById('objectsWeight'),
-                                                    { step: 1, min: 1, max: 30 }
-                                                );
-
-                                                getSliderValuesTruncatedOnUpdate(weightSlider, (min, max) => {
+                                                createSlider('objectsWeight', { step: 1, min: 1, max: 30 });
+                                                getSliderValuesTruncatedOnUpdate('objectsWeight', (min, max) => {
                                                     updateInnerHtml('label[for="objectsWeight"]', `Valor dos objetos:  <b>${min} kg ~ ${max} kg</b>`);
                                                 });
                                             });
@@ -168,27 +161,97 @@
                                 <span>Parâmetros genéticos</span>
                             </div>
                             <div class="collapsible-body white">
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-                                <p>kakakakakakaka</p>
-
+                                <div class="row">
+                                    <div class="range-field col s6">
+                                        <label for="populationSize">
+                                            Tamanho da população:
+                                            <b>100 indivíduos</b>
+                                        </label>
+                                        <input type="range"
+                                               class="validate"
+                                               min="50"
+                                               max="1000"
+                                               value="100"
+                                               step="50"
+                                               oninput="updateInnerHtml('label[for=populationSize]', `Tamanho da população: <b>${this.value} indivíduos</b>`)"
+                                    
+                                               id="populationSize" />
+                                    </div>
+                                    <div class="range-field col s6">
+                                        <label for="generationInterval">
+                                            Intervalo de geração:
+                                            <b>50%</b>
+                                        </label>
+                                        <input type="range"
+                                               class="validate"
+                                               min="0"
+                                               max="100"
+                                               value="50"
+                                               oninput="updateInnerHtml('label[for=generationInterval]', `Intervalo de geração: <b>${this.value}%</b>`)"
+                                    
+                                               id="generationInterval" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="range-field col s6">
+                                        <label for="mutationRate">
+                                            Taxa de mutação:
+                                            <b>50%</b>
+                                        </label>
+                                        <input type="range"
+                                               class="validate"
+                                               min="0"
+                                               max="100"
+                                               value="50"
+                                               oninput="updateInnerHtml('label[for=mutationRate]', `Taxa de mutação: <b>${this.value}%</b>`)"
+                                    
+                                               id="mutationRate" />
+                                    </div>
+                                    <div class="range-field col s6">
+                                        <label for="geneMutationRate">
+                                            Quantidade de genes que irão mutar:
+                                            <b>50%</b>
+                                        </label>
+                                        <input type="range"
+                                               class="validate"
+                                               min="0"
+                                               max="100"
+                                               value="50"
+                                               oninput="updateInnerHtml('label[for=geneMutationRate]', `Quantidade de genes que irão mutar: <b>${this.value}%</b>`)"
+                                    
+                                               id="geneMutationRate" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <select name="parentSelectionMethod"
+                                                id="parentSelectionMethod">
+                                            <option value="tournament">Torneio</option>
+                                        </select>
+                                        <label for="parentSelectionMethod">Seleção dos pais</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <select name="crossoverMethod"
+                                                id="crossoverMethod">
+                                            <option value="onepoint">Um ponto</option>
+                                        </select>
+                                        <label for="crossoverMethod">Método de crossover</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s8">
+                                        <select name="stopCriteria"
+                                                id="stopCriteria">
+                                            <option value="iterations">Número de iterações</option>
+                                        </select>
+                                        <label for="stopCriteria">Critério de parada</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input type="number"
+                                               min="1"
+                                               name="stopCriteriaParameter">
+                                    </div>
+                                </div>
                             </div>
                         </li>
                     </ul>

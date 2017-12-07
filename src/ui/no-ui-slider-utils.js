@@ -1,4 +1,5 @@
-function createSlider(element, { step, min, max }) {
+function createSlider(elementId, { step, min, max }) {
+    let slider = document.getElementById(elementId);
     let options = {
         start: [Math.trunc(max * 30 / 100), Math.trunc(max * 70 / 100)],
         connect: true,
@@ -12,14 +13,16 @@ function createSlider(element, { step, min, max }) {
         range: { min, max },
     };
 
-    noUiSlider.create(element, options);
-    return element.noUiSlider;
+    noUiSlider.create(slider, options);
 }
 
 function getSliderValuesTruncatedOnUpdate(slider, callback) {
+function getSliderValuesTruncatedOnUpdate(sliderId, callback) {
+    let slider = document.getElementById(sliderId).noUiSlider;
+
     slider.on('update', () => {
-        let [start, end] = slider.get().map(value => Math.trunc(value));
+        let values = slider.get().map(value => Math.trunc(value));
         
-        callback(start, end);
+        callback(...values);
     });
 }
