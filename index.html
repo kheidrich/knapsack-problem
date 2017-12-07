@@ -25,13 +25,12 @@
     <script src="src/ui/no-ui-slider-utils.js"></script>
 
     <script src="src/core/knapsack-parameters.js"></script>
+    <script src="src/core/algorithm-parameters.js"></script>
 
     <script>
         $(document).ready(() => {
             $('.collapsible').collapsible();
             $('select').material_select();
-
-            $('#knapsackParameters').submit(startSolution);
         });
     </script>
 
@@ -43,15 +42,16 @@
 
         function getAllParameters() {
             let knapsackParameters = new KnapsackParameters();
+            let algorithmParameters = new AlgorithmParameters();
 
             knapsackParameters.maxKnapsackWeight = +$('#maxKnapsackWeight').val();
             knapsackParameters.numberOfObjects = +$('#numberOfObjects').val();
             [knapsackParameters.minObjectValue, knapsackParameters.maxObjectValue] = getTruncatedSliderValues('objectsValue');
-            [knapsackParameters.minObjectWeight, knapsackParameters.maxObjectWeight] =  getTruncatedSliderValues('objectsWeight');
+            [knapsackParameters.minObjectWeight, knapsackParameters.maxObjectWeight] = getTruncatedSliderValues('objectsWeight');
 
-            console.log(knapsackParameters);
-        }
-    </script>
+            algorithmParameters.populationSize = +$('#populationSize').val();
+            algorithmParameters.generationInterval = +$('#generationInterval').val();
+            algorithmParameters.mutationRate = +$('#mutationRate').val();
 
     <style>
         .no-ui-slider {
@@ -65,8 +65,10 @@
 
         .collapsible-header>i {
             font-size: 32px;
+            console.log(algorithmParameters);
         }
     </style>
+    </script>
 
     <title>Problema da mochila</title>
 </head>
