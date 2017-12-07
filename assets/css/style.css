@@ -1,0 +1,18 @@
+.no-ui-slider {
+    margin: 15px 0;
+}
+
+.collapsible-header>i+span {
+    font-size: 24px;
+    padding-left: 5px;
+}
+
+.collapsible-header>i {
+    font-size: 32px;
+}
+
+@media screen and (max-width: 600px) {
+    *+.range-field.col.s12 {
+        margin-top: 20px;
+    }
+}

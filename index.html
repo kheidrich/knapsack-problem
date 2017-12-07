@@ -8,18 +8,20 @@
     <meta http-equiv="X-UA-Compatible"
           content="ie=edge">
 
-
     <link rel="stylesheet"
           href="node_modules/materialize-css/dist/css/materialize.css">
     <link rel="stylesheet"
           href="node_modules/materialize-css/extras/noUiSlider/noUiSlider.css">
-    <link rel="stylesheet"
-          href="assets/css/material-icons.css">
 
     <script src="node_modules/materialize-css/extras/noUiSlider/noUiSlider.js"></script>
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="node_modules/hammerjs/hammer.js"></script>
     <script src="node_modules/materialize-css/dist/js/materialize.js"></script>
+
+    <link rel="stylesheet"
+          href="assets/css/style.css">
+    <link rel="stylesheet"
+          href="assets/css/material-icons.css">
 
     <script src="src/ui/dom-utils.js"></script>
     <script src="src/ui/no-ui-slider-utils.js"></script>
@@ -53,21 +55,9 @@
             algorithmParameters.generationInterval = +$('#generationInterval').val();
             algorithmParameters.mutationRate = +$('#mutationRate').val();
 
-    <style>
-        .no-ui-slider {
-            margin: 15px 0;
-        }
 
-        .collapsible-header>i+span {
-            font-size: 24px;
-            padding-left: 5px;
-        }
-
-        .collapsible-header>i {
-            font-size: 32px;
             console.log(algorithmParameters);
         }
-    </style>
     </script>
 
     <title>Problema da mochila</title>
@@ -86,7 +76,7 @@
     <main>
         <section id="parameters">
             <div class="row">
-                <div class="col s6">
+                <div class="col s12 l6">
                     <ul class="collapsible"
                         data-collapsible="accordion">
                         <li>
@@ -96,7 +86,7 @@
                             </div>
                             <div class="collapsible-body white">
                                 <div class="row">
-                                    <div class="range-field col s6">
+                                    <div class="range-field col s12 m6">
                                         <label for="maxKnapsackWeight">
                                             Peso máximo da mochila:
                                             <b>100 kg</b>
@@ -111,7 +101,7 @@
                                     
                                                id="maxKnapsackWeight" />
                                     </div>
-                                    <div class="range-field col s6">
+                                    <div class="range-field col s12 m6">
                                         <label for="numberOfObjects">
                                             Número de objetos:
                                             <b>20</b>
@@ -128,7 +118,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col s12 range-field">
+                                    <div class="range-field col s12">
                                         <script>
                                             $(document).ready(() => {
                                                 createSlider('objectsValue', { step: 5, min: 5, max: 500 });
@@ -146,7 +136,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col s12 range-field">
+                                    <div class="range-field col s12">
                                         <script>
                                             $(document).ready(() => {
                                                 createSlider('objectsWeight', { step: 1, min: 1, max: 30 });
@@ -167,7 +157,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col s6">
+                <div class="col s12 l6">
                     <ul class="collapsible"
                         data-collapsible="accordion">
                         <li>
@@ -177,9 +167,9 @@
                             </div>
                             <div class="collapsible-body white">
                                 <div class="row">
-                                    <div class="range-field col s6">
+                                    <div class="range-field col s12 m6">
                                         <label for="populationSize">
-                                            Tamanho da população:
+                                            População:
                                             <b>100 indivíduos</b>
                                         </label>
                                         <input type="range"
@@ -188,11 +178,11 @@
                                                max="1000"
                                                value="100"
                                                step="50"
-                                               oninput="updateInnerHtml('label[for=populationSize]', `Tamanho da população: <b>${this.value} indivíduos</b>`)"
+                                               oninput="updateInnerHtml('label[for=populationSize]', `População: <b>${this.value} indivíduos</b>`)"
                                     
                                                id="populationSize" />
                                     </div>
-                                    <div class="range-field col s6">
+                                    <div class="range-field col s12 m6">
                                         <label for="generationInterval">
                                             Intervalo de geração:
                                             <b>50%</b>
@@ -208,7 +198,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="range-field col s6">
+                                    <div class="range-field col s12 m6">
                                         <label for="mutationRate">
                                             Taxa de mutação:
                                             <b>50%</b>
@@ -222,9 +212,9 @@
                                     
                                                id="mutationRate" />
                                     </div>
-                                    <div class="range-field col s6">
+                                    <div class="range-field col s12 m6">
                                         <label for="geneMutationRate">
-                                            Quantidade de genes que irão mutar:
+                                            Genes que irão mutar:
                                             <b>50%</b>
                                         </label>
                                         <input type="range"
@@ -232,20 +222,20 @@
                                                min="0"
                                                max="100"
                                                value="50"
-                                               oninput="updateInnerHtml('label[for=geneMutationRate]', `Quantidade de genes que irão mutar: <b>${this.value}%</b>`)"
+                                               oninput="updateInnerHtml('label[for=geneMutationRate]', `Genes que irão mutar: <b>${this.value}%</b>`)"
                                     
                                                id="geneMutationRate" />
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s12 m6">
                                         <select name="parentSelectionMethod"
                                                 id="parentSelectionMethod">
                                             <option value="tournament">Torneio</option>
                                         </select>
                                         <label for="parentSelectionMethod">Seleção dos pais</label>
                                     </div>
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s12 m6">
                                         <select name="crossoverMethod"
                                                 id="crossoverMethod">
                                             <option value="onepoint">Um ponto</option>
@@ -254,14 +244,14 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="input-field col s8">
+                                    <div class="input-field col s6 m8">
                                         <select name="stopCriteria"
                                                 id="stopCriteria">
                                             <option value="iterations">Número de iterações</option>
                                         </select>
                                         <label for="stopCriteria">Critério de parada</label>
                                     </div>
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s6 m4">
                                         <input type="number"
                                                min="1"
                                                name="stopCriteriaParameter">
@@ -270,6 +260,46 @@
                             </div>
                         </li>
                     </ul>
+                </div>
+            </div>
+        </section>
+        <section id="solutionInfo">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s6">
+                                    <ul class="collection with-header">
+                                        <li class="collection-header">
+                                            <h4 class="center">População inicial</h4>
+                                        </li>
+                                        <li class="collection-item">
+                                            <ul class="collapsible">
+                                                <li>
+
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <ul class="collection with-header">
+                                        <li class="collection-header">
+                                            <h4 class="center">População final</h4>
+                                        </li>
+                                        <li class="collection-item">Alvin</li>
+                                    </ul>
+                                </div>
+                                <div class="col s6">
+                                    <ul class="collection with-header">
+                                        <li class="collection-header">
+                                            <h4 class="center">Solução</h4>
+                                        </li>
+                                        <li class="collection-item">Alvin</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -284,26 +314,7 @@
                 </div>
             </div>
         </section>
-        <section id="solutionInfo">
-            <div class="row">
-                <div class="col s12">
-                    <div class="card">
-                        <div class="card-content">
-                            <ul class="collection with-header">
-                                <li class="collection-header">
-                                    <h4>First Names</h4>
-                                </li>
-                                <li class="collection-item">Alvin</li>
-                                <li class="collection-item">Alvin</li>
-                                <li class="collection-item">Alvin</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
-
 </body>
 
 </html>
