@@ -16,7 +16,12 @@ function createSlider(elementId, { step, min, max }) {
     noUiSlider.create(slider, options);
 }
 
-function getSliderValuesTruncatedOnUpdate(slider, callback) {
+function getTruncatedSliderValues(sliderId){
+    let slider = document.getElementById(sliderId).noUiSlider;
+
+    return slider.get().map(value => Math.trunc(value));
+}
+
 function getSliderValuesTruncatedOnUpdate(sliderId, callback) {
     let slider = document.getElementById(sliderId).noUiSlider;
 

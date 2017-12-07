@@ -24,6 +24,8 @@
     <script src="src/ui/dom-utils.js"></script>
     <script src="src/ui/no-ui-slider-utils.js"></script>
 
+    <script src="src/core/knapsack-parameters.js"></script>
+
     <script>
         $(document).ready(() => {
             $('.collapsible').collapsible();
@@ -37,6 +39,17 @@
         function startSolution() {
             console.log('adssadsad')
             return false;
+        }
+
+        function getAllParameters() {
+            let knapsackParameters = new KnapsackParameters();
+
+            knapsackParameters.maxKnapsackWeight = +$('#maxKnapsackWeight').val();
+            knapsackParameters.numberOfObjects = +$('#numberOfObjects').val();
+            [knapsackParameters.minObjectValue, knapsackParameters.maxObjectValue] = getTruncatedSliderValues('objectsValue');
+            [knapsackParameters.minObjectWeight, knapsackParameters.maxObjectWeight] =  getTruncatedSliderValues('objectsWeight');
+
+            console.log(knapsackParameters);
         }
     </script>
 
@@ -69,7 +82,7 @@
     </nav>
 
     <main>
-        <section>
+        <section id="parameters">
             <div class="row">
                 <div class="col s6">
                     <ul class="collapsible"
@@ -261,6 +274,7 @@
                 <div class="col s12">
                     <div class="center">
                         <button class="waves-effect waves-light red accent-2 btn"
+                                onclick="getAllParameters()"
                                 type="button">
                             <i class="material-icons right">check</i>Solucionar
                         </button>
@@ -268,7 +282,7 @@
                 </div>
             </div>
         </section>
-        <section>
+        <section id="solutionInfo">
             <div class="row">
                 <div class="col s12">
                     <div class="card">
