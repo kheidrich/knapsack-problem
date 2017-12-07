@@ -21,44 +21,14 @@
     <script src="node_modules/hammerjs/hammer.js"></script>
     <script src="node_modules/materialize-css/dist/js/materialize.js"></script>
 
+    <script src="src/ui/dom-utils.js"></script>
+    <script src="src/ui/no-ui-slider-utils.js"></script>
+
     <script>
         $(document).ready(() => {
             $('.collapsible').collapsible();
 
             $('#knapsackParameters').submit(startSolution);
-
-            var slider = document.getElementById('objectsValue');
-            var weight = document.getElementById('objectsWeight');
-            noUiSlider.create(slider, {
-                start: [150, 350],
-                connect: true,
-                step: 1,
-                orientation: 'horizontal',
-                margin: 50,
-                range: {
-                    'min': 1,
-                    'max': 500
-                },
-                tooltips: true,
-                format: wNumb({
-                    decimals: 0
-                })
-            });
-            noUiSlider.create(weight, {
-                start: [150, 350],
-                connect: true,
-                step: 1,
-                orientation: 'horizontal',
-                margin: 50,
-                range: {
-                    'min': 1,
-                    'max': 500
-                },
-                tooltips: true,
-                format: wNumb({
-                    decimals: 0
-                })
-            });
         });
     </script>
 
@@ -74,7 +44,7 @@
             margin: 15px 0;
         }
 
-        .collapsible-header>span {
+        .collapsible-header>i+span {
             font-size: 24px;
             padding-left: 5px;
         }
@@ -98,8 +68,7 @@
     </nav>
 
     <main>
-        <form id="knapsackParameters"
-              name="knapsackParameters">
+        <section>
             <div class="row">
                 <div class="col s6">
                     <ul class="collapsible"
@@ -112,38 +81,76 @@
                             <div class="collapsible-body white">
                                 <div class="row">
                                     <div class="range-field col s12">
-                                        <label for="maxKnapsackWeight">Peso máximo da mochila: 100 kg</label>
+                                        <label for="maxKnapsackWeight">
+                                            Peso máximo da mochila:
+                                            <b>100 kg</b>
+                                        </label>
                                         <input type="range"
                                                class="validate"
                                                min="50"
-                                               max="200"
-                                               required
-                                               data-error="Peso máximo deve estar entre 50kg e 200kg"
+                                               max="300"
+                                               value="100"
+                                               oninput="updateInnerHtml('label[for=maxKnapsackWeight]', `Peso máximo da mochila: <b>${this.value} kg</b>`)"
+                                    
                                                id="maxKnapsackWeight" />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="range-field col s12">
-                                        <label for="maxKnapsackWeight">Número de objetos: 100</label>
+                                        <label for="numberOfObjects">
+                                            Número de objetos:
+                                            <b>20</b>
+                                        </label>
                                         <input type="range"
                                                class="validate"
-                                               min="50"
-                                               max="1000"
-                                               required
-                                               data-error="Peso máximo deve estar entre 50kg e 200kg"
-                                               id="maxKnapsackWeight" />
+                                               min="10"
+                                               max="100"
+                                               value="20"
+                                               oninput="updateInnerHtml('label[for=numberOfObjects]', `Número de objetos: <b>${this.value}</b>`)"
+                                    
+                                               id="numberOfObjects" />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col s12">
-                                        <label for="objectsValue">Valor dos objetos: R$ 100,00 ~ R$ 500,00</label>
+                                        <script>
+                                            $(document).ready(() => {
+                                                let valueSlider = createSlider(
+                                                    document.getElementById('objectsValue'),
+                                                    { step: 5, min: 5, max: 500 }
+                                                );
+
+                                                getSliderValuesTruncatedOnUpdate(valueSlider, (min, max) => {
+                                                    updateInnerHtml('label[for="objectsValue"]', `Valor dos objetos:  <b>R$ ${min}.00 ~ R$ ${max}.00</b>`);
+                                                });
+                                            });
+                                        </script>
+                                        <label for="objectsValue">
+                                            Valor dos objetos:
+                                            <b>R$ 0,00 ~ R$ 500,00</b>
+                                        </label>
                                         <div id="objectsValue"
                                              class="no-ui-slider"></div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col s12 range-field">
-                                        <label for="objectsWeight">Peso dos objetos: 5 kg ~ 20 kg</label>
+                                        <script>
+                                            $(document).ready(() => {
+                                                let weightSlider = createSlider(
+                                                    document.getElementById('objectsWeight'),
+                                                    { step: 1, min: 1, max: 30 }
+                                                );
+
+                                                getSliderValuesTruncatedOnUpdate(weightSlider, (min, max) => {
+                                                    updateInnerHtml('label[for="objectsWeight"]', `Valor dos objetos:  <b>${min} kg ~ ${max} kg</b>`);
+                                                });
+                                            });
+                                        </script>
+                                        <label for="objectsWeight">
+                                            Peso dos objetos:
+                                            <b> 0 kg ~ 20 kg</b>
+                                        </label>
                                         <div id="objectsWeight"
                                              class="no-ui-slider"></div>
                                     </div>
@@ -191,29 +198,31 @@
                 <div class="col s12">
                     <div class="center">
                         <button class="waves-effect waves-light red accent-2 btn"
-                                type="submit">
+                                type="button">
                             <i class="material-icons right">check</i>Solucionar
                         </button>
                     </div>
                 </div>
             </div>
-        </form>
-        <div class="row">
-            <div class="col s12">
-                <div class="card">
-                    <div class="card-content">
-                        <ul class="collection with-header">
-                            <li class="collection-header">
-                                <h4>First Names</h4>
-                            </li>
-                            <li class="collection-item">Alvin</li>
-                            <li class="collection-item">Alvin</li>
-                            <li class="collection-item">Alvin</li>
-                        </ul>
+        </section>
+        <section>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <ul class="collection with-header">
+                                <li class="collection-header">
+                                    <h4>First Names</h4>
+                                </li>
+                                <li class="collection-item">Alvin</li>
+                                <li class="collection-item">Alvin</li>
+                                <li class="collection-item">Alvin</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
 
 </body>
