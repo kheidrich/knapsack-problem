@@ -1,0 +1,25 @@
+<header title="Problema da mochila"></header>
+
+<div class="row">
+    <div class="col s12 l6">
+        <knapsack-parameters ng-model="App.knapsackParameters"
+                             ng-change="App.updateParameters()">
+        </knapsack-parameters>
+    </div>
+    <div class="col s12 l6">
+        <genetic-parameters ng-model="App.geneticParameters"
+                              ng-change="App.updateParameters()">
+        </genetic-parameters>
+    </div>
+    <div class="row">
+            <div class="col s12">
+                  <div class="center">
+                        <button class="waves-effect waves-light red accent-2 btn btn-large"
+                                type="button"
+                                ng-click="App.startSolution()">
+                              <i class="material-icons right">check</i>Solucionar
+                        </button>
+                  </div>
+            </div>
+      </div>
+</div>
