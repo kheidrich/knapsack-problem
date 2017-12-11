@@ -25,6 +25,18 @@ html {
     margin-top: 20px;
 }
 
-.margin-top-small {
-    margin-top: 10px;
+.margin-bottom-medium {
+    margin-bottom: 20px;
+}
+
+.divider.margin-small {
+    margin: 10px 0
+}
+
+.divider.margin-medium {
+    margin: 20px 0;
+}
+
+.border-right {
+    border-right: 1px solid #ffcdd2
 }
