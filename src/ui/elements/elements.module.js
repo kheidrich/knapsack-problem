@@ -15,7 +15,7 @@ import ModalService from './modal/modal.service';
 
 import RangeSliderDefaultOpitions from './range-slider/range-slider-default-options.constant';
 
-export default angular.module('MaterializeElements', [])
+export default angular.module('ElementsModule', [])
     .component('appBoxWithHeader', BoxWithHeaderComponent)
     .component('appSlider', SliderComponent)
     .component('appRangeSlider', RangeSliderComponent)
