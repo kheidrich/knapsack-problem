@@ -3,5 +3,4 @@ node_modules
 libs
 knapsack-problem-win32-x64
 .cache
-dist/*
-!dist/index.html
+dist

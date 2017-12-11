@@ -1,5 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
+const cleanPlugin = require('clean-webpack-plugin');
+const htmlPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './src/ui/app.module.js',
@@ -30,6 +32,10 @@ module.exports = {
     devtool: 'eval-source-map',
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin()
+        new webpack.NamedModulesPlugin(),
+        new cleanPlugin(['dist']),
+        new htmlPlugin({
+            template: './index.html'
+        })
     ]
 }
