@@ -8,6 +8,8 @@ import SliderComponent from './slider/slider.component';
 import RangeSliderComponent from './range-slider/range-slider.component';
 import RadioGroupComponent from './radio-group/radio-group.component';
 import ModalComponent from './modal/modal.component';
+import CollapsibleBoxComponent from './collapsible-box/collapsible-box.component';
+import CollapsibleBoxItemComponent from './collapsible-box-item/collapsible-box-item.component';
 
 import ModalService from './modal/modal.service';
 
@@ -19,6 +21,8 @@ export default angular.module('MaterializeElements', [])
     .component('appRangeSlider', RangeSliderComponent)
     .component('appRadioGroup', RadioGroupComponent)
     .component('appModal', ModalComponent)
+    .component('appCollapsibleBox', CollapsibleBoxComponent)
+    .component('appCollapsibleBoxItem', CollapsibleBoxItemComponent)
     .service('ModalService', ModalService)
     .constant('RangeSliderDefaultOptions', RangeSliderDefaultOpitions)
     .name;
