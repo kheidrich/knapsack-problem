@@ -3,13 +3,17 @@ import KnapsackGaSolution from '../core/knapsack-ga-solution';
 import GeneticAlgorithm from '../core/genetic-algorithm';
 
 class AppComponent {
-    constructor(ModalService) {
+    constructor(
+        ModalService,
+        SolutionInfoService
+    ) {
         this.ModalService = ModalService;
+        this.SolutionInfoService = SolutionInfoService;
         this.solutionStatus = 'configuring';
     }
 
     updateParameters() {
-        console.log(this.geneticParameters);
+        // console.log(this.geneticParameters);
     }
 
     startSolution() {
@@ -20,9 +24,15 @@ class AppComponent {
 
 
         this.solutionStatus = 'solving';
-        ga.initialize();
-        this.initialPopulation = [...ga.population];
         this.ModalService.openModal('comp');
+
+        ga.initialize();
+        this.initialPopulation = ga.population.map(knapsack => this.SolutionInfoService.getKnapsackSummary([...knapsack], Object.assign({}, solution.objects)));
+
+        this.ModalService.closeModal('comp');
+        this.solutionStatus = 'solved';
+
+        return;
 
         let iterations = 0;
         let population;
