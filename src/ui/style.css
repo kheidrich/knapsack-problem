@@ -21,22 +21,67 @@ html {
     background-color: #ffcdd2;
 }
 
-.solving {
-    margin-top: 20px;
+.debug .row {
+    border: 1px solid red;
+}
+
+.debug .col {
+    border: 1px solid blue;
+}
+
+.margin-small {
+    margin: 10px 0
+}
+
+.margin-medium {
+    margin: 20px 0;
+}
+
+.margin-right-tiny {
+    margin-right: 5px;
+}
+
+.margin-right-small {
+    margin-right: 10px;
+}
+
+.margin-bottom-tiny {
+    margin-right: 5px;
+}
+
+.margin-bottom-small {
+    margin-bottom: 10px;
 }
 
 .margin-bottom-medium {
     margin-bottom: 20px;
 }
 
-.divider.margin-small {
-    margin: 10px 0
-}
-
-.divider.margin-medium {
-    margin: 20px 0;
+.margin-top-medium {
+    margin-top: 20px;
 }
 
 .border-right {
     border-right: 1px solid #ffcdd2
+}
+
+.scrollable {
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }

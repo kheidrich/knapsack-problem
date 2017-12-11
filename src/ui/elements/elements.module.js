@@ -10,6 +10,7 @@ import RadioGroupComponent from './radio-group/radio-group.component';
 import ModalComponent from './modal/modal.component';
 import CollapsibleBoxComponent from './collapsible-box/collapsible-box.component';
 import CollapsibleBoxItemComponent from './collapsible-box-item/collapsible-box-item.component';
+import StatsComponent from './stats/stats.component'
 
 import ModalService from './modal/modal.service';
 
@@ -23,6 +24,7 @@ export default angular.module('ElementsModule', [])
     .component('appModal', ModalComponent)
     .component('appCollapsibleBox', CollapsibleBoxComponent)
     .component('appCollapsibleBoxItem', CollapsibleBoxItemComponent)
+    .component('appStats', StatsComponent)
     .service('ModalService', ModalService)
     .constant('RangeSliderDefaultOptions', RangeSliderDefaultOpitions)
     .name;
