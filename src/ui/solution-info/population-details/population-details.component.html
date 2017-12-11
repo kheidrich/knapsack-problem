@@ -1,0 +1,29 @@
+<ul class="collapsible popout">
+    <li>
+        <div class="collapsible-header {{PopulationDetails.headerBackground}} center">
+            <span class="{{PopulationDetails.headerColor}}-text">População inicial</span>
+        </div>
+        <div class="collapsible-body white">
+            <div class="row">
+                <div class="col s6">
+                    <div class="center">
+                        <h5>Pior individuo</h5>
+                        <app-knapsack-summary weight="{{PopulationDetails.worstKnapsack.weight}}"
+                                              value="{{PopulationDetails.worstKnapsack.value}}"
+                                              objects="{{PopulationDetails.worstKnapsack.objects}}">
+                        </app-knapsack-summary>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="center">
+                        <h5>Melhor individuo</h5>
+                        <app-knapsack-summary weight="{{PopulationDetails.bestKnapsack.weight}}"
+                                              value="{{PopulationDetails.bestKnapsack.value}}"
+                                              objects="{{PopulationDetails.bestKnapsack.objects}}">
+                        </app-knapsack-summary>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
