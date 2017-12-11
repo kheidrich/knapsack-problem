@@ -1,4 +1,4 @@
-import template from './knapsack-summary.component.html';
+import template from './collapsible-box-item.component.html';
 
 class CollapsibleBoxItemComponent {
 

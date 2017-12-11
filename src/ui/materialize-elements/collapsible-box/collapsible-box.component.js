@@ -1,12 +1,20 @@
 import template from './collapsible-box.component.html';
 
-class CollapsibleBoxComponent {
+import jquery from 'jquery';
 
+class CollapsibleBoxComponent {
+    constructor($element) {
+        this.$element = $element;
+    }
+
+    $onInit() {
+        jquery('.collapsible', this.$element).collapsible();
+    }
 }
 
 export default {
     template,
     controller: CollapsibleBoxComponent,
     controllerAs: 'CollapsibleBox',
-    tranclude: true
+    transclude: true
 }
