@@ -11,6 +11,7 @@ export default {
     bindings: {
         label: '@',
         icon: '@',
+        values: '<',
         stats: '<',
         orientation: '@'
     }

@@ -1,10 +1,10 @@
 <div class="center">
     <p ng-show="Stats.label">{{::Stats.label}}</p>
     <i class="material-icons">{{::Stats.icon}}</i>
-    <div class="divider"></div>
-    <span ng-repeat="stat in Stats.stats">
-        <i class="material-icons small">{{::stat.icon}}</i>
-        <small ng-class="(Stats.orientation === 'horizontal' && !$last) ? 'margin-right-tiny' : ''">{{::stat.value}}</small>
-        <br ng-show="Stats.orientation === 'vertical' />
+    <div class="divider margin-bottom-small"></div>
+    <span ng-repeat="(value, config) in Stats.stats">
+        <i class="material-icons small valign-wrapper">{{config.icon}}</i>
+        <small ng-class="(Stats.orientation === 'horizontal' && !$last) ? 'margin-right-tiny' : ''">{{config.valuePrefix}}{{Stats.values[value]}}{{config.valueSufix}}</small>
+        <br ng-show="Stats.orientation === 'vertical'"/>
     </span>
 </div>
