@@ -8,7 +8,7 @@ module.exports = {
         app: './src/ui/app.module.js',
         resolver: './src/resolver/genetic-algorithm-resolver.js'
     },
-    target: 'node',
+    target: 'electron-renderer',
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -37,10 +37,12 @@ module.exports = {
         new cleanPlugin(['dist']),
         new htmlPlugin({
             template: './src/ui/index.html',
+            chunks: ['app'],
             filename: 'app.html'
         }),
         new htmlPlugin({
             template: './src/resolver/resolver.html',
+            chunks: ['resolver'],
             filename: 'resolver.html'
         }),
         new webpack.ProvidePlugin({
