@@ -1,5 +1,6 @@
 import angular from 'angular';
 import './style.css';
+import 'angular-chart.js';
 
 import ElementsModule from './elements/elements.module';
 
