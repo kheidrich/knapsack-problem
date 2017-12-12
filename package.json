@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "angular": "1.6.6",
+    "angular-chart.js": "^1.1.1",
     "html-webpack-plugin": "^2.30.1",
     "materialize-css": "^0.100.2",
     "path": "^0.12.7",
