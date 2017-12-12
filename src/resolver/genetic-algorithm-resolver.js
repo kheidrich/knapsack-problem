@@ -1,7 +1,5 @@
 import GeneticAlgorithm from '../core/genetic-algorithm';
-
-
-const ipcRenderer = eval('require("electron").ipcRenderer')
+import { ipcRenderer } from 'electron';
 
 ipcRenderer.on('ui-message', (e, arg) => {
     console.log(arg);

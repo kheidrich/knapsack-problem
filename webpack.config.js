@@ -8,6 +8,7 @@ module.exports = {
         app: './src/ui/app.module.js',
         resolver: './src/resolver/genetic-algorithm-resolver.js'
     },
+    target: 'node',
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),

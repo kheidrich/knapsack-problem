@@ -1,35 +1,20 @@
-import KnapsackGaSolution from '../core/knapsack-ga-solution';
-import GeneticAlgorithm from '../core/genetic-algorithm';
-
-let solution;
-let ga;
+import { ipcRenderer } from 'electron';
 
 class GeneticAlgorithmService {
-    start(knapsackParams, algorithmParams, geneticOperatorsParams) {
-        solution = new KnapsackGaSolution(knapsackParams, geneticOperatorsParams);
-        ga = new GeneticAlgorithm(solution, algorithmParams);
-
-        ga.initialize();
+    initialize(knapsackParams, algorithmParams, geneticOperatorsParams) {
+        
     }
 
     getActualPopulation() {
-        return [...ga.population];
-    }
-
-    getFinalPopulation() {
 
     }
 
     getObjects() {
-        return [...solution.objects];
+
     }
 
     evolve() {
-        let parents = ga.selectParents();
 
-        parents = ga.crossover(parents);
-        parents = ga.mutate(parents);
-        ga.substitute(parents);
     }
 
     getSolution() {
@@ -64,7 +49,7 @@ class GeneticAlgorithmService {
         return [...population].sort((a, b) => solution.fitness(a) - solution.fitness(b))[0];
     }
 
-    getBestKnapsack(population){
+    getBestKnapsack(population) {
         return [...population].sort((a, b) => solution.fitness(a) - solution.fitness(b))[population.length - 1];
     }
 }
