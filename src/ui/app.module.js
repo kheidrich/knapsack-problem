@@ -2,7 +2,6 @@ import angular from 'angular';
 import './style.css';
 
 import ElementsModule from './elements/elements.module';
-import SolutionInfoModule from './solution-info/solution-info.module';
 
 import AppComponent from './app.component';
 import HeaderComponent from './header/header.component';
