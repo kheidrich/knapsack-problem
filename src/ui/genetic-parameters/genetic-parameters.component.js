@@ -3,14 +3,14 @@ import template from './genetic-parameters.component.html'
 class GeneticParametersComponent {
 
     updateModel() {
-        const { populationSize, generationInterval, mutationRate, geneMutationRate, numberOfIterations } = this;
+        const { populationSize, generationInterval, mutationRate, geneMutationRate, maxIterations } = this;
 
         this.ngModel.$setViewValue({
             populationSize,
             generationInterval,
             mutationRate,
             geneMutationRate,
-            numberOfIterations
+            maxIterations
         });
     }
 }
