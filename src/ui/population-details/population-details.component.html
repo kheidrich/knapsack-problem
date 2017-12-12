@@ -1,0 +1,33 @@
+<div class="col s5">
+    <div class="col s12">
+        <app-stats label="Pior indivíduo"
+                   icon="trending_down"
+                   orientation="horizontal"
+                   stats="{
+                           weight: { icon: 'fitness_center', valueSufix: ' kg' },
+                            value: { icon: 'attach_money', valuePrefix: 'R$ ' },
+                            objects: { icon: 'grain'}
+                      }"
+                   values="PopulationDetails.worstKnapsackSummary">
+        </app-stats>
+    </div>
+    <div class="col s12 margin-top-medium">
+        <app-stats label="Melhor indivíduo"
+                   icon="trending_up"
+                   orientation="horizontal"
+                   stats="{
+                            weight: { icon: 'fitness_center', valueSufix: ' kg' },
+                            value: { icon: 'attach_money', valuePrefix: 'R$ ' },
+                            objects: { icon: 'grain'}
+                      }"
+                   values="PopulationDetails.bestKnapsackSummary">
+        </app-stats>
+    </div>
+</div>
+<div class="col s7">
+    <canvas id="base"
+            class="chart-bubble"
+            chart-data="PopulationDetails.chart"
+            chart-series="series">
+    </canvas>
+</div>
