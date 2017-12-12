@@ -12,7 +12,7 @@ import PopulationDetailsComponent from './population-details/population-details.
 
 import GeneticAlgorithmService from './genetic-algorithm.service';
 
-angular.module('app', [ElementsModule, SolutionInfoModule])
+angular.module('app', [ElementsModule])
     .component('app', AppComponent)
     .component('header', HeaderComponent)
     .component('knapsackParameters', KnapsackParametersComponent)

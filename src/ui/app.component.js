@@ -5,10 +5,10 @@ import GeneticAlgorithm from '../core/genetic-algorithm';
 class AppComponent {
     constructor(
         ModalService,
-        SolutionInfoService
+        GeneticAlgorithmService
     ) {
         this.ModalService = ModalService;
-        this.SolutionInfoService = SolutionInfoService;
+        this.GeneticAlgorithmService = GeneticAlgorithmService;
         this.solutionStatus = 'configuring';
     }
 
