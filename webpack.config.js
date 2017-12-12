@@ -41,7 +41,6 @@ module.exports = {
             filename: 'app.html'
         }),
         new htmlPlugin({
-            template: './src/resolver/resolver.html',
             chunks: ['resolver'],
             filename: 'resolver.html'
         }),
