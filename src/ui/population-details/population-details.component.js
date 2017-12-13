@@ -43,12 +43,12 @@ class PopulationDetailsComponent {
 
     bubbleClicked([bubble], event) {
         vm.knapsackDetails(vm.populationSummary[bubble._index]);
+        vm.$scope.$digest();
     }
 
     knapsackDetails(knapsack){
         vm.knapsackSelected = knapsack;
         vm.ModalService.openModal('knapsack-details');
-        vm.$scope.$digest();
     }
 }
 

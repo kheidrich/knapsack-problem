@@ -1,5 +1,6 @@
 <div class="col s5">
     <div class="col s12 cursor-pointer"
+         app-hover-effect='{ "hoverBackground": "red lighten-1" }'
          ng-click="PopulationDetails.knapsackDetails(PopulationDetails.worstKnapsackSummary)">
         <app-stats label="Pior mochila"
                    icon="trending_down"
@@ -14,6 +15,7 @@
     </div>
     <div class="col s12 margin-medium"></div>
     <div class="col s12 cursor-pointer"
+         app-hover-effect='{ "hoverBackground": "green lighten-1" }'
          ng-click="PopulationDetails.knapsackDetails(PopulationDetails.bestKnapsackSummary)">
         <app-stats label="Melhor mochila"
                    icon="trending_up"
@@ -23,6 +25,8 @@
                             value: { icon: 'attach_money', valuePrefix: 'R$ ' },
                             objects: { icon: 'grain'}
                       }"
+                   colors-config="{ hoverBackground: 'green' }"
+                   effect-on-hover="true"
                    values="PopulationDetails.bestKnapsackSummary">
         </app-stats>
     </div>

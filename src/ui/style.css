@@ -15,6 +15,20 @@ html {
     background-color: #ffcdd2;
 }
 
+.hover-effect { 
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+
+.hover-effect:hover { 
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
