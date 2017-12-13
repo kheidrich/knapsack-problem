@@ -16,12 +16,15 @@ class AppComponent {
         // console.log(this.geneticParameters);
     }
 
-    startSolution() {
+    async startSolution() {
         const { populationSize, generationInterval, mutationRate } = this.geneticParameters;
         const { geneMutationRate } = this.geneticParameters;
-        let solution = new KnapsackGaSolution(this.knapsackParameters, { geneMutationRate });
-        let ga = new GeneticAlgorithm(solution, { populationSize, generationInterval, mutationRate });
 
+        await this.GeneticAlgorithmService.initialize(
+            this.knapsackParameters,
+            { populationSize, generationInterval, mutationRate },
+            { geneMutationRate }
+        )
 
         this.solutionStatus = 'solving';
         this.ModalService.openModal('comp');

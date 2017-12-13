@@ -1,8 +1,8 @@
 import { ipcRenderer } from 'electron';
 
 class GeneticAlgorithmService {
-    initialize(knapsackParams, algorithmParams, geneticOperatorsParams) {
-        
+    async initialize(knapsackParams, algorithmParams, geneticOperatorsParams) {
+        return await this.executeResolverMethod('initialize', [ knapsackParams, algorithmParams, geneticOperatorsParams ]);
     }
 
     getActualPopulation() {
@@ -51,6 +51,18 @@ class GeneticAlgorithmService {
 
     getBestKnapsack(population) {
         return [...population].sort((a, b) => solution.fitness(a) - solution.fitness(b))[population.length - 1];
+    }
+
+    executeResolverMethod(method, params=[]) {
+        return new Promise((resolve, reject) => {
+            ipcRenderer.send('execute-resolver-method', { method, params });
+            ipcRenderer.on('resolver-reply', (event, reply) => {
+                console.log(reply);
+                (reply.status === 'error') ?
+                    reject(reply.error) :
+                    resolve(reply.data)
+            });
+        });
     }
 }
 

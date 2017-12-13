@@ -10,13 +10,13 @@ app.on('ready', () => {
     appWindow = new BrowserWindow({ width: 800, height: 800 });
     geneticAlgorithmResolver = new BrowserWindow({ width: 800, height: 800 });
     
-    ipcMain.on('ui-message', (event, arg) => {
-        geneticAlgorithmResolver.webContents.send('ui-messages', arg);
+    ipcMain.on('execute-resolver-method', (event, arg) => {
+        geneticAlgorithmResolver.webContents.send('execute-resolver-method', arg);
     });
     
-    ipcMain.on('genetic-algorithm-resolver-message', (event, arg) => {
-        console.log(arg);
-    })
+    ipcMain.on('resolver-reply', (event, arg) => {
+        appWindow.webContents.send('resolver-reply', arg);
+    });
 
     appWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'dist/app.html'),
