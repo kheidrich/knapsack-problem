@@ -10,7 +10,7 @@ class AppComponent {
     ) {
         this.ModalService = ModalService;
         this.GeneticAlgorithmService = GeneticAlgorithmService;
-        this.solutionStatus = 'configuring';
+        this.solutionStatus = 'solved';
         this.initialPopulation = [];
         this.finalPopulation = [];
         this.$scope = $scope

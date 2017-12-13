@@ -11,12 +11,10 @@
                                           <app-knapsack-parameters ng-model="App.knapsackParameters">
                                           </app-knapsack-parameters>
                                     </div>
-                                    <!-- <div class="margin-small col s12 hide-on-large-only"></div> -->
                                     <div class="col s12 l6">
                                           <app-genetic-parameters ng-model="App.geneticParameters">
                                           </app-genetic-parameters>
                                     </div>
-                                    <!-- <div class="col s12 hide-on-large-only"></div> -->
                                     <div class="col s12">
                                           <app-stop-criteria-parameters ng-model="App.stopCriteriaParameters">
                                           </app-stop-criteria-parameters>
@@ -41,12 +39,30 @@
            class="row">
             <div class="col s12">
                   <ul class="collapsible popout">
-                        <!-- <li>
+                        <li>
                               <div class="collapsible-header">Resumo</div>
-                              <div class="collapsible-body">
-
+                              <div class="collapsible-body white">
+                                    <div class="row">
+                                          <div class="col s5">
+                                                <p>Parametros utilizados</p>
+                                          </div>
+                                          <div class="col s7">
+                                                <p>Variação do fitness</p>
+                                                <canvas class="chart chart-line"
+                                                        chart-data="[
+                                                            [400,200,330,500,100],
+                                                            [420,500,130,980,200]
+                                                        ]"
+                                                        chart-labels="['0','1','2','3','4']"
+                                                        chart-series="[
+                                                        'População inicial',
+                                                        'População final'
+                                                        ]">
+                                                </canvas>
+                                          </div>
+                                    </div>
                               </div>
-                        </li> -->
+                        </li>
                         <li>
                               <div class="collapsible-header">População inicial</div>
                               <div class="collapsible-body white">
@@ -60,8 +76,8 @@
                               <div class="collapsible-header">População final</div>
                               <div class="collapsible-body white">
                                     <div class="row">
-                                          <!-- <app-population-details population="App.finalPopulation">
-                                          </app-population-details> -->
+                                          <app-population-details population="App.finalPopulation">
+                                          </app-population-details>
                                     </div>
                               </div>
                         </li>
