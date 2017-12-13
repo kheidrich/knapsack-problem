@@ -16,7 +16,8 @@ export default {
     controller: ModalComponent,
     controllerAs: 'Modal',
     bindings: {
-        name: '@'
+        name: '@',
+        hideFooter: '@'
     },
     transclude: true
 }
