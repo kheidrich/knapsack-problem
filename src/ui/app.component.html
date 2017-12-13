@@ -1,0 +1,131 @@
+<app-header title="Problema da mochila"></app-header>
+
+<div class="container">
+      <div class="row"
+           ng-show="App.solutionStatus === 'configuring'">
+            <div class="col s12">
+                  <div class="card">
+                        <div class="card-content">
+                              <div class="row">
+                                    <div class="col s12 l6">
+                                          <app-knapsack-parameters ng-model="App.knapsackParameters">
+                                          </app-knapsack-parameters>
+                                    </div>
+                                    <div class="col s12 l6">
+                                          <app-genetic-parameters ng-model="App.geneticParameters">
+                                          </app-genetic-parameters>
+                                    </div>
+                                    <div class="col s12">
+                                          <app-stop-criteria-parameters ng-model="App.stopCriteriaParameters">
+                                          </app-stop-criteria-parameters>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+            <div class="row">
+                  <div class="col s12">
+                        <div class="center">
+                              <a class="waves-effect waves-light red accent-2 btn btn-large"
+                                 ng-click="App.solve()">
+                                    <i class="material-icons right">check</i>Solucionar
+                              </a>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <div ng-show="App.solutionStatus === 'solved'"
+           class="row">
+            <div class="col s12">
+                  <ul class="collapsible popout">
+                        <li>
+                              <div class="collapsible-header">Resumo</div>
+                              <div class="collapsible-body white">
+                                    <div class="row">
+                                          <div class="col s5">
+                                                <p>Parametros utilizados</p>
+                                          </div>
+                                          <div class="col s7">
+                                                <p>Variação do fitness</p>
+                                                <canvas class="chart chart-line"
+                                                        chart-data="[
+                                                            [400,200,330,500,100],
+                                                            [420,500,130,980,200]
+                                                        ]"
+                                                        chart-labels="['0','1','2','3','4']"
+                                                        chart-series="[
+                                                        'População inicial',
+                                                        'População final'
+                                                        ]">
+                                                </canvas>
+                                          </div>
+                                    </div>
+                              </div>
+                        </li>
+                        <li>
+                              <div class="collapsible-header">População inicial</div>
+                              <div class="collapsible-body white">
+                                    <div class="row">
+                                          <app-population-details population="App.initialPopulation">
+                                          </app-population-details>
+                                    </div>
+                              </div>
+                        </li>
+                        <li>
+                              <div class="collapsible-header">População final</div>
+                              <div class="collapsible-body white">
+                                    <div class="row">
+                                          <app-population-details population="App.finalPopulation">
+                                          </app-population-details>
+                                    </div>
+                              </div>
+                        </li>
+                        <li>
+                              <div class="collapsible-header">Objetos</div>
+                              <div class="collapsible-body white"></div>
+                        </li>
+                  </ul>
+            </div>
+            <div class="col s12 center-alignt">
+                  <div class="center">
+                        <div class="col s6">
+                              <a class="waves-effect waves-light light-blue accent-3 btn btn-large"
+                                 ng-click="App.reset()">
+                                    <i class="material-icons right">settings</i>Configurar parâmetros
+                              </a>
+                        </div>
+                        <div class="col s6">
+                              <a class="waves-effect waves-light light-green btn btn-large"
+                                 ng-click="App.solveAgain()">
+                                    <i class="material-icons right">replay</i>Solucionar novamente
+                              </a>
+                        </div>
+                  </div>
+            </div>
+      </div>
+</div>
+
+
+<app-modal name="solving-loader"
+           hide-footer="true">
+      <div class="row valign-wrapper"
+           style="height: 100%">
+            <div class="col s12 center preloader-solution">
+                  <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-green-only">
+                              <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                              </div>
+                              <div class="gap-patch">
+                                    <div class="circle"></div>
+                              </div>
+                              <div class="circle-clipper right">
+                                    <div class="circle"></div>
+                              </div>
+                        </div>
+                  </div>
+                  <p class="solving">Solucionando...</p>
+            </div>
+      </div>
+</app-modal>
