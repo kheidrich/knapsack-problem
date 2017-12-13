@@ -1,2 +1,6 @@
 node_modules
 .sonarlint
+libs
+knapsack-problem-win32-x64
+.cache
+dist

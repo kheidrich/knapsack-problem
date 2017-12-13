@@ -1,0 +1,99 @@
+.no-ui-slider {
+    margin: 15px 0;
+}
+
+.collapsible-header>i+span {
+    font-size: 24px;
+    padding-left: 5px;
+}
+
+.collapsible-header>i {
+    font-size: 32px;
+}
+
+html {
+    background-color: #ffcdd2;
+}
+
+.hover-effect { 
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+
+.hover-effect:hover { 
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.margin-small {
+    margin: 10px 0
+}
+
+.margin-medium {
+    margin: 20px 0;
+}
+
+.margin-right-tiny {
+    margin-right: 5px;
+}
+
+.margin-right-small {
+    margin-right: 10px;
+}
+
+.margin-bottom-tiny {
+    margin-right: 5px;
+}
+
+.margin-bottom-small {
+    margin-bottom: 10px;
+}
+
+.margin-bottom-medium {
+    margin-bottom: 20px;
+}
+
+.margin-top-medium {
+    margin-top: 20px;
+}
+
+.border-right {
+    border-right: 1px solid #ffcdd2
+}
+
+.scrollable {
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+.debug .row {
+    border: 1px solid red;
+}
+
+.debug .col {
+    border: 1px solid blue;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}

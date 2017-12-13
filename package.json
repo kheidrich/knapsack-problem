@@ -8,12 +8,39 @@
   "license": "MIT",
   "private": false,
   "scripts": {
+    "start": "electron .",
+    "build": "webpack",
+    "build:watch": "webpack --watch",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
     "test": "./node_modules/.bin/mocha",
     "test:watch": "./node_modules/.bin/mocha --watch --bail"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
+    "clean-webpack-plugin": "^0.1.17",
+    "concurrently": "^3.5.1",
+    "css-loader": "^0.28.7",
+    "electron": "^1.7.9",
+    "file-loader": "^1.1.5",
+    "html-loader": "^0.5.1",
+    "html-webpack-plugin": "^2.30.1",
     "mocha": "^ya4.0.1",
-    "sinon": "^4.1.2"
+    "sinon": "^4.1.2",
+    "style-loader": "^0.19.0",
+    "webpack": "^3.10.0",
+    "webpack-dev-middleware": "^1.12.2",
+    "webpack-dev-server": "^2.9.7",
+    "webpack-hot-middleware": "^2.21.0"
+  },
+  "dependencies": {
+    "angular": "1.6.6",
+    "angular-chart.js": "^1.1.1",
+    "materialize-css": "^0.100.2",
+    "path": "^0.12.7",
+    "url": "^0.11.0"
   }
 }

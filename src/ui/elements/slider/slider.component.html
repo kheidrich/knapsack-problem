@@ -1,0 +1,12 @@
+<div class="range-field">
+    <label>
+        {{::Slider.label}}:
+        <b>{{Slider.renderValue()}}</b>
+    </label>
+    <input type="range"
+           min="{{Slider.min}}"
+           max="{{Slider.max}}"
+           step="{{Slider.step}}"
+           ng-change="Slider.updateModel()"
+           ng-model="Slider.value" />
+</div>

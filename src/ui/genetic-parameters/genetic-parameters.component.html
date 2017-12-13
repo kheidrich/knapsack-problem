@@ -1,0 +1,67 @@
+<div class="center-align">
+    <i class="material-icons">timeline</i>
+    <p>Parametros Genéticos</p>
+</div>
+<div class="divider margin-medium"></div>
+<div class="row">
+    <div class="col s12 m6 margin-bottom-medium">
+        <app-slider label="População"
+                    value-suffix=" individuos"
+                    min="100"
+                    max="1000"
+                    step="100"
+                    ng-model="GeneticParameters.populationSize"
+                    ng-change="GeneticParameters.updateModel()">
+        </app-slider>
+    </div>
+    <div class="col s12 m6 margin-bottom-medium">
+        <app-slider label="Intervalo de geração"
+                    value-suffix="%"
+                    min="0"
+                    max="100"
+                    step="1"
+                    ng-model="GeneticParameters.generationInterval"
+                    ng-change="GeneticParameters.updateModel()">
+        </app-slider>
+    </div>
+    <div class="col s12 m6 margin-bottom-medium">
+        <app-slider label="Taxa de mutação"
+                    value-suffix="%"
+                    min="0"
+                    max="100"
+                    step="1"
+                    ng-model="GeneticParameters.mutationRate"
+                    ng-change="GeneticParameters.updateModel()">
+        </app-slider>
+    </div>
+    <div class="col s12 m6 margin-bottom-medium">
+        <app-slider label="Genes que irão mutar"
+                    value-suffix="%"
+                    min="0"
+                    max="100"
+                    step="1"
+                    ng-model="GeneticParameters.geneMutationRate"
+                    ng-change="GeneticParameters.updateModel()">
+        </app-slider>
+    </div>
+    <div class="col s12 m6 l12 margin-bottom-medium">
+        <app-radio-group label="Seleção dos pais"
+                         ng-model="GeneticParameters.selectionMethod"
+                         ng-change="GeneticParameters.updateModel()"
+                         collumns="3"
+                         options="[
+                         {label: 'Torneio', value: 'tournament'},
+                         {label: 'Roleta', value: 'roulette'},
+                         {label: 'Aleatório', value: 'random'}
+                         ]">
+        </app-radio-group>
+    </div>
+    <div class="col s12 m6 l12 margin-bottom-medium">
+        <app-radio-group label="Método de crossover"
+                         ng-model="GeneticParameters.crossoverMethod"
+                         ng-change="GeneticParameters.updateModel()"
+                         collumns="2"
+                         options="[{label: 'Um ponto', value: 'onepoint'}, {label: 'Dois pontos', value: 'twopoint'}]">
+        </app-radio-group>
+    </div>
+</div>

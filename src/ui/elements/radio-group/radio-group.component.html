@@ -1,0 +1,13 @@
+<label> {{RadioGroup.label}}</label>
+<div class="row">
+    <div ng-repeat="option in RadioGroup.options"
+         class="col s{{12 / RadioGroup.collumns}}">
+        <input name="{{RadioGroup.groupName}}"
+               type="radio"
+               value="{{option.value}}"
+               ng-model="RadioGroup.selected"
+               ng-change="RadioGroup.updateModel()"
+               id="{{RadioGroup.groupName + option.value}}" />
+        <label for="{{RadioGroup.groupName + option.value}}">{{option.label}}</label>
+    </div>
+</div>
