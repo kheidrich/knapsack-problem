@@ -5,11 +5,14 @@ import GeneticAlgorithm from '../core/genetic-algorithm';
 class AppComponent {
     constructor(
         ModalService,
-        GeneticAlgorithmService
+        GeneticAlgorithmService,
+        $scope
     ) {
         this.ModalService = ModalService;
         this.GeneticAlgorithmService = GeneticAlgorithmService;
         this.solutionStatus = 'configuring';
+        this.initialPopulation = [];
+        this.$scope = $scope
     }
 
     updateParameters() {
@@ -20,40 +23,20 @@ class AppComponent {
         const { populationSize, generationInterval, mutationRate } = this.geneticParameters;
         const { geneMutationRate } = this.geneticParameters;
 
+        this.solutionStatus = 'solving';
+
         await this.GeneticAlgorithmService.initialize(
             this.knapsackParameters,
             { populationSize, generationInterval, mutationRate },
             { geneMutationRate }
         )
+        this.initialPopulation = await this.GeneticAlgorithmService.getActualPopulation();
 
-        this.solutionStatus = 'solving';
-        this.ModalService.openModal('comp');
+        // this.ModalService.openModal('comp');
 
-        ga.initialize();
-        this.initialPopulation = ga.population.map(knapsack => this.SolutionInfoService.getKnapsackSummary([...knapsack], Object.assign({}, solution.objects)));
-
-        this.ModalService.closeModal('comp');
+        // this.ModalService.closeModal('comp');
         this.solutionStatus = 'solved';
-
-        return;
-
-        let iterations = 0;
-        let population;
-        let parents;
-
-        while (iterations < 100) {
-            ga.updateOptimal();
-            parents = ga.selectParents();
-            parents = ga.crossover([...parents]);
-            parents = ga.mutate([...parents]);
-            ga.substitute(parents);
-            iterations++;
-        }
-
-        this.finalPopulation = [...ga.population];
-        this.optimalHistory = [...ga.optimalHistory];
-        this.ModalService.closeModal('comp');
-        this.solutionStatus = 'solved';
+        this.$scope.$digest();
     }
 }
 

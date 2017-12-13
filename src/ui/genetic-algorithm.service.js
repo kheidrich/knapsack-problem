@@ -5,8 +5,8 @@ class GeneticAlgorithmService {
         return await this.executeResolverMethod('initialize', [ knapsackParams, algorithmParams, geneticOperatorsParams ]);
     }
 
-    getActualPopulation() {
-
+    async getActualPopulation() {
+        return await this.executeResolverMethod('getActualPopulation');
     }
 
     getObjects() {
@@ -29,35 +29,22 @@ class GeneticAlgorithmService {
 
     }
 
-    getKnapsackSummary(knapsack) {
-        let fitness = solution.fitness(knapsack);
-
-        return knapsack.reduce((summary, hasObject, index) => {
-            if (hasObject) {
-                summary.value += solution.objects[+index].value;
-                summary.weight += solution.objects[+index].weight;
-                summary.fitness = fitness;
-                summary.objects++;
-            }
-            return summary;
-        },
-            { weight: 0, value: 0, objects: 0, fitness: 0 }
-        )
+    async getKnapsackSummary(knapsack){
+        return await this.executeResolverMethod('getKnapsackSummary', [knapsack]);
     }
 
-    getWorstKnapsack(population) {
-        return [...population].sort((a, b) => solution.fitness(a) - solution.fitness(b))[0];
+    async getWorstKnapsack(population) {
+        return await this.executeResolverMethod('getWorstKnapsack', [population]);
     }
 
-    getBestKnapsack(population) {
-        return [...population].sort((a, b) => solution.fitness(a) - solution.fitness(b))[population.length - 1];
+    async getBestKnapsack(population) {
+        return await this.executeResolverMethod('getBestKnapsack', [population]);
     }
 
     executeResolverMethod(method, params=[]) {
         return new Promise((resolve, reject) => {
             ipcRenderer.send('execute-resolver-method', { method, params });
-            ipcRenderer.on('resolver-reply', (event, reply) => {
-                console.log(reply);
+            ipcRenderer.once('resolver-reply', (event, reply) => {
                 (reply.status === 'error') ?
                     reject(reply.error) :
                     resolve(reply.data)
