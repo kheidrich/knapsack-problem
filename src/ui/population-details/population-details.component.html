@@ -30,8 +30,7 @@
     </div>
 </div>
 <div class="col s7">
-    <canvas id="base"
-            class="chart-bubble"
+    <canvas class="chart-bubble"
             chart-data="PopulationDetails.chartData"
             chart-click="PopulationDetails.bubbleClicked"
             chart-series="series">
@@ -61,7 +60,8 @@
             </div>
             <div class="col s12 margin-small"></div>
             <div class="col s12 scrollable">
-                <div class="col s4 margin-bottom-small" ng-repeat="object in PopulationDetails.knapsackSelected.objectsList">
+                <div class="col s4 margin-bottom-small"
+                     ng-repeat="object in PopulationDetails.knapsackSelected.objectsList">
                     <app-stats label="{{object.id}}"
                                icon="layers"
                                orientation="horizontal"

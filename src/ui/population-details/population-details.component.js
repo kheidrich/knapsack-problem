@@ -1,8 +1,7 @@
 import template from './population-details.component.html';
 
-let vm;
 class PopulationDetailsComponent {
-    constructor(GeneticAlgorithmService, ModalService, $scope) {
+    constructor(GeneticAlgorithmService, ModalService, $scope, $element) {
         this.GeneticAlgorithmService = GeneticAlgorithmService;
         this.ModalService = ModalService;
 
@@ -13,8 +12,12 @@ class PopulationDetailsComponent {
         this.chartPopulation = [];
         this.chartData = [];
         this.$scope = $scope;
+        this.$element = $element;
 
-        vm = this;
+        this.bubbleClicked = ([bubble], event) => {
+            if (!bubble) return;
+            this.knapsackDetails(this.chartPopulation[bubble._index]);
+        }
     }
 
     async $onChanges() {
@@ -38,29 +41,27 @@ class PopulationDetailsComponent {
     }
 
     async setChartPopulation() {
-        for (let knapsack of this.population.filter((knapsack, index) => index % 10 === 0))
+        this.chartPopulation = [];
+        for (let knapsack of this.population.filter((knapsack, index) => (index + 1) % 20 === 0))
             this.chartPopulation.push(knapsack);
     }
 
     async setChartData() {
+        this.chartData = [];
         for (let index in this.chartPopulation) {
             let summary = await this.GeneticAlgorithmService.getKnapsackSummary(this.chartPopulation[+index]);
-            let data = { x: +index, y: summary.fitness, r: summary.objects / 2.5 };
+            let data = { x: +index, y: summary.fitness, r: summary.objects / 1.5 };
 
             this.chartData.push(data);
         }
     }
 
-    bubbleClicked([bubble], event) {
-        if (!bubble) return;
-        vm.knapsackDetails(vm.chartPopulation[bubble._index]);
-    }
-
     async knapsackDetails(knapsack) {
-        vm.knapsackSelected = await this.GeneticAlgorithmService.getKnapsackSummary(knapsack);
-        vm.knapsackSelected.objectsList = await this.GeneticAlgorithmService.getKnapsackObjects(knapsack);
-        vm.$scope.$digest();
-        vm.ModalService.openModal('knapsack-details');
+        this.knapsackSelected = {};
+        this.knapsackSelected = await this.GeneticAlgorithmService.getKnapsackSummary(knapsack);
+        this.knapsackSelected.objectsList = await this.GeneticAlgorithmService.getKnapsackObjects(knapsack);
+        this.$scope.$digest();
+        this.ModalService.openModal('knapsack-details', this.$element);
     }
 }
 
@@ -69,6 +70,7 @@ export default {
     controller: PopulationDetailsComponent,
     controllerAs: 'PopulationDetails',
     bindings: {
-        population: '<'
+        population: '<',
+        name: '@'
     }
-}
+};

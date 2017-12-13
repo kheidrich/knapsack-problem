@@ -5,12 +5,12 @@ class ModalService {
         this.$document = $document;
     }
 
-    openModal(name){
-        jquery(`#${name}`, this.$document).modal('open');
+    openModal(name, elementOwner){
+        jquery(`.modal[name=${name}]`, elementOwner || this.$document).modal('open');
     }
 
-    closeModal(name){
-        jquery(`#${name}`, this.$document).modal('close');
+    closeModal(name, elementOwner){
+        jquery(`.modal[name=${name}]`, elementOwner || this.$document).modal('close');
     }
 }
 
