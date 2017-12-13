@@ -10,7 +10,6 @@ ipcRenderer.on('execute-resolver-method', (event, { method, params }) => {
         let reply;
 
         reply = eval(`${method}`)(...params);
-        console.log(reply)
         ipcRenderer.send('resolver-reply', { status: 'ok', data: reply });
     }
     catch(error) {
@@ -30,9 +29,24 @@ function getActualPopulation(){
     return [...ga.population];
 }
 
+function solve(maxIterations, optimalEstabilization){
+    let iterations = 0;
+    let parents;
+
+    while(iterations < maxIterations){
+        ga.updateOptimal();
+        parents = ga.selectParents();
+        parents = ga.crossover();
+        parents = ga.mutate(parents);
+        ga.substitute(parents);
+        iterations++;
+    }
+        
+}
+
 function getKnapsackSummary(knapsack) {
     let fitness = solution.fitness(knapsack);
-
+    console.log(knapsack);
     return knapsack.reduce((summary, hasObject, index) => {
         if (hasObject) {
             summary.value += solution.objects[+index].value;

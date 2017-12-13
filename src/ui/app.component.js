@@ -12,32 +12,35 @@ class AppComponent {
         this.GeneticAlgorithmService = GeneticAlgorithmService;
         this.solutionStatus = 'configuring';
         this.initialPopulation = [];
+        this.finalPopulation = [];
         this.$scope = $scope
     }
 
-    updateParameters() {
-        // console.log(this.geneticParameters);
-    }
-
-    async startSolution() {
+    async solve() {
         const { populationSize, generationInterval, mutationRate } = this.geneticParameters;
         const { geneMutationRate } = this.geneticParameters;
+        const { maxIterations } = this.geneticParameters;
 
         this.solutionStatus = 'solving';
-
+        this.ModalService.openModal('solving-loader');
         await this.GeneticAlgorithmService.initialize(
             this.knapsackParameters,
             { populationSize, generationInterval, mutationRate },
             { geneMutationRate }
         )
         this.initialPopulation = await this.GeneticAlgorithmService.getActualPopulation();
-
-        // this.ModalService.openModal('comp');
-
-        // this.ModalService.closeModal('comp');
+        await this.GeneticAlgorithmService.solve(maxIterations, 0);
+        this.finalPopulation = await this.GeneticAlgorithmService.getActualPopulation();
+        this.ModalService.closeModal('solving-loader');
         this.solutionStatus = 'solved';
         this.$scope.$digest();
     }
+
+   async reset(){
+       this.initialPopulation = [];
+       this.finalPopulation = [];
+       this.solutionStatus = 'configuring';
+   }
 }
 
 export default {

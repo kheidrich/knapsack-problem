@@ -26,7 +26,7 @@
                   <div class="col s12">
                         <div class="center">
                               <a class="waves-effect waves-light red accent-2 btn btn-large"
-                                 ng-click="App.startSolution()">
+                                 ng-click="App.solve()">
                                     <i class="material-icons right">check</i>Solucionar
                               </a>
                         </div>
@@ -41,11 +41,11 @@
                         <li>
                               <div class="collapsible-header">Resumo</div>
                               <div class="collapsible-body">
-                                    
+
                               </div>
                         </li>
                         <li>
-                              <div class="collapsible-header">População Inicial</div>
+                              <div class="collapsible-header">População inicial</div>
                               <div class="collapsible-body">
                                     <div class="row">
                                           <app-population-details population="App.initialPopulation">
@@ -54,8 +54,13 @@
                               </div>
                         </li>
                         <li>
-                              <div class="collapsible-header">PopulaçãoFinal</div>
-                              <div class="collapsible-body"></div>
+                              <div class="collapsible-header">População final</div>
+                              <div class="collapsible-body">
+                                    <div class="row">
+                                          <!-- <app-population-details population="App.finalPopulation">
+                                          </app-population-details> -->
+                                    </div>
+                              </div>
                         </li>
                         <li>
                               <div class="collapsible-header">Objetos</div>
@@ -63,11 +68,27 @@
                         </li>
                   </ul>
             </div>
+            <div class="col s12 center-alignt">
+                  <div class="center">
+                        <div class="col s6">
+                              <a class="waves-effect waves-light light-blue accent-3 btn btn-large"
+                                 ng-click="App.reset()">
+                                    <i class="material-icons right">settings</i>Configurar parâmetros
+                              </a>
+                        </div>
+                        <div class="col s6">
+                              <a class="waves-effect waves-light light-green btn btn-large"
+                                 ng-click="App.solveAgain()">
+                                    <i class="material-icons right">replay</i>Solucionar novamente
+                              </a>
+                        </div>
+                  </div>
+            </div>
       </div>
 </div>
 
 
-<app-modal name="comp">
+<app-modal name="solving-loader">
       <div class="row">
             <div class="center-align preloader-solution">
                   <div class="preloader-wrapper big active">

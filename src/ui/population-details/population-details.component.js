@@ -12,7 +12,7 @@ class PopulationDetailsComponent {
     }
 
     async $onChanges() {
-        if (this.population && this.population.length) {
+        if (this.population && this.population.length > 0) {
             this.worstKnapsack = await this.GeneticAlgorithmService.getWorstKnapsack(this.population);
             this.worstKnapsackSummary = await this.GeneticAlgorithmService.getKnapsackSummary(this.worstKnapsack);
 

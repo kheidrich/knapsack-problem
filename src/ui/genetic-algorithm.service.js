@@ -1,4 +1,5 @@
 import { ipcRenderer } from 'electron';
+ipcRenderer.setMaxListeners(3000);
 
 class GeneticAlgorithmService {
     async initialize(knapsackParams, algorithmParams, geneticOperatorsParams) {
@@ -13,8 +14,8 @@ class GeneticAlgorithmService {
 
     }
 
-    evolve() {
-
+    async solve(maxIterations, optimalEstabilization) {
+        return await this.executeResolverMethod('solve', [maxIterations, optimalEstabilization]);
     }
 
     getSolution() {
@@ -44,7 +45,7 @@ class GeneticAlgorithmService {
     executeResolverMethod(method, params=[]) {
         return new Promise((resolve, reject) => {
             ipcRenderer.send('execute-resolver-method', { method, params });
-            ipcRenderer.once('resolver-reply', (event, reply) => {
+            ipcRenderer.on('resolver-reply', (event, reply) => {
                 (reply.status === 'error') ?
                     reject(reply.error) :
                     resolve(reply.data)
