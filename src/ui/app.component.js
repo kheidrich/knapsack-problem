@@ -19,7 +19,7 @@ class AppComponent {
     async solve() {
         const { populationSize, generationInterval, mutationRate } = this.geneticParameters;
         const { geneMutationRate } = this.geneticParameters;
-        const { maxIterations } = this.geneticParameters;
+        const { maxIterations } = this.stopCriteriaParameters;
 
         this.solutionStatus = 'solving';
         this.ModalService.openModal('solving-loader');

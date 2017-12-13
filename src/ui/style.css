@@ -11,22 +11,12 @@
     font-size: 32px;
 }
 
-@media screen and (max-width: 600px) {
-    *+.range-field.col.s12 {
-        margin-top: 20px;
-    }
-}
-
 html {
     background-color: #ffcdd2;
 }
 
-.debug .row {
-    border: 1px solid red;
-}
-
-.debug .col {
-    border: 1px solid blue;
+.cursor-pointer {
+    cursor: pointer;
 }
 
 .margin-small {
@@ -68,6 +58,14 @@ html {
 .scrollable {
     overflow-y: auto;
     max-height: 300px;
+}
+
+.debug .row {
+    border: 1px solid red;
+}
+
+.debug .col {
+    border: 1px solid blue;
 }
 
 ::-webkit-scrollbar {

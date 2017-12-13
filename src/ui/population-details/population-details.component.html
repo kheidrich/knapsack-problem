@@ -1,6 +1,7 @@
 <div class="col s5">
-    <div class="col s12">
-        <app-stats label="Pior indivíduo"
+    <div class="col s12 cursor-pointer"
+         ng-click="PopulationDetails.knapsackDetails(PopulationDetails.worstKnapsackSummary)">
+        <app-stats label="Pior mochila"
                    icon="trending_down"
                    orientation="horizontal"
                    stats="{
@@ -11,8 +12,10 @@
                    values="PopulationDetails.worstKnapsackSummary">
         </app-stats>
     </div>
-    <div class="col s12 margin-top-medium">
-        <app-stats label="Melhor indivíduo"
+    <div class="col s12 margin-medium"></div>
+    <div class="col s12 cursor-pointer"
+         ng-click="PopulationDetails.knapsackDetails(PopulationDetails.bestKnapsackSummary)">
+        <app-stats label="Melhor mochila"
                    icon="trending_up"
                    orientation="horizontal"
                    stats="{
@@ -28,6 +31,45 @@
     <canvas id="base"
             class="chart-bubble"
             chart-data="PopulationDetails.chart"
+            chart-click="PopulationDetails.bubbleClicked"
             chart-series="series">
     </canvas>
 </div>
+
+<app-modal name="knapsack-details">
+    <div class="row">
+        <div class="col s12 center">
+            <h4>Detalhes da mochila</h4>
+        </div>
+        <div class="divider col s12 margin-small"></div>
+        <div class="col s12">
+            <div class="col s12 center">
+                <span class="margin-right-small">Fitness:
+                    <b>{{PopulationDetails.knapsackSelected.fitness}}</b>
+                </span>
+                <span class="margin-right-small">Valor total:
+                    <b>R$ {{PopulationDetails.knapsackSelected.value}}</b>
+                </span>
+                <span class="margin-right-small">Peso total:
+                    <b>{{PopulationDetails.knapsackSelected.weight}} kg</b>
+                </span>
+                <span>Total de objetos:
+                    <b>{{PopulationDetails.knapsackSelected.objects}}</b>
+                </span>
+            </div>
+            <div class="col s12 margin-small"></div>
+            <div class="col s12 scrollable">
+                <p>kakakakakakkka</p>
+                <p>kakakakakakkka</p>
+                <p>kakakakakakkka</p>
+                <p>kakakakakakkka</p>
+                <p>kakakakakakkka</p>
+                <p>kakakakakakkka</p>
+                <p>kakakakakakkka</p>
+                <p>kakakakakakkka</p>
+                <p>kakakakakakkka</p>
+                <p>kakakakakakkka</p>
+            </div>
+        </div>
+    </div>
+</app-modal>
