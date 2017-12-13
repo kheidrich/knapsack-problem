@@ -5,16 +5,16 @@ import { ipcRenderer } from 'electron';
 let solution;
 let ga;
 
-ipcRenderer.on('execute-resolver-method', (event, { method, params }) => {
+ipcRenderer.on('execute-resolver-method', (event, { senderId, method, params }) => {
     try {
         let reply;
 
         reply = eval(`${method}`)(...params);
-        ipcRenderer.send('resolver-reply', { status: 'ok', data: reply });
+        ipcRenderer.send(`resolver-reply`, { status: 'ok', data: reply, senderId });
     }
     catch (error) {
         console.log(error);
-        ipcRenderer.send('resolver-reply', { status: 'error', error: error.message });
+        ipcRenderer.send('resolver-reply', { status: 'error', error: error.message, senderId });
     }
 })
 
@@ -29,6 +29,10 @@ function getActualPopulation() {
     return [...ga.population];
 }
 
+function getObjects(){
+    return [...solution.objects];
+}
+
 function solve(maxIterations, optimalEstabilization) {
     let iterations = 0;
     let parents;
@@ -41,7 +45,6 @@ function solve(maxIterations, optimalEstabilization) {
         ga.substitute(parents);
         iterations++;
     }
-
 }
 
 function getKnapsackObjects(knapsack) {
@@ -55,7 +58,7 @@ function getKnapsackObjects(knapsack) {
 
 function getKnapsackSummary(knapsack) {
     let fitness = solution.fitness(knapsack);
-    console.log(knapsack);
+    
     return knapsack.reduce((summary, hasObject, index) => {
         if (hasObject) {
             summary.value += solution.objects[+index].value;

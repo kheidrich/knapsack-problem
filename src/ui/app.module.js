@@ -12,6 +12,7 @@ import StopCriteriaParametersComponent from './stop-criteria-parameters/stop-cri
 import PopulationDetailsComponent from './population-details/population-details.component';
 
 import GeneticAlgorithmService from './genetic-algorithm.service';
+import IpcService from './ipc.service';
 
 angular.module('app', [ElementsModule, 'chart.js'])
     .component('app', AppComponent)
@@ -20,4 +21,5 @@ angular.module('app', [ElementsModule, 'chart.js'])
     .component('appGeneticParameters', GeneticParametersComponent)
     .component('appStopCriteriaParameters', StopCriteriaParametersComponent)
     .component('appPopulationDetails', PopulationDetailsComponent)
-    .service('GeneticAlgorithmService', GeneticAlgorithmService);
+    .service('GeneticAlgorithmService', GeneticAlgorithmService)
+    .service('IpcService', IpcService);

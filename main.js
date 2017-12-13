@@ -10,12 +10,12 @@ app.on('ready', () => {
     appWindow = new BrowserWindow({ width: 800, height: 800 });
     geneticAlgorithmResolver = new BrowserWindow({ width: 800, height: 800 });
     
-    ipcMain.on('execute-resolver-method', (event, arg) => {
-        geneticAlgorithmResolver.webContents.send('execute-resolver-method', arg);
+    ipcMain.on('execute-resolver-method', (event, data) => {
+        geneticAlgorithmResolver.webContents.send('execute-resolver-method', data);
     });
     
-    ipcMain.on('resolver-reply', (event, arg) => {
-        appWindow.webContents.send('resolver-reply', arg);
+    ipcMain.on('resolver-reply', (event, reply) => {
+        appWindow.webContents.send(`${reply.senderId}-reply`, reply);
     });
 
     appWindow.loadURL(url.format({

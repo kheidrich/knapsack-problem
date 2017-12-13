@@ -1,21 +1,22 @@
-import { ipcRenderer } from 'electron';
-ipcRenderer.setMaxListeners(3000);
-
 class GeneticAlgorithmService {
-    async initialize(knapsackParams, algorithmParams, geneticOperatorsParams) {
-        return await this.executeResolverMethod('initialize', [knapsackParams, algorithmParams, geneticOperatorsParams]);
+    constructor(IpcService){
+        this.IpcService = IpcService;
     }
 
-    async getActualPopulation() {
-        return await this.executeResolverMethod('getActualPopulation');
+    initialize(knapsackParams, algorithmParams, geneticOperatorsParams) {
+        return this.executeResolverMethod('initialize', [knapsackParams, algorithmParams, geneticOperatorsParams]);
+    }
+
+    getActualPopulation() {
+        return this.executeResolverMethod('getActualPopulation');
     }
 
     getObjects() {
-
+        return this.executeResolverMethod('getObjects');
     }
 
-    async solve(maxIterations, optimalEstabilization) {
-        return await this.executeResolverMethod('solve', [maxIterations, optimalEstabilization]);
+    solve(maxIterations, optimalEstabilization) {
+        return this.executeResolverMethod('solve', [maxIterations, optimalEstabilization]);
     }
 
     getSolution() {
@@ -30,31 +31,27 @@ class GeneticAlgorithmService {
 
     }
 
-    async getKnapsackObjects(knapsack) {
-        return await this.executeResolverMethod('getKnapsackObjects', [knapsack]);
+    getKnapsackObjects(knapsack) {
+        return this.executeResolverMethod('getKnapsackObjects', [knapsack]);
     }
 
-    async getKnapsackSummary(knapsack) {
-        return await this.executeResolverMethod('getKnapsackSummary', [knapsack]);
+    getKnapsackSummary(knapsack) {
+        return this.executeResolverMethod('getKnapsackSummary', [knapsack]);
     }
 
-    async getWorstKnapsack(population) {
-        return await this.executeResolverMethod('getWorstKnapsack', [population]);
+    getWorstKnapsack(population) {
+        return this.executeResolverMethod('getWorstKnapsack', [population]);
     }
 
-    async getBestKnapsack(population) {
-        return await this.executeResolverMethod('getBestKnapsack', [population]);
+    getBestKnapsack(population) {
+        return this.executeResolverMethod('getBestKnapsack', [population]);
     }
 
     executeResolverMethod(method, params = []) {
-        return new Promise((resolve, reject) => {
-            ipcRenderer.send('execute-resolver-method', { method, params });
-            ipcRenderer.on('resolver-reply', (event, reply) => {
-                (reply.status === 'error') ?
-                    reject(reply.error) :
-                    resolve(reply.data)
-            });
-        });
+        return this.IpcService.request(
+            'execute-resolver-method',
+            { method, params }
+        );
     }
 }
 
