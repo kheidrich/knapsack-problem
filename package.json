@@ -9,7 +9,6 @@
   "private": false,
   "scripts": {
     "start": "electron .",
-    "dev": "webpack-dev-server --open",
     "build": "webpack",
     "build:watch": "webpack --watch",
     "package": "electron-forge package",

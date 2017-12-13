@@ -27,12 +27,10 @@ module.exports = {
         ]
     },
     devServer: {
-        contentBase: './dist',
-        hot: true
+        contentBase: './dist'
     },
     devtool: 'eval-source-map',
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
         new cleanPlugin(['dist']),
         new htmlPlugin({
