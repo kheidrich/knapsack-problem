@@ -4,7 +4,7 @@
 </div>
 <div class="divider margin-medium"></div>
 <div class="row">
-    <div class="col s12 m6">
+    <div class="col s12 m6 margin-bottom-medium">
         <app-slider label="Peso máximo da mochila"
                     value-sufix=" kg"
                     min="50"
@@ -14,7 +14,7 @@
                     ng-model="KnapsackParameters.maxKnapsackWeight">
         </app-slider>
     </div>
-    <div class="col s12 m6">
+    <div class="col s12 m6 margin-bottom-medium">
         <app-slider label="Número de objetos"
                     min="10"
                     max="100"
@@ -23,9 +23,7 @@
                     ng-model="KnapsackParameters.numberOfObjects">
         </app-slider>
     </div>
-</div>
-<div class="row">
-    <div class="col s12">
+    <div class="col s12 margin-bottom-medium">
         <app-range-slider label="Valor dos objetos"
                           value-prefix="R$ "
                           min="5"
@@ -35,9 +33,7 @@
                           ng-model="KnapsackParameters.objectsValue">
         </app-range-slider>
     </div>
-</div>
-<div class="row">
-    <div class="col s12">
+    <div class="col s12 margin-bottom-medium">
         <app-range-slider label="Peso dos objetos"
                           value-sufix=" kg"
                           min="1"
