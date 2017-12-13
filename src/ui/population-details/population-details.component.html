@@ -1,7 +1,7 @@
 <div class="col s5">
     <div class="col s12 cursor-pointer"
-         app-hover-effect='{ "hoverBackground": "red lighten-1" }'
-         ng-click="PopulationDetails.knapsackDetails(PopulationDetails.worstKnapsackSummary)">
+         app-hover-effect='{ "hoverText": "red-text", "hoverBackground": "white" }'
+         ng-click="PopulationDetails.knapsackDetails(PopulationDetails.worstKnapsack)">
         <app-stats label="Pior mochila"
                    icon="trending_down"
                    orientation="horizontal"
@@ -15,8 +15,8 @@
     </div>
     <div class="col s12 margin-medium"></div>
     <div class="col s12 cursor-pointer"
-         app-hover-effect='{ "hoverBackground": "green lighten-1" }'
-         ng-click="PopulationDetails.knapsackDetails(PopulationDetails.bestKnapsackSummary)">
+         app-hover-effect='{"hoverText": "green-text", "hoverBackground": "white" }'
+         ng-click="PopulationDetails.knapsackDetails(PopulationDetails.bestKnapsack)">
         <app-stats label="Melhor mochila"
                    icon="trending_up"
                    orientation="horizontal"
@@ -25,8 +25,6 @@
                             value: { icon: 'attach_money', valuePrefix: 'R$ ' },
                             objects: { icon: 'grain'}
                       }"
-                   colors-config="{ hoverBackground: 'green' }"
-                   effect-on-hover="true"
                    values="PopulationDetails.bestKnapsackSummary">
         </app-stats>
     </div>
@@ -34,7 +32,7 @@
 <div class="col s7">
     <canvas id="base"
             class="chart-bubble"
-            chart-data="PopulationDetails.chart"
+            chart-data="PopulationDetails.chartData"
             chart-click="PopulationDetails.bubbleClicked"
             chart-series="series">
     </canvas>
@@ -63,16 +61,17 @@
             </div>
             <div class="col s12 margin-small"></div>
             <div class="col s12 scrollable">
-                <p>kakakakakakkka</p>
-                <p>kakakakakakkka</p>
-                <p>kakakakakakkka</p>
-                <p>kakakakakakkka</p>
-                <p>kakakakakakkka</p>
-                <p>kakakakakakkka</p>
-                <p>kakakakakakkka</p>
-                <p>kakakakakakkka</p>
-                <p>kakakakakakkka</p>
-                <p>kakakakakakkka</p>
+                <div class="col s4 margin-bottom-small" ng-repeat="object in PopulationDetails.knapsackSelected.objectsList">
+                    <app-stats label="{{object.id}}"
+                               icon="layers"
+                               orientation="horizontal"
+                               stats="{
+                                    weight: { icon: 'fitness_center', valueSuffix: ' kg' },
+                                    value: { icon: 'attach_money', valuePrefix: 'R$ ' },
+                                }"
+                               values="object">
+                    </app-stats>
+                </div>
             </div>
         </div>
     </div>

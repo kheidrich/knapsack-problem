@@ -3,7 +3,7 @@ ipcRenderer.setMaxListeners(3000);
 
 class GeneticAlgorithmService {
     async initialize(knapsackParams, algorithmParams, geneticOperatorsParams) {
-        return await this.executeResolverMethod('initialize', [ knapsackParams, algorithmParams, geneticOperatorsParams ]);
+        return await this.executeResolverMethod('initialize', [knapsackParams, algorithmParams, geneticOperatorsParams]);
     }
 
     async getActualPopulation() {
@@ -30,7 +30,11 @@ class GeneticAlgorithmService {
 
     }
 
-    async getKnapsackSummary(knapsack){
+    async getKnapsackObjects(knapsack) {
+        return await this.executeResolverMethod('getKnapsackObjects', [knapsack]);
+    }
+
+    async getKnapsackSummary(knapsack) {
         return await this.executeResolverMethod('getKnapsackSummary', [knapsack]);
     }
 
@@ -42,7 +46,7 @@ class GeneticAlgorithmService {
         return await this.executeResolverMethod('getBestKnapsack', [population]);
     }
 
-    executeResolverMethod(method, params=[]) {
+    executeResolverMethod(method, params = []) {
         return new Promise((resolve, reject) => {
             ipcRenderer.send('execute-resolver-method', { method, params });
             ipcRenderer.on('resolver-reply', (event, reply) => {

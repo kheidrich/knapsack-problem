@@ -12,7 +12,7 @@ ipcRenderer.on('execute-resolver-method', (event, { method, params }) => {
         reply = eval(`${method}`)(...params);
         ipcRenderer.send('resolver-reply', { status: 'ok', data: reply });
     }
-    catch(error) {
+    catch (error) {
         console.log(error);
         ipcRenderer.send('resolver-reply', { status: 'error', error: error.message });
     }
@@ -25,23 +25,32 @@ function initialize(knapsackParams, algorithmParams, geneticOperatorsParams) {
     ga.initialize();
 }
 
-function getActualPopulation(){
+function getActualPopulation() {
     return [...ga.population];
 }
 
-function solve(maxIterations, optimalEstabilization){
+function solve(maxIterations, optimalEstabilization) {
     let iterations = 0;
     let parents;
 
-    while(iterations < maxIterations){
+    while (iterations < maxIterations) {
         ga.updateOptimal();
         parents = ga.selectParents();
-        parents = ga.crossover();
+        parents = ga.crossover(parents);
         parents = ga.mutate(parents);
         ga.substitute(parents);
         iterations++;
     }
-        
+
+}
+
+function getKnapsackObjects(knapsack) {
+    return knapsack.reduce((objects, hasObject, index) => {
+        if (hasObject)
+            objects.push(Object.assign({ id: index }, solution.objects[index]));
+
+        return objects;
+    }, []);
 }
 
 function getKnapsackSummary(knapsack) {
@@ -60,10 +69,10 @@ function getKnapsackSummary(knapsack) {
     )
 }
 
-function getWorstKnapsack(population){
+function getWorstKnapsack(population) {
     return population.sort((a, b) => solution.fitness(a) - solution.fitness(b))[0];
 }
 
-function getBestKnapsack(population){
+function getBestKnapsack(population) {
     return population.sort((a, b) => solution.fitness(a) - solution.fitness(b))[population.length - 1];
 }
