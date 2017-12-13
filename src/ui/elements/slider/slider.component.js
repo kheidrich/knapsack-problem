@@ -10,7 +10,7 @@ class SliderComponent {
     }
 
     renderValue() {
-        return `${this.valuePrefix ? this.valuePrefix : ''}${this.value}${this.valueSufix ? this.valueSufix : ''}`;
+        return `${this.valuePrefix ? this.valuePrefix : ''}${this.value}${this.valueSuffix ? this.valueSuffix : ''}`;
     }
 }
 
@@ -24,7 +24,7 @@ export default {
     bindings: {
         label: '@',
         valuePrefix: '@',
-        valueSufix: '@',
+        valueSuffix: '@',
         min: '@',
         max: '@',
         step: '@'

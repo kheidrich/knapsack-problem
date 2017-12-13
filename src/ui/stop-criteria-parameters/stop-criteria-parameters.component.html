@@ -1,0 +1,26 @@
+<div class="center-align">
+    <i class="material-icons">timeline</i>
+    <p>Critério de parada</p>
+</div>
+<div class="divider margin-medium"></div>
+<div class="row">
+    <div class="col s12 m6">
+        <app-slider label="Número de iterações"
+                    min="0"
+                    max="1000"
+                    step="50"
+                    ng-model="StopCriteriaParameters.maxIterations"
+                    ng-change="GeneticParameters.updateModel()">
+        </app-slider>
+    </div>
+    <div class="col s12 m6">
+        <app-slider label="Estabilização do ótimo"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value-suffix="%"
+                    ng-model="StopCriteriaParameters.optimalEstabilization"
+                    ng-change="GeneticParameters.updateModel()">
+        </app-slider>
+    </div>
+</div>

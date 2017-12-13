@@ -4,7 +4,7 @@
     <div class="divider margin-bottom-small"></div>
     <span ng-repeat="(value, config) in Stats.stats">
         <i class="material-icons small valign-wrapper">{{config.icon}}</i>
-        <small ng-class="(Stats.orientation === 'horizontal' && !$last) ? 'margin-right-tiny' : ''">{{config.valuePrefix}}{{Stats.values[value]}}{{config.valueSufix}}</small>
+        <small ng-class="(Stats.orientation === 'horizontal' && !$last) ? 'margin-right-tiny' : ''">{{config.valuePrefix}}{{Stats.values[value]}}{{config.valueSuffix}}</small>
         <br ng-show="Stats.orientation === 'vertical'"/>
     </span>
 </div>

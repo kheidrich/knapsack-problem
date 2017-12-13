@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col s12 m6 margin-bottom-medium">
         <app-slider label="População"
-                    value-sufix=" individuos"
+                    value-suffix=" individuos"
                     min="100"
                     max="1000"
                     step="100"
@@ -16,7 +16,7 @@
     </div>
     <div class="col s12 m6 margin-bottom-medium">
         <app-slider label="Intervalo de geração"
-                    value-sufix="%"
+                    value-suffix="%"
                     min="0"
                     max="100"
                     step="1"
@@ -26,7 +26,7 @@
     </div>
     <div class="col s12 m6 margin-bottom-medium">
         <app-slider label="Taxa de mutação"
-                    value-sufix="%"
+                    value-suffix="%"
                     min="0"
                     max="100"
                     step="1"
@@ -36,7 +36,7 @@
     </div>
     <div class="col s12 m6 margin-bottom-medium">
         <app-slider label="Genes que irão mutar"
-                    value-sufix="%"
+                    value-suffix="%"
                     min="0"
                     max="100"
                     step="1"
@@ -63,15 +63,5 @@
                          collumns="2"
                          options="[{label: 'Um ponto', value: 'onepoint'}, {label: 'Dois pontos', value: 'twopoint'}]">
         </app-radio-group>
-    </div>
-    <div class="col s12">
-        <app-slider label="Número de iterações"
-                    min="0"
-                    max="1000"
-                    step="50"
-                    value="50"
-                    ng-model="GeneticParameters.maxIterations"
-                    ng-change="GeneticParameters.updateModel()">
-        </app-slider>
     </div>
 </div>

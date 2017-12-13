@@ -17,11 +17,11 @@ class RangeSliderComponent {
     }
 
     renderInitialValue() {
-        return `${this.valuePrefix ? this.valuePrefix : ''}${this.value[0]}${this.valueSufix ? this.valueSufix : ''}`;
+        return `${this.valuePrefix ? this.valuePrefix : ''}${this.value[0]}${this.valueSuffix ? this.valueSuffix : ''}`;
     }
 
     renderFinalValue() {
-        return `${this.valuePrefix ? this.valuePrefix : ''}${this.value[1]}${this.valueSufix ? this.valueSufix : ''}`;
+        return `${this.valuePrefix ? this.valuePrefix : ''}${this.value[1]}${this.valueSuffix ? this.valueSuffix : ''}`;
     }
 
     getSliderElement() {
@@ -70,7 +70,7 @@ export default {
     bindings: {
         label: '@',
         valuePrefix: '@',
-        valueSufix: '@',
+        valueSuffix: '@',
         min: '@',
         max: '@',
         step: '@'
