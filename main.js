@@ -19,12 +19,12 @@ app.on('ready', () => {
     });
 
     appWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'dist/app.html'),
+        pathname: path.join(__dirname, 'app.html'),
         protocol: 'file:',
         slashes: true
     }));
     geneticAlgorithmResolver.loadURL(url.format({
-        pathname: path.join(__dirname, 'dist/resolver.html'),
+        pathname: path.join(__dirname, 'resolver.html'),
         protocol: 'file:',
         slashes: true
     }))
