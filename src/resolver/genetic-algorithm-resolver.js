@@ -36,13 +36,15 @@ function getObjects() {
 
 async function solve(maxIterations, optimalStabilization) {
     let iterations = 0;
+    let validateMaxIterations = maxIterations > 0;
+    let validateStabilization = optimalStabilization > 0;
     let stabilization = 0;
     let parents;
     let lastOptimal = 0;
 
+    console.log(optimalStabilization)
 
-    while ((iterations < maxIterations && maxIterations > 0) &&
-        stabilization < optimalStabilization && optimalStabilization > 0) {
+    while (!maxIterationsReached() && !stabilized()) {
         await new Promise((resolve) => {
             let evolve = setTimeout(() => {
                 ga.updateOptimal();
@@ -59,12 +61,20 @@ async function solve(maxIterations, optimalStabilization) {
                 let populationFitness = ga.population
                     .filter((k, index) => (index + 1) % 5 === 0)
                     .map(knapsack => getKnapsackSummary(knapsack).fitness);
-                ipcRenderer.send('solve-update', {populationFitness, iterations, stabilization});
+                ipcRenderer.send('solve-update', { populationFitness, iterations, stabilization });
                 resolve(evolve)
             },
                 100);
         })
-        .then(clearTimeout);
+            .then(clearTimeout);
+    }
+
+    function maxIterationsReached(){
+        return iterations >= maxIterations;
+    }
+
+    function stabilized(){
+        return stabilization >= optimalStabilization;
     }
 }
 

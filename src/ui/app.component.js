@@ -1,7 +1,6 @@
 import template from './app.component.html';
 import KnapsackGaSolution from '../core/knapsack-ga-solution';
 import GeneticAlgorithm from '../core/genetic-algorithm';
-import { setTimeout } from 'timers';
 
 class AppComponent {
     constructor(
@@ -44,6 +43,7 @@ class AppComponent {
         const { populationSize, generationInterval, mutationRate } = this.geneticParameters;
         const { geneMutationRate } = this.geneticParameters;
         const { maxIterations, optimalStabilization } = this.geneticParameters;
+
 
         this.solutionStatus = 'solving';
         this.ModalService.openModal('solving-loader');
