@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const cleanPlugin = require('clean-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
+const copyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -44,6 +45,10 @@ module.exports = {
         }),
         new webpack.ProvidePlugin({
             require: 'require'
-        })
+        }),
+        new copyPlugin([
+            {from: './main.js', to: './'},
+            {from: './package.json', to: './'},
+        ])
     ]
 }
