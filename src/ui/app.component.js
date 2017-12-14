@@ -24,7 +24,7 @@ class AppComponent {
                 }],
                 xAxes: [{
                     ticks: {
-                        callback: (value, index, values) => `${value} kg`
+                        callback: (value, index, values) => `${-value} kg`
                     }
                 }]
             }
@@ -88,7 +88,7 @@ class AppComponent {
 
         objects = await this.GeneticAlgorithmService.getObjects();
         this.objectsChart = objects.map((object, index) => ({
-            x: object.weight,
+            x: -object.weight,
             y: object.value,
             r: 10
         }));
