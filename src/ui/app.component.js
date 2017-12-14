@@ -10,7 +10,7 @@ class AppComponent {
     ) {
         this.ModalService = ModalService;
         this.GeneticAlgorithmService = GeneticAlgorithmService;
-        this.solutionStatus = 'solved';
+        this.solutionStatus = 'configuring';
         this.initialPopulation = [];
         this.finalPopulation = [];
         this.$scope = $scope
@@ -19,7 +19,7 @@ class AppComponent {
     async solve() {
         const { populationSize, generationInterval, mutationRate } = this.geneticParameters;
         const { geneMutationRate } = this.geneticParameters;
-        const { maxIterations } = this.stopCriteriaParameters;
+        const { maxIterations, optimalStabilization } = this.geneticParameters;
 
         this.solutionStatus = 'solving';
         this.ModalService.openModal('solving-loader');
