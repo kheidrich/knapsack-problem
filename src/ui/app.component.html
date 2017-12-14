@@ -36,30 +36,6 @@
             <div class="col s12">
                   <ul class="collapsible popout">
                         <li>
-                              <div class="collapsible-header">Resumo</div>
-                              <div class="collapsible-body white">
-                                    <div class="row">
-                                          <div class="col s5">
-                                                <p>Parametros utilizados</p>
-                                          </div>
-                                          <div class="col s7">
-                                                <p>Variação do fitness</p>
-                                                <canvas class="chart chart-line"
-                                                        chart-data="[
-                                                            [400,200,330,500,100],
-                                                            [420,500,130,980,200]
-                                                        ]"
-                                                        chart-labels="['0','1','2','3','4']"
-                                                        chart-series="[
-                                                        'População inicial',
-                                                        'População final'
-                                                        ]">
-                                                </canvas>
-                                          </div>
-                                    </div>
-                              </div>
-                        </li>
-                        <li>
                               <div class="collapsible-header">População inicial</div>
                               <div class="collapsible-body white">
                                     <div class="row">
@@ -69,7 +45,7 @@
                               </div>
                         </li>
                         <li>
-                              <div class="collapsible-header">População final</div>
+                              <div class="collapsible-header active">População final</div>
                               <div class="collapsible-body white">
                                     <div class="row">
                                           <app-population-details population="App.finalPopulation">
@@ -79,7 +55,14 @@
                         </li>
                         <li>
                               <div class="collapsible-header">Objetos</div>
-                              <div class="collapsible-body white"></div>
+                              <div class="collapsible-body white">
+                                    <div class="row">
+                                          <canvas class="chart-bubble"
+                                                  chart-data="App.objectsChart"
+                                                  chart-options="App.objectsChartOptions">
+                                          </canvas>
+                                    </div>
+                              </div>
                         </li>
                   </ul>
             </div>

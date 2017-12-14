@@ -13,6 +13,22 @@ class AppComponent {
         this.solutionStatus = 'configuring';
         this.initialPopulation = [];
         this.finalPopulation = [];
+        this.fitnessVariationChart = { labels: [], data: [] };
+        this.objectsChart = [];
+        this.objectsChartOptions = {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        callback: (value, index, values) => `R$ ${value}`
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        callback: (value, index, values) => `${value} kg`
+                    }
+                }]
+            }
+        }
         this.$scope = $scope
     }
 
@@ -31,16 +47,52 @@ class AppComponent {
         this.initialPopulation = await this.GeneticAlgorithmService.getActualPopulation();
         await this.GeneticAlgorithmService.solve(maxIterations, 0);
         this.finalPopulation = await this.GeneticAlgorithmService.getActualPopulation();
+        await this.generateFitnessVariationChart();
+        await this.generateObjectsChart();
         this.ModalService.closeModal('solving-loader');
         this.solutionStatus = 'solved';
         this.$scope.$digest();
     }
 
-   async reset(){
-       this.initialPopulation = [];
-       this.finalPopulation = [];
-       this.solutionStatus = 'configuring';
-   }
+    reset() {
+        this.initialPopulation = [];
+        this.finalPopulation = [];
+        this.fitnessVariationChart = { labels: [], data: [] };
+        this.objectsChart = [];
+        this.solutionStatus = 'configuring';
+    }
+
+    async generateFitnessVariationChart() {
+        let initialPopulationData, finalPopulationData;
+
+        [initialPopulationData, finalPopulationData] = await Promise.all([
+            Promise.all(
+                this.initialPopulation
+                    .filter((knapsack, index) => (index + 1) % 10 === 0)
+                    .map(async knapsack => (await this.GeneticAlgorithmService.getKnapsackSummary(knapsack)).fitness)
+            ),
+            Promise.all(
+                this.finalPopulation
+                    .filter((knapsack, index) => (index + 1) % 10 === 0)
+                    .map(async knapsack => (await this.GeneticAlgorithmService.getKnapsackSummary(knapsack)).fitness)
+            )
+        ]);
+
+        this.fitnessVariationChart.labels = initialPopulationData.map((data, index) => index);
+        this.fitnessVariationChart.data.push(initialPopulationData, finalPopulationData);
+    }
+
+    async generateObjectsChart() {
+        let objects;
+        const minBubbleRadius = 5, maxBubbleRadius = 10;
+
+        objects = await this.GeneticAlgorithmService.getObjects();
+        this.objectsChart = objects.map((object, index) => ({
+            x: object.weight,
+            y: object.value,
+            r: 10
+        }));
+    }
 }
 
 export default {
