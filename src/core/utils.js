@@ -10,6 +10,12 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function getRandomNumber(min, max, decimals = 0){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return +(Math.random() * (max - min + 1)).toFixed(decimals) + min;
+}
+
 function createFilledArray(size, value) {
     return (new Array(size)).fill(value);
 }
@@ -35,6 +41,7 @@ function selectRandomItem(array) {
 
 module.exports = {
     getRandomInt,
+    getRandomNumber,
     createFilledArray,
     createRandomKnapsackObject,
     shouldDoSomething,
