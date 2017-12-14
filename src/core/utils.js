@@ -15,7 +15,7 @@ function getRandomNumber(min, max, decimals = 0){
     max = Math.floor(max);
     return +(Math.random() * (max - min + 1)).toFixed(decimals) + min;
 }
-
+''
 function createFilledArray(size, value) {
     return (new Array(size)).fill(value);
 }

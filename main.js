@@ -20,6 +20,10 @@ app.on('ready', () => {
         appWindow.webContents.send(`${reply.senderId}-reply`, reply);
     });
 
+    ipcMain.on('solve-update', (event, data) => {
+        appWindow.webContents.send('solve-update', data);
+    });
+
     appWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'app.html'),
         protocol: 'file:',

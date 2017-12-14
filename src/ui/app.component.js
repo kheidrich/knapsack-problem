@@ -1,6 +1,7 @@
 import template from './app.component.html';
 import KnapsackGaSolution from '../core/knapsack-ga-solution';
 import GeneticAlgorithm from '../core/genetic-algorithm';
+import { setTimeout } from 'timers';
 
 class AppComponent {
     constructor(
@@ -14,6 +15,7 @@ class AppComponent {
         this.initialPopulation = [];
         this.finalPopulation = [];
         this.fitnessVariationChart = { labels: [], data: [] };
+        this.solvingChart = [];
         this.objectsChart = [];
         this.objectsChartOptions = {
             scales: {
@@ -24,18 +26,18 @@ class AppComponent {
                 }],
                 xAxes: [{
                     ticks: {
-                        callback: (value, index, values) => `${-value} kg`,
+                        callback: (value, index, values) => `${value} kg`,
                         reverse: true
                     }
                 }]
             },
             tooltips: {
                 callbacks: {
-                    label: (tooltipItem, data) => `ID: ${tooltipItem.index} | R$ ${tooltipItem.yLabel} | ${-tooltipItem.xLabel} kg`
+                    label: (tooltipItem, data) => `ID: ${tooltipItem.index} | R$ ${tooltipItem.yLabel} | ${tooltipItem.xLabel} kg`
                 }
             }
         }
-        this.$scope = $scope
+        this.$scope = $scope;
     }
 
     async solve() {
@@ -51,7 +53,7 @@ class AppComponent {
             { geneMutationRate }
         )
         this.initialPopulation = await this.GeneticAlgorithmService.getActualPopulation();
-        await this.GeneticAlgorithmService.solve(maxIterations, optimalStabilization);
+        await this.GeneticAlgorithmService.solve(maxIterations, optimalStabilization, this.onSolveUpdate.bind(this));
         this.finalPopulation = await this.GeneticAlgorithmService.getActualPopulation();
         await this.generateFitnessVariationChart();
         await this.generateObjectsChart();
@@ -60,11 +62,20 @@ class AppComponent {
         this.$scope.$digest();
     }
 
+    onSolveUpdate({populationFitness, iterations, stabilization}) {
+        this.solvingChart = populationFitness;
+        this.labels = (new Array(populationFitness.length)).fill(1).map((v, i) => i);
+        this.solvingIterations = iterations;
+        this.solvingStabilization = stabilization;
+        this.$scope.$digest();
+    }
+
     reset() {
         this.initialPopulation = [];
         this.finalPopulation = [];
         this.fitnessVariationChart = { labels: [], data: [] };
         this.objectsChart = [];
+        this.solvingChart = [];
         this.solutionStatus = 'configuring';
     }
 

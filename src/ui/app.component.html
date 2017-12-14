@@ -68,16 +68,10 @@
             </div>
             <div class="col s12 center-alignt">
                   <div class="center">
-                        <div class="col s6">
+                        <div class="col s12">
                               <a class="waves-effect waves-light light-blue accent-3 btn btn-large"
                                  ng-click="App.reset()">
                                     <i class="material-icons right">settings</i>Configurar parâmetros
-                              </a>
-                        </div>
-                        <div class="col s6">
-                              <a class="waves-effect waves-light light-green btn btn-large"
-                                 ng-click="App.solveAgain()">
-                                    <i class="material-icons right">replay</i>Solucionar novamente
                               </a>
                         </div>
                   </div>
@@ -88,23 +82,41 @@
 
 <app-modal name="solving-loader"
            hide-footer="true">
-      <div class="row valign-wrapper"
-           style="height: 100%">
+      <div class="row">
             <div class="col s12 center preloader-solution">
-                  <div class="preloader-wrapper big active">
-                        <div class="spinner-layer spinner-green-only">
-                              <div class="circle-clipper left">
-                                    <div class="circle"></div>
-                              </div>
-                              <div class="gap-patch">
-                                    <div class="circle"></div>
-                              </div>
-                              <div class="circle-clipper right">
-                                    <div class="circle"></div>
-                              </div>
-                        </div>
+                  <div class="progress">
+                        <div class="indeterminate"></div>
                   </div>
-                  <p class="solving">Solucionando...</p>
+                  <p class="solving margin-bottom-medium">Solucionando...</p>
+                  <div class="divider"></div>
+                  <span class="margin-right-small">Iterações: <b>{{App.solvingIterations}}</b>      </span><span class="margin-right-small">Estabilização: <b>{{App.solvingStabilization}}</b></span>
             </div>
+            <canvas class="chart chart-bar"
+                    chart-data="App.solvingChart"
+                    chart-labels="App.labels"
+                    chart-colors="['#ffd3e8']"
+                    chart-options="{
+                          scales: {
+                                yAxes: [{
+                                      scaleLabel: {
+                                          display: true,
+                                          labelString: 'Fitness'
+                                      },
+                                      ticks:    {
+                                      beginAtZero: true,
+                                      suggestedMax: 3000
+                                      
+                                      }
+                                }],
+                                xAxes: [{
+                                      ticks: {
+                                    display: false
+                                    }
+                              }]
+                          }
+                    }"
+                    chart-dataset-override="[{ticks: {fill: false} }]">
+            </canvas>
       </div>
+
 </app-modal>
