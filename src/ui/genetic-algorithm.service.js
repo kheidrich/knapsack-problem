@@ -15,8 +15,8 @@ class GeneticAlgorithmService {
         return this.executeResolverMethod('getObjects');
     }
 
-    solve(maxIterations, optimalEstabilization) {
-        return this.executeResolverMethod('solve', [maxIterations, optimalEstabilization]);
+    solve(maxIterations, optimalStabilization) {
+        return this.executeResolverMethod('solve', [maxIterations, optimalStabilization]);
     }
 
     getSolution() {

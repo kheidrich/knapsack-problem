@@ -56,9 +56,9 @@
     <div class="col s12 m6">
         <app-slider label="Estabilização do ótimo"
                     min="0"
-                    max="100"
-                    step="1"
-                    value-suffix="%"
+                    max="50"
+                    step="5"
+                    value-suffix=" iterações"
                     ng-model="GeneticParameters.optimalStabilization"
                     ng-change="GeneticParameters.updateModel()">
         </app-slider>

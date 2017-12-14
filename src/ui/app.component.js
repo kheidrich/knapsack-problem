@@ -24,9 +24,15 @@ class AppComponent {
                 }],
                 xAxes: [{
                     ticks: {
-                        callback: (value, index, values) => `${-value} kg`
+                        callback: (value, index, values) => `${-value} kg`,
+                        reverse: true
                     }
                 }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: (tooltipItem, data) => `ID: ${tooltipItem.index} | R$ ${tooltipItem.yLabel} | ${-tooltipItem.xLabel} kg`
+                }
             }
         }
         this.$scope = $scope
@@ -45,7 +51,7 @@ class AppComponent {
             { geneMutationRate }
         )
         this.initialPopulation = await this.GeneticAlgorithmService.getActualPopulation();
-        await this.GeneticAlgorithmService.solve(maxIterations, 0);
+        await this.GeneticAlgorithmService.solve(maxIterations, optimalStabilization);
         this.finalPopulation = await this.GeneticAlgorithmService.getActualPopulation();
         await this.generateFitnessVariationChart();
         await this.generateObjectsChart();
@@ -88,7 +94,7 @@ class AppComponent {
 
         objects = await this.GeneticAlgorithmService.getObjects();
         this.objectsChart = objects.map((object, index) => ({
-            x: -object.weight,
+            x: object.weight,
             y: object.value,
             r: 10
         }));

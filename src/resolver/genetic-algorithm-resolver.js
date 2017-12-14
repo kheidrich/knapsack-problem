@@ -29,21 +29,29 @@ function getActualPopulation() {
     return [...ga.population];
 }
 
-function getObjects(){
+function getObjects() {
     return [...solution.objects];
 }
 
-function solve(maxIterations, optimalEstabilization) {
+function solve(maxIterations, optimalStabilization) {
     let iterations = 0;
+    let stablilization = 0;
     let parents;
+    let lastOptimal = 0;
 
-    while (iterations < maxIterations) {
+    while ((iterations < maxIterations && maxIterations > 0) ||
+        stablilization < optimalStabilization && optimalStabilization > 0) {
         ga.updateOptimal();
         parents = ga.selectParents();
         parents = ga.crossover(parents);
         parents = ga.mutate(parents);
         ga.substitute(parents);
         iterations++;
+        if (lastOptimal === ga.actualOptimal) stablilization++;
+        else {
+            lastOptimal = ga.actualOptimal;
+            stablilization = 0;
+        }
     }
 }
 
@@ -58,7 +66,7 @@ function getKnapsackObjects(knapsack) {
 
 function getKnapsackSummary(knapsack) {
     let fitness = solution.fitness(knapsack);
-    
+
     return knapsack.reduce((summary, hasObject, index) => {
         if (hasObject) {
             summary.value += solution.objects[+index].value;
