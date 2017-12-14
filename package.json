@@ -9,6 +9,7 @@
   "private": false,
   "scripts": {
     "start": "electron ./dist",
+    "dev": "cross-env NODE_ENV=development electron ./dist",
     "build": "webpack --watch",
     "package": "webpack && node scripts/build.js",
     "test": "mocha",
@@ -22,6 +23,7 @@
     "clean-webpack-plugin": "^0.1.17",
     "concurrently": "^3.5.1",
     "copy-webpack-plugin": "^4.3.0",
+    "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
     "electron": "^1.7.9",
     "electron-builder": "^19.49.0",
