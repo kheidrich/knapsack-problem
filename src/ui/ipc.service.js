@@ -32,6 +32,16 @@ class IpcService {
             });
         })
     }
+
+    listen(channel, listener){
+        ipcRenderer.on(channel, (event, data) => {
+            listener(data);
+        });
+    }
+
+    clean(channel){
+        ipcRenderer.removeAllListeners(channel);
+    }
 }
 
 export default IpcService;

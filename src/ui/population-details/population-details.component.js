@@ -50,7 +50,7 @@ class PopulationDetailsComponent {
         this.chartData = [];
         for (let index in this.chartPopulation) {
             let summary = await this.GeneticAlgorithmService.getKnapsackSummary(this.chartPopulation[+index]);
-            let data = { x: +index, y: summary.fitness, r: summary.objects / 1.5 };
+            let data = { x: +index, y: summary.fitness, r: summary.objects / 2.5 };
 
             this.chartData.push(data);
         }

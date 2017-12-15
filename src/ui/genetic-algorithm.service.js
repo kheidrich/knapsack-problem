@@ -15,8 +15,11 @@ class GeneticAlgorithmService {
         return this.executeResolverMethod('getObjects');
     }
 
-    solve(maxIterations, optimalEstabilization) {
-        return this.executeResolverMethod('solve', [maxIterations, optimalEstabilization]);
+    async solve(maxIterations, optimalStabilization, updateListener) {
+        this.IpcService.listen('solve-update', updateListener);
+        let reply = await this.executeResolverMethod('solve', [maxIterations, optimalStabilization]);
+        this.IpcService.clean('solve-update')
+        return reply;
     }
 
     getSolution() {

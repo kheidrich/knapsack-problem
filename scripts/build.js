@@ -8,8 +8,15 @@ builder.build({
         },
         win: {
             target: [
-                'portable'
-            ]
+                {
+                    target: 'portable',
+                    arch: ['x64', 'ia32']
+                }
+            ],
+            icon: 'build/knapsack-icon.ico'
+        },
+        nsis: {
+            installerIcon: 'build/knapsack-icon.ico'
         }
     }
 })

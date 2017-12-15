@@ -33,7 +33,22 @@
     <canvas class="chart-bubble"
             chart-data="PopulationDetails.chartData"
             chart-click="PopulationDetails.bubbleClicked"
-            chart-series="series">
+            chart-options="{
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'fitness'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'id do objeto'
+                        }
+                    }]
+                }
+            }">
     </canvas>
 </div>
 
