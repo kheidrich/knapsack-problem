@@ -44,24 +44,23 @@
                     ng-change="GeneticParameters.updateModel()">
         </app-slider>
     </div>
-    <div class="col s12 m6 l12 margin-bottom-medium">
-        <app-radio-group label="Seleção dos pais"
-                         ng-model="GeneticParameters.selectionMethod"
-                         ng-change="GeneticParameters.updateModel()"
-                         collumns="3"
-                         options="[
-                         {label: 'Torneio', value: 'tournament'},
-                         {label: 'Roleta', value: 'roulette'},
-                         {label: 'Aleatório', value: 'random'}
-                         ]">
-        </app-radio-group>
+    <div class="col s12 m6">
+        <app-slider label="Número de iterações"
+                    min="50"
+                    max="1000"
+                    step="50"
+                    ng-model="GeneticParameters.maxIterations"
+                    ng-change="GeneticParameters.updateModel()">
+        </app-slider>
     </div>
-    <div class="col s12 m6 l12 margin-bottom-medium">
-        <app-radio-group label="Método de crossover"
-                         ng-model="GeneticParameters.crossoverMethod"
-                         ng-change="GeneticParameters.updateModel()"
-                         collumns="2"
-                         options="[{label: 'Um ponto', value: 'onepoint'}, {label: 'Dois pontos', value: 'twopoint'}]">
-        </app-radio-group>
+    <div class="col s12 m6">
+        <app-slider label="Estabilização do ótimo"
+                    min="5"
+                    max="50"
+                    step="5"
+                    value-suffix=" iterações"
+                    ng-model="GeneticParameters.optimalStabilization"
+                    ng-change="GeneticParameters.updateModel()">
+        </app-slider>
     </div>
 </div>

@@ -13,8 +13,8 @@ class KnapsackGaSolution {
         let objects = (new Array(this.knapsackParams.numberOfObjects).fill({}));
 
         this.objects = objects.map(() => new KnapsackObject(
-            this.utils.getRandomInt(this.knapsackParams.minObjectValue, this.knapsackParams.maxObjectValue),
-            this.utils.getRandomInt(this.knapsackParams.minObjectWeight, this.knapsackParams.maxObjectWeight)
+            this.utils.getRandomNumber(this.knapsackParams.minObjectValue, this.knapsackParams.maxObjectValue),
+            this.utils.getRandomNumber(this.knapsackParams.minObjectWeight, this.knapsackParams.maxObjectWeight)
         ));
     }
 

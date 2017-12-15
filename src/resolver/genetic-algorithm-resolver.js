@@ -1,15 +1,16 @@
 import GeneticAlgorithm from '../core/genetic-algorithm';
 import KnapsackGaSolution from '../core/knapsack-ga-solution';
 import { ipcRenderer } from 'electron';
+import { clearInterval } from 'timers';
 
 let solution;
 let ga;
 
-ipcRenderer.on('execute-resolver-method', (event, { senderId, method, params }) => {
+ipcRenderer.on('execute-resolver-method', async (event, { senderId, method, params }) => {
     try {
         let reply;
 
-        reply = eval(`${method}`)(...params);
+        reply = await eval(`${method}`)(...params);
         ipcRenderer.send(`resolver-reply`, { status: 'ok', data: reply, senderId });
     }
     catch (error) {
@@ -29,21 +30,51 @@ function getActualPopulation() {
     return [...ga.population];
 }
 
-function getObjects(){
+function getObjects() {
     return [...solution.objects];
 }
 
-function solve(maxIterations, optimalEstabilization) {
+async function solve(maxIterations, optimalStabilization) {
     let iterations = 0;
+    let validateMaxIterations = maxIterations > 0;
+    let validateStabilization = optimalStabilization > 0;
+    let stabilization = 0;
     let parents;
+    let lastOptimal = 0;
 
-    while (iterations < maxIterations) {
-        ga.updateOptimal();
-        parents = ga.selectParents();
-        parents = ga.crossover(parents);
-        parents = ga.mutate(parents);
-        ga.substitute(parents);
-        iterations++;
+    console.log(optimalStabilization)
+
+    while (!maxIterationsReached() && !stabilized()) {
+        await new Promise((resolve) => {
+            let evolve = setTimeout(() => {
+                ga.updateOptimal();
+                parents = ga.selectParents();
+                parents = ga.crossover(parents);
+                parents = ga.mutate(parents);
+                ga.substitute(parents);
+                iterations++;
+                if (lastOptimal === ga.actualOptimal) stabilization++;
+                else {
+                    lastOptimal = ga.actualOptimal;
+                    stabilization = 0;
+                }
+                let populationFitness = ga.population
+                    .filter((k, index) => (index + 1) % 5 === 0)
+                    .map(knapsack => getKnapsackSummary(knapsack).fitness);
+                ipcRenderer.send('solve-update', { populationFitness, iterations, stabilization });
+                resolve(evolve)
+            },
+                100);
+        })
+            .then(clearTimeout);
+    }
+
+    function maxIterationsReached(){
+        return iterations >= maxIterations;
+    }
+
+    function stabilized(){
+        return stabilization >= optimalStabilization;
     }
 }
 
@@ -58,7 +89,7 @@ function getKnapsackObjects(knapsack) {
 
 function getKnapsackSummary(knapsack) {
     let fitness = solution.fitness(knapsack);
-    
+
     return knapsack.reduce((summary, hasObject, index) => {
         if (hasObject) {
             summary.value += solution.objects[+index].value;
