@@ -2,53 +2,46 @@ const path = require('path');
 const webpack = require('webpack');
 const cleanPlugin = require('clean-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
-const copyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-    entry: {
-        app: './src/ui/app.module.js',
-        resolver: './src/resolver/genetic-algorithm-resolver.js'
-    },
+    entry: './src/ui/main.ts',
     target: 'electron-renderer',
     output: {
-        filename: '[name].bundle.js',
+        filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: ''
     },
     resolve: {
-        extensions: ['.js'],
+        extensions: ['.js', '.ts'],
         modules: ['node_modules']
     },
     module: {
         rules: [
-            { enforce: 'pre', test: /\.(js|jsx)$/, use: ['babel-loader'], exclude: /node_modules/ },
+            { enforce: 'pre', test: /\.ts$/, use: ['ts-loader'], exclude: /node_modules/ },
             { test: /\.css$/, use: ['style-loader', 'css-loader'] },
             { test: /\.(woff|woff2|eot|ttf|otf)$/, use: ['file-loader'] },
             { test: /\.html$/, use: ['html-loader'] }
         ]
     },
     devServer: {
-        contentBase: './dist'
+        contentBase: './dist',
+        hot: true
     },
     devtool: 'eval-source-map',
     plugins: [
         new webpack.NamedModulesPlugin(),
-        new cleanPlugin(['dist']),
+        new webpack.HotModuleReplacementPlugin(),
         new htmlPlugin({
-            template: './src/ui/index.html',
-            chunks: ['app'],
-            filename: 'app.html'
+            template: './src/ui/index.html'
+            // chunks: ['app'],
+            // filename: 'app.html'
         }),
-        new htmlPlugin({
-            chunks: ['resolver'],
-            filename: 'resolver.html'
-        }),
-        new webpack.ProvidePlugin({
-            require: 'require'
-        }),
-        new copyPlugin([
-            {from: './main.js', to: './'},
-            {from: './package.json', to: './'},
-        ])
+        // new htmlPlugin({
+        //     chunks: ['resolver'],
+        //     filename: 'resolver.html'
+        // }),
+        // new webpack.ProvidePlugin({
+        //     require: 'require'
+        // }),
     ]
 }

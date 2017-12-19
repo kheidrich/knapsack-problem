@@ -1,7 +1,6 @@
 import GeneticAlgorithm from '../core/genetic-algorithm';
 import KnapsackGaSolution from '../core/knapsack-ga-solution';
 import { ipcRenderer } from 'electron';
-import { clearInterval } from 'timers';
 
 let solution;
 let ga;
