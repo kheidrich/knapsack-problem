@@ -2,10 +2,10 @@ const chai = require('chai');
 const sinon = require('sinon');
 const expect = chai.expect;
 
-const KnapsackGaSolution = require('../src/core/knapsack-ga-solution');
-const AlgorithmParameters = require('../src/core/algorithm-parameters');
-const KnapsackParameters = require('../src/core/knapsack-parameters');
-const GeneticOperatorsParameters = require('../src/core/genetic-operators-parameters');
+const KnapsackGaSolution = require('./knapsack-ga-solution');
+const AlgorithmParameters = require('./algorithm-parameters');
+const KnapsackParameters = require('./knapsack-parameters');
+const GeneticOperatorsParameters = require('./genetic-operators-parameters');
 
 describe('KnapsackGaSolution', () => {
     const NUMBER_OF_OBJECTS = 5;

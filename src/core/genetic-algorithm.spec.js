@@ -2,8 +2,8 @@ const chai = require('chai');
 const sinon = require('sinon');
 const expect = chai.expect;
 
-const GeneticAlgorithm = require('../src/core/genetic-algorithm');
-const AlgorithmParameters = require('../src/core/algorithm-parameters');
+const GeneticAlgorithm = require('./genetic-algorithm');
+const AlgorithmParameters = require('./algorithm-parameters');
 
 describe('GeneticAlgorithm', () => {
     let algorithm;
@@ -207,5 +207,3 @@ describe('GeneticAlgorithm', () => {
         });
     });
 });
-
-console.log((new Array(10)).fill((new Array(5).fill([]))).map(v => v.map(x => Math.round(Math.random() * 10))));

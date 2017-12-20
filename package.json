@@ -15,8 +15,9 @@
     "dist:ui": "webpack",
     "dist:main": "webpack --config webpack.main.config.js",
     "package": "npm run dist && node scripts/build.js",
-    "test": "mocha",
-    "test:watch": "mocha --watch --bail"
+    "test": "yarn test:core && yarn test:ui",
+    "test:core": "mocha ./src/core",
+    "test:core:watch": "mocha ./src/core --watch --bail"
   },
   "devDependencies": {
     "@angular/cli": "^1.6.1",
