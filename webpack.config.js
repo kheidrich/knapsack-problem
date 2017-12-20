@@ -17,7 +17,13 @@ module.exports = {
     },
     module: {
         rules: [
-            { enforce: 'pre', test: /\.ts$/, use: ['ts-loader'], exclude: /node_modules/ },
+            {
+                enforce: 'pre',
+                test: /\.ts$/,
+                use: ['ts-loader'],
+                exclude: /node_modules/,
+                include: path.resolve(__dirname, "src")
+            },
             { test: /\.css$/, use: ['style-loader', 'css-loader'] },
             { test: /\.(woff|woff2|eot|ttf|otf)$/, use: ['file-loader'] },
             { test: /\.html$/, use: ['html-loader'] }
@@ -31,17 +37,6 @@ module.exports = {
     plugins: [
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new htmlPlugin({
-            template: './src/ui/index.html'
-            // chunks: ['app'],
-            // filename: 'app.html'
-        }),
-        // new htmlPlugin({
-        //     chunks: ['resolver'],
-        //     filename: 'resolver.html'
-        // }),
-        // new webpack.ProvidePlugin({
-        //     require: 'require'
-        // }),
+        new htmlPlugin({ template: './src/ui/index.html' }),
     ]
 }
