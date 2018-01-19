@@ -19,27 +19,27 @@ class IpcService {
         this.pending.push(senderId);
 
         return new Promise((resolve, reject) => {
-            ipcRenderer.send(channel, Object.assign({ senderId }, data ));
+            ipcRenderer.send(channel, Object.assign({ senderId }, data));
             ipcRenderer.once(`${senderId}-reply`, (event, reply) => {
-                
+
 
                 this.pending = this.pending.filter(id => id !== senderId);
-                
 
-                (reply.status === 'error') ?
-                    reject(reply.error) :
-                    resolve(reply.data)
+
+                (reply.status === 'error')
+                    ? reject(reply.error)
+                    : resolve(reply.data)
             });
         })
     }
 
-    listen(channel, listener){
+    listen(channel, listener) {
         ipcRenderer.on(channel, (event, data) => {
             listener(data);
         });
     }
 
-    clean(channel){
+    clean(channel) {
         ipcRenderer.removeAllListeners(channel);
     }
 }

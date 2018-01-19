@@ -1,9 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
+import template from './app.component.html';
+import { Input } from '@angular/core/src/metadata/directives';
 
+
+@Injectable()
+class LoggerService{
+
+}
 @Component({
   selector: 'app-root',
-  template: '<h4>os asdsasdsadadsa4</h4>'
+  template
 })
 export class AppComponent {
-  title = 'app';
+  constructor(private LoggerService){
+
+  }
+
+  title = 'to the jangou';
 }
